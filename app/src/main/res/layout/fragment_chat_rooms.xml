@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/fragment_chat_rooms_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorAnimationMode="linear"
+        app:tabIndicatorColor="@color/black"
+        app:tabMode="scrollable"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/gray">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fragment_chat_rooms_tab_focused"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/fragment_chat_rooms_focused_tab_item" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fragment_chat_rooms_tab_other"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/fragment_chat_rooms_other_tab_item" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <ImageView
+        android:id="@+id/fragment_chat_rooms_filter"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/filter"
+        android:src="@drawable/ic_filter_light"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_chat_rooms_tab_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_chat_rooms_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_chat_rooms_tab_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

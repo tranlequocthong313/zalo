@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_unread_message_light"
+        android:title="@string/filter_chat_room_unread"
+        app:showAsAction="never" />
+    <item
+        android:icon="@drawable/ic_mention_message_light"
+        android:title="@string/filter_chat_room_mentions_me"
+        app:showAsAction="never" />
+    <item
+        android:icon="@drawable/ic_tags_light"
+        android:title="@string/filter_chat_room_labels"
+        app:showAsAction="never" />
+</menu>

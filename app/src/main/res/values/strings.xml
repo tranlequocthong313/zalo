@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Zalo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="avatar">Avatar</string>
+    <string name="menu_item_messages">Messages</string>
+    <string name="menu_item_contacts">Contacts</string>
+    <string name="menu_item_discovery">Discovery</string>
+    <string name="menu_item_timeline">Timeline</string>
+    <string name="menu_item_me">Me</string>
+    <string name="menu_item_qrcode">QR Code</string>
+    <string name="menu_item_more">More</string>
+    <string name="menu_item_search">Search</string>
+    <string name="menu_item_add_friend">Add friend</string>
+    <string name="menu_item_create_group">Create group</string>
+    <string name="menu_item_my_cloud">My Cloud</string>
+    <string name="menu_item_zalo_calendar">Zalo Calendar</string>
+    <string name="menu_item_create_group_call">Create group call</string>
+    <string name="menu_item_loggedin_devices">Logged-in devices</string>
+    <string name="fragment_chat_rooms_focused_tab_item">Focused</string>
+    <string name="fragment_chat_rooms_other_tab_item">Other</string>
+    <string name="filter">Filter</string>
+    <string name="filter_chat_room_unread">Unread</string>
+    <string name="filter_chat_room_mentions_me">Mentions me</string>
+    <string name="filter_chat_room_labels">Labels</string>
 </resources>

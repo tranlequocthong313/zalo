@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_qr_code"
+        android:contentDescription="@string/menu_item_qrcode"
+        android:icon="@drawable/ic_qr_code_scanner_24px"
+        android:title="@string/menu_item_qrcode"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_item_add_friend"
+        android:contentDescription="@string/menu_item_add_friend"
+        android:icon="@drawable/ic_add_friend_light"
+        android:title="@string/menu_item_add_friend"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_create_group"
+        android:contentDescription="@string/menu_item_create_group"
+        android:icon="@drawable/ic_add_group_light"
+        android:title="@string/menu_item_create_group"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_my_cloud"
+        android:contentDescription="@string/menu_item_my_cloud"
+        android:icon="@drawable/ic_cloud_light"
+        android:title="@string/menu_item_my_cloud"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_zalo_calendar"
+        android:contentDescription="@string/menu_item_zalo_calendar"
+        android:icon="@drawable/ic_calendar_light"
+        android:title="@string/menu_item_zalo_calendar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_create_group_call"
+        android:contentDescription="@string/menu_item_create_group_call"
+        android:icon="@drawable/ic_video_light"
+        android:title="@string/menu_item_create_group_call"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_loggedin_devices"
+        android:contentDescription="@string/menu_item_loggedin_devices"
+        android:icon="@drawable/ic_desktop_light"
+        android:title="@string/menu_item_loggedin_devices"
+        app:showAsAction="never" />
+</menu>
