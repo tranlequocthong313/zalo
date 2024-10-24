@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/fragment_chat_rooms_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bottom_navigation_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorAnimationMode="linear"
@@ -33,23 +35,25 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/fragment_chat_rooms_filter"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/filter"
         android:src="@drawable/ic_filter_light"
         app:layout_constraintBottom_toBottomOf="@id/fragment_chat_rooms_tab_layout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/fragment_chat_rooms_tab_layout"
         app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_chat_rooms_recycler_view"
+    <FrameLayout
+        android:id="@+id/chat_rooms_fragment_container_nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_chat_rooms_tab_layout" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_rooms_tab_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

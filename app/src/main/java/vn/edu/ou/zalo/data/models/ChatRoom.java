@@ -80,6 +80,7 @@ public class ChatRoom extends BaseModel {
     private String groupAvatarUrl;
     private LastMessage lastMessage;
     private List<Member> members;
+    private int priority = 0; // NOTE: 0 = Focused, 1 = Other
 
     public boolean isGroupChat() {
         return type == 1;
@@ -124,5 +125,13 @@ public class ChatRoom extends BaseModel {
 
     public void setMembers(List<Member> members) {
         this.members = members;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

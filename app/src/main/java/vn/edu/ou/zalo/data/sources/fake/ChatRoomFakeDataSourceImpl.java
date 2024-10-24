@@ -1,6 +1,9 @@
 package vn.edu.ou.zalo.data.sources.fake;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import javax.inject.Inject;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 
+import java.util.Map;
 import java.util.Random;
 
 public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
@@ -32,33 +36,48 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
     };
 
     private final Random random = new Random();
+    private final List<ChatRoom> chatRooms;
 
     @Inject
     public ChatRoomFakeDataSourceImpl() {
-    }
-
-    @Override
-    public List<ChatRoom> getChatRooms() {
-        List<ChatRoom> chatRooms = new ArrayList<>();
+        chatRooms = new ArrayList<>();
 
         // Generate a random number of chat rooms (between 10 and 20)
         int numberOfRooms = random.nextInt(11) + 10;
 
         for (int i = 0; i < numberOfRooms; i++) {
+            ChatRoom chatRoom;
             if (random.nextInt(10) % 2 == 0) {
                 // Create 1-1 chat room
-                chatRooms.add(generateOneOnOneChatRoom());
+                chatRoom = generateOneOnOneChatRoom();
             } else {
                 // Create group chat room
-                chatRooms.add(generateGroupChatRoom());
+                chatRoom = generateGroupChatRoom();
             }
+            chatRoom.setPriority(random.nextInt(10) % 2);
+            chatRooms.add(chatRoom);
         }
 
         // TODO: sorting is not working
         // Sort chat rooms by last message timestamp
         chatRooms.sort(Comparator.comparingLong(chatRoom -> chatRoom.getLastMessage().getTimestamp()));
+    }
 
-        return chatRooms;
+    @Override
+    public List<ChatRoom> getChatRooms(Map<String, String> query) {
+        if (query == null) {
+            return chatRooms;
+        }
+        List<ChatRoom> result = new ArrayList<>();
+        if (query.containsKey("priority") && query.get("priority") != null) {
+            int priority = Integer.parseInt(query.get("priority"));
+            for (ChatRoom chatRoom : chatRooms) {
+                if (chatRoom.getPriority() == priority) {
+                    result.add(chatRoom);
+                }
+            }
+        }
+        return result;
     }
 
     private ChatRoom generateOneOnOneChatRoom() {

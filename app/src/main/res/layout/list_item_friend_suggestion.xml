@@ -28,35 +28,49 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/list_item_chat_room_message_time_ago"
+        app:layout_constraintBottom_toTopOf="@id/list_item_suggestion_text"
+        app:layout_constraintEnd_toStartOf="@id/list_item_suggestion_add_button"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
         app:layout_constraintTop_toTopOf="@id/list_item_suggestion_avatar"
-        tools:text="Chat Room Name" />
+        tools:text="Friend name" />
 
     <TextView
-        android:id="@+id/list_item_chat_message_last_message"
+        android:id="@+id/list_item_suggestion_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:text="@string/people_you_may_know"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
-        app:layout_constraintTop_toBottomOf="@id/list_item_suggestion_name"
-        tools:text="Last message content" />
+        app:layout_constraintTop_toBottomOf="@id/list_item_suggestion_name" />
 
-    <TextView
-        android:id="@+id/list_item_chat_room_message_time_ago"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/list_item_suggestion_add_button"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
+        android:backgroundTint="@color/cyan"
+        android:paddingHorizontal="16dp"
+        android:text="@string/add_button"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_suggestion_text"
+        app:layout_constraintEnd_toStartOf="@id/list_item_suggestion_delete_button"
+        app:layout_constraintTop_toTopOf="@id/list_item_suggestion_name" />
+
+    <ImageButton
+        android:id="@+id/list_item_suggestion_delete_button"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_close_light"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_suggestion_add_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/list_item_suggestion_name"
-        tools:text="3 hours" />
+        app:layout_constraintTop_toTopOf="@id/list_item_suggestion_add_button" />
 
     <View
         android:id="@+id/divider_line"
@@ -68,6 +82,6 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
-        app:layout_constraintTop_toBottomOf="@id/list_item_chat_message_last_message" />
+        app:layout_constraintTop_toBottomOf="@id/list_item_suggestion_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

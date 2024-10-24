@@ -11,7 +11,9 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.impl.ChatRoomRepositoryImpl;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
+import vn.edu.ou.zalo.data.sources.IUserDataSource;
 import vn.edu.ou.zalo.data.sources.fake.ChatRoomFakeDataSourceImpl;
+import vn.edu.ou.zalo.data.sources.fake.UserFakeDataSourceImpl;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.domain.impl.GetChatRoomsUseCaseImpl;
 
@@ -20,8 +22,9 @@ import vn.edu.ou.zalo.domain.impl.GetChatRoomsUseCaseImpl;
 public abstract class DataSourceModule {
     @Binds
     @Singleton
-    public abstract IChatRoomDataSource bindChatRoomFakeDataSource(
-            ChatRoomFakeDataSourceImpl chatRoomFakeDataSource
-    );
+    abstract IChatRoomDataSource bindChatRoomFakeDataSource(ChatRoomFakeDataSourceImpl chatRoomFakeDataSource);
 
+    @Binds
+    @Singleton
+    abstract IUserDataSource bindUserFakeDataSource(UserFakeDataSourceImpl userFakeDataSource);
 }
