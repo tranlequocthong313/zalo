@@ -23,4 +23,13 @@
     <string name="filter_chat_room_unread">Unread</string>
     <string name="filter_chat_room_mentions_me">Mentions me</string>
     <string name="filter_chat_room_labels">Labels</string>
+    <string name="add_button">Add friend</string>
+    <string name="people_you_may_know">People you may know</string>
+    <string name="see_more">See more</string>
+    <string name="easily_find_and_message_your_friends">Easily find and message your friends</string>
+    <string name="find_friends">Find friends</string>
+    <string name="keep_unimportant_conversations">Keep unimportant conversations here to stay organized and avoid distractions</string>
+    <string name="add_conversations">Add conversations</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="add">Add</string>
 </resources>

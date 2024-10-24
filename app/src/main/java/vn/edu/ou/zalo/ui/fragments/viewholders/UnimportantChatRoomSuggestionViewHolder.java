@@ -1,6 +1,7 @@
 package vn.edu.ou.zalo.ui.fragments.viewholders;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,26 +13,21 @@ import com.bumptech.glide.signature.ObjectKey;
 
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
-import vn.edu.ou.zalo.utils.TimeUtils;
 
-public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
-    private static final String TAG = "ChatRoomViewHolder";
-
+public class UnimportantChatRoomSuggestionViewHolder extends RecyclerView.ViewHolder {
     private final ImageView avatarImageView;
-    private final TextView roomNameTextView;
-    private final TextView lastMessageTextView;
-    private final TextView timeAgoTextView;
+    private final TextView chatNameTextView;
 
-    public ChatRoomViewHolder(@NonNull View itemView) {
+    public UnimportantChatRoomSuggestionViewHolder(@NonNull View itemView) {
         super(itemView);
 
         avatarImageView = itemView.findViewById(R.id.list_item_suggestion_avatar);
-        roomNameTextView = itemView.findViewById(R.id.list_item_suggestion_name);
-        lastMessageTextView = itemView.findViewById(R.id.list_item_chat_message_last_message);
-        timeAgoTextView = itemView.findViewById(R.id.list_item_chat_room_message_time_ago);
+        chatNameTextView = itemView.findViewById(R.id.list_item_suggestion_name);
+        Button addButton = itemView.findViewById(R.id.list_item_suggestion_add_button);
+        addButton.setText(R.string.add);
     }
 
-    public void bindChatRoom(ChatRoom chatRoom) {
+    public void bindSuggestion(ChatRoom chatRoom) {
         if (chatRoom.isGroupChat() && chatRoom.getGroupAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(chatRoom.getGroupAvatarUrl())
@@ -47,17 +43,6 @@ public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(avatarImageView);
         }
-
-        roomNameTextView.setText(chatRoom.getName());
-
-        ChatRoom.LastMessage lastMessage = chatRoom.getLastMessage();
-        if (lastMessage == null) {
-            return;
-        }
-        lastMessageTextView.setText(lastMessage.getContent());
-
-        long timestamp = lastMessage.getTimestamp();
-        String timeAgo = TimeUtils.getTimeAgo(timestamp);
-        timeAgoTextView.setText(timeAgo);
+        chatNameTextView.setText(chatRoom.getName());
     }
 }

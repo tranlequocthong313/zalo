@@ -10,42 +10,42 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
-import vn.edu.ou.zalo.data.models.ChatRoom;
-import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
-import vn.edu.ou.zalo.ui.states.ChatRoomUiState;
-import vn.edu.ou.zalo.ui.viewmodels.ChatRoomsViewModel;
 
 @AndroidEntryPoint
 public class ChatRoomsFragment extends Fragment {
-    private static final String TAG = "ChatRoomsFragment";
+    public static final String TAG = "ChatRoomFragment";
 
     private static final int FILTER_ICON_MARGIN = 10;
 
-    @Inject
-    ChatRoomsViewModel chatRoomsViewModel;
-    private ChatRoomsAdapter chatRoomsAdapter;
-    private RecyclerView recyclerView;
+    private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
+    private static final List<Fragment> fragments = new ArrayList<>();
 
     public static ChatRoomsFragment newInstance() {
         return new ChatRoomsFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        fragmentClasses.add(FocusedChatRoomsFragment.class);
+        fragmentClasses.add(OtherChatRoomsFragment.class);
     }
 
     @Nullable
@@ -53,30 +53,61 @@ public class ChatRoomsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat_rooms, container, false);
 
-        ImageView filterImageView = view.findViewById(R.id.fragment_chat_rooms_filter);
-        recyclerView = view.findViewById(R.id.fragment_chat_rooms_recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        TabLayout tabLayout = view.findViewById(R.id.fragment_chat_rooms_tab_layout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int tabIndex = tab.getPosition();
+                renderFragment(tabIndex);
+            }
 
-        filterImageView.setOnClickListener(v -> showMenu(v, R.menu.filter_chat_room_menu));
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
-        chatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
-            if (uiState.isLoading()) {
-                // TODO: Show loading indicator
-            } else {
-                // TODO: Hide loading indicator
-                if (uiState.getErrorMessage() != null) {
-                    // TODO: Show error message
-                    Toast.makeText(getActivity(), uiState.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                } else {
-                    updateUi(uiState);
-                    Log.i(TAG, "Fetch Chat Rooms: " + uiState.getChatRooms());
-                }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
             }
         });
 
+        ImageButton filterImageButtonView = view.findViewById(R.id.fragment_chat_rooms_filter);
+        filterImageButtonView.setOnClickListener(v -> showMenu(v, R.menu.filter_chat_room_menu));
+
+        renderFragment(0);
 
         return view;
+    }
+
+    private void renderFragment(int index) {
+        if (index >= fragmentClasses.size()) {
+            return;
+        }
+        Class<? extends Fragment> fragmentClass = fragmentClasses.get(index);
+        if (fragmentClass == null) {
+            return;
+        }
+
+        Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
+        if (fragment == null) {
+            try {
+                fragment = fragmentClass.newInstance();
+                fragments.add(fragment);
+            } catch (IllegalAccessException | java.lang.InstantiationException e) {
+                Log.e(TAG, "Something went wrong!");
+                throw new RuntimeException(e);
+            }
+        }
+
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        Fragment hostingFragment = fragmentManager.findFragmentById(R.id.chat_rooms_fragment_container_nested_scroll_view);
+        if (hostingFragment != null) {
+            fragmentManager.beginTransaction()
+                    .remove(hostingFragment)
+                    .commit();
+        }
+        fragmentManager.beginTransaction()
+                .add(R.id.chat_rooms_fragment_container_nested_scroll_view, fragment)
+                .commit();
     }
 
     @SuppressLint("RestrictedApi")
@@ -100,16 +131,5 @@ public class ChatRoomsFragment extends Fragment {
             }
         }
         popupMenu.show();
-    }
-
-    private void updateUi(ChatRoomUiState uiState) {
-        List<ChatRoom> chatRooms = uiState.getChatRooms() != null ? uiState.getChatRooms() : new ArrayList<>();
-
-        if (recyclerView.getAdapter() == null) {
-            chatRoomsAdapter = new ChatRoomsAdapter(chatRooms);
-            recyclerView.setAdapter(chatRoomsAdapter);
-        } else {
-            chatRoomsAdapter.updateChatRooms(chatRooms);
-        }
     }
 }
