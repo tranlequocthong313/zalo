@@ -9,6 +9,7 @@ public class User extends BaseModel {
     private String avatarUrl;
     private String backgroundUrl;
     private long lastLogin;
+    private boolean isOnline;
     private long friendCount;
 
     public String getFullName() {
@@ -81,6 +82,14 @@ public class User extends BaseModel {
 
     public void setFriendCount(long friendCount) {
         this.friendCount = friendCount;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(boolean isOnline) {
+        this.isOnline = isOnline;
     }
 }
 

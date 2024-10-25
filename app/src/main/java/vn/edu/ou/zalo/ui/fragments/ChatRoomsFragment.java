@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -34,7 +36,7 @@ public class ChatRoomsFragment extends Fragment {
     private static final int FILTER_ICON_MARGIN = 10;
 
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
-    private static final List<Fragment> fragments = new ArrayList<>();
+    private static final List<Fragment> fragments = Arrays.asList(null, null);
 
     public static ChatRoomsFragment newInstance() {
         return new ChatRoomsFragment();
@@ -44,8 +46,13 @@ public class ChatRoomsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        createFragments();
+    }
+
+    private void createFragments() {
         fragmentClasses.add(FocusedChatRoomsFragment.class);
         fragmentClasses.add(OtherChatRoomsFragment.class);
+        Collections.fill(fragments, null);
     }
 
     @Nullable
@@ -91,23 +98,16 @@ public class ChatRoomsFragment extends Fragment {
         if (fragment == null) {
             try {
                 fragment = fragmentClass.newInstance();
-                fragments.add(fragment);
+                fragments.set(index, fragment);
             } catch (IllegalAccessException | java.lang.InstantiationException e) {
-                Log.e(TAG, "Something went wrong!");
                 throw new RuntimeException(e);
             }
         }
 
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        Fragment hostingFragment = fragmentManager.findFragmentById(R.id.chat_rooms_fragment_container_nested_scroll_view);
-        if (hostingFragment != null) {
-            fragmentManager.beginTransaction()
-                    .remove(hostingFragment)
-                    .commit();
-        }
         fragmentManager.beginTransaction()
-                .add(R.id.chat_rooms_fragment_container_nested_scroll_view, fragment)
-                .commit();
+                .replace(R.id.chat_rooms_fragment_container, fragment)
+                .commitAllowingStateLoss();
     }
 
     @SuppressLint("RestrictedApi")
@@ -131,5 +131,11 @@ public class ChatRoomsFragment extends Fragment {
             }
         }
         popupMenu.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("ChatRoom", "onDestroy");
     }
 }

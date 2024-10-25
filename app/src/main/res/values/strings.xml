@@ -32,4 +32,23 @@
     <string name="add_conversations">Add conversations</string>
     <string name="suggestions">Suggestions</string>
     <string name="add">Add</string>
+    <string name="friends">Friends</string>
+    <string name="oa">OA</string>
+    <string name="groups">Groups</string>
+    <string name="friend_request">Friend request</string>
+    <string name="phonebook">Phonebook</string>
+    <string name="contacts_who_use_zalo">Contacts who use Zalo</string>
+    <string name="birthday_calendar">Birthday calendar</string>
+    <string name="follow_birthdays">Follow your friends\' birthdays</string>
+    <string name="all">All  %1$d</string>
+    <string name="recently_online">Recently online  %1$d</string>
+    <string name="audio_call">Audio call</string>
+    <string name="video_call">Video call</string>
+    <string name="online_status">Online status</string>
+    <string name="find_more_oa">Find more Official Accounts</string>
+    <string name="baomoi">Bao Moi</string>
+    <string name="thoitiet">Thoi Tiet</string>
+    <string name="zingmp3">Zing MP3</string>
+    <string name="create_new_group">Create new group</string>
+    <string name="joined_groups">Joined groups (%1$d)</string>
 </resources>

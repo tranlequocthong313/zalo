@@ -1,6 +1,7 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,8 @@ public class OtherChatRoomsFragment extends Fragment {
             }
         });
 
+        Log.d("OtherChatRoom", "onCreateView");
+
         return view;
     }
 
@@ -84,5 +87,17 @@ public class OtherChatRoomsFragment extends Fragment {
             chatRoomsAdapter.updateChatRooms(chatRooms);
             unimportantChatRoomSuggestionAdapter.updateSuggestion(suggestions);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("OtherChatRoom", "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("OtherChatRoom", "onDestroy");
     }
 }

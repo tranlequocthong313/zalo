@@ -14,4 +14,5 @@
     <color name="endColorGradient">#09AAFB</color>
     <color name="gray">#8e8e93</color>
     <color name="light_gray">#dadde8</color>
+    <color name="light_green">#57e13e</color>
 </resources>

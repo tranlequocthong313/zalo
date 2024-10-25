@@ -20,6 +20,8 @@ import vn.edu.ou.zalo.data.sources.fake.ChatRoomFakeDataSourceImpl;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.domain.impl.GetChatRoomsUseCaseImpl;
 import vn.edu.ou.zalo.domain.impl.GetFriendSuggestionsImpl;
+import vn.edu.ou.zalo.domain.impl.GetGroupChatRoomsUseCaseImpl;
+import vn.edu.ou.zalo.domain.impl.GetSortedFriendsImpl;
 import vn.edu.ou.zalo.domain.impl.GetUnimportantChatRoomsUseCaseImpl;
 
 import javax.inject.Qualifier;
@@ -34,10 +36,19 @@ public abstract class DomainModule {
 
     @Binds
     @Singleton
+    abstract IGetListUseCase<ChatRoom> bindGetGroupChatRoomsUseCase(GetGroupChatRoomsUseCaseImpl getGroupChatRoomsUseCase);
+
+    @Binds
+    @Singleton
     @UnimportantChatRooms
     abstract IGetListUseCase<ChatRoom> bindGetUnimportantChatRoomsUseCase(GetUnimportantChatRoomsUseCaseImpl getChatRoomsUseCase);
 
     @Binds
     @Singleton
     abstract IGetListUseCase<User> bindGetFriendSuggestions(GetFriendSuggestionsImpl getFriendSuggestionsUseCase);
+
+    @Binds
+    @Singleton
+    @AddedFriends
+    abstract IGetListUseCase<User> bindGetSortedFriends(GetSortedFriendsImpl getSortedFriends);
 }
