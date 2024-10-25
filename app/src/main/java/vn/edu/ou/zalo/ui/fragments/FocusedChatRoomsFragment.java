@@ -72,6 +72,7 @@ public class FocusedChatRoomsFragment extends Fragment {
                 }
             }
         });
+        Log.d("FocusedChatRoom", "onCreateView");
 
         return view;
     }
@@ -92,5 +93,17 @@ public class FocusedChatRoomsFragment extends Fragment {
             chatRoomsAdapter.updateChatRooms(chatRooms);
             friendSuggestionAdapter.updateFriendSuggestions(friendSuggestions);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("FocusedChatRoom", "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("FocusedChatRoom", "onDestroy");
     }
 }

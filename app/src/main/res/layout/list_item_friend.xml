@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/list_item_friend_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/avatar"
+        android:scaleType="centerCrop"
+        android:src="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/list_item_friend_online_status"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:contentDescription="@string/online_status"
+        android:scaleType="centerCrop"
+        android:src="@color/light_green"
+        app:layout_constraintStart_toEndOf="@id/list_item_friend_avatar"
+        app:layout_constraintTop_toBottomOf="@id/list_item_friend_avatar"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+    <TextView
+        android:id="@+id/list_item_friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_friend_avatar"
+        app:layout_constraintStart_toEndOf="@id/list_item_friend_avatar"
+        app:layout_constraintTop_toTopOf="@id/list_item_friend_avatar"
+        tools:text="Full name" />
+
+    <ImageView
+        android:id="@+id/list_item_friend_audio_call"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/audio_call"
+        android:src="@drawable/ic_phone_light"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_friend_name"
+        app:layout_constraintEnd_toStartOf="@id/list_item_friend_video_call"
+        app:layout_constraintTop_toTopOf="@id/list_item_friend_name" />
+
+    <ImageView
+        android:id="@+id/list_item_friend_video_call"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:contentDescription="@string/video_call"
+        android:src="@drawable/ic_video_light"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_friend_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/list_item_friend_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

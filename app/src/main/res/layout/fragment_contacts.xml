@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.ContactsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/fragment_contacts_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Contacts" />
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_navigation_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorAnimationMode="linear"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="2dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/gray">
 
-</FrameLayout>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fragment_contacts_tab_friends"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/friends" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fragment_contacts_tab_groups"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/groups" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fragment_contacts_tab_oa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/oa" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_contacts_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_contacts_tab_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

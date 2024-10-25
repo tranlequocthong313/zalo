@@ -14,6 +14,7 @@ import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
     // Random name arrays
@@ -58,9 +59,27 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
             chatRooms.add(chatRoom);
         }
 
-        // TODO: sorting is not working
         // Sort chat rooms by last message timestamp
-        chatRooms.sort(Comparator.comparingLong(chatRoom -> chatRoom.getLastMessage().getTimestamp()));
+        chatRooms.sort((r1, r2) -> Math.toIntExact(r1.getLastMessage().getTimestamp() - r2.getLastMessage().getTimestamp()));
+        Collections.reverse(chatRooms);
+
+        boolean isSorted = true;
+
+        for (int i = 0; i < chatRooms.size() - 1; i++) {
+            long currentTimestamp = chatRooms.get(i).getLastMessage().getTimestamp();
+            long nextTimestamp = chatRooms.get(i + 1).getLastMessage().getTimestamp();
+
+            if (currentTimestamp < nextTimestamp) {
+                isSorted = false;
+                break;
+            }
+        }
+
+        if (isSorted) {
+            Log.d("ChatRoomCheck", "Chat rooms are sorted in descending order by timestamp.");
+        } else {
+            Log.d("ChatRoomCheck", "Chat rooms are NOT sorted in descending order by timestamp.");
+        }
     }
 
     @Override
@@ -68,14 +87,14 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         if (query == null) {
             return chatRooms;
         }
-        List<ChatRoom> result = new ArrayList<>();
+        List<ChatRoom> result = chatRooms;
         if (query.containsKey("priority") && query.get("priority") != null) {
             int priority = Integer.parseInt(query.get("priority"));
-            for (ChatRoom chatRoom : chatRooms) {
-                if (chatRoom.getPriority() == priority) {
-                    result.add(chatRoom);
-                }
-            }
+            result = chatRooms.stream().filter(chatRoom -> chatRoom.getPriority() == priority).collect(Collectors.toList());
+        }
+        if (query.containsKey("type") && query.get("type") != null) {
+            int type = Integer.parseInt(query.get("type"));
+            result = result.stream().filter(chatRoom -> chatRoom.getType() == type).collect(Collectors.toList());
         }
         return result;
     }

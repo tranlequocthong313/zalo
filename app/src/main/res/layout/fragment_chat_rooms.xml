@@ -16,6 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorAnimationMode="linear"
         app:tabIndicatorColor="@color/black"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="2dp"
         app:tabMode="scrollable"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/black"
@@ -48,7 +50,7 @@
         app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout" />
 
     <FrameLayout
-        android:id="@+id/chat_rooms_fragment_container_nested_scroll_view"
+        android:id="@+id/chat_rooms_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -67,6 +67,8 @@ public class UserFakeDataSourceImpl implements IUserDataSource {
         // Set random friend count
         user.setFriendCount(generateRandomFriendCount());
 
+        user.setIsOnline(random.nextInt(10) % 2 == 0);
+
         return user;
     }
 

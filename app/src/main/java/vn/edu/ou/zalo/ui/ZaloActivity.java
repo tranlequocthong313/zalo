@@ -20,9 +20,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
@@ -38,8 +36,9 @@ public class ZaloActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;
-    private Map<Integer, Fragment> fragments;
     private boolean isBottomNavItemSelectedProgrammatically = false;
+    private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
+    private static final List<Integer> menuItemIds = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,24 +82,27 @@ public class ZaloActivity extends AppCompatActivity {
     }
 
     private void initializeFragmentScreens() {
-        fragments = new LinkedHashMap<>();
-        fragments.put(R.id.navigation_messages, ChatRoomsFragment.newInstance());
-        fragments.put(R.id.navigation_contacts, ContactsFragment.newInstance());
-        fragments.put(R.id.navigation_discovery, DiscoveryFragment.newInstance());
-        fragments.put(R.id.navigation_timeline, TimelineFragment.newInstance());
-        fragments.put(R.id.navigation_me, MeFragment.newInstance());
+        fragmentClasses.add(ChatRoomsFragment.class);
+        fragmentClasses.add(ContactsFragment.class);
+        fragmentClasses.add(DiscoveryFragment.class);
+        fragmentClasses.add(TimelineFragment.class);
+        fragmentClasses.add(MeFragment.class);
+        menuItemIds.add(R.id.navigation_messages);
+        menuItemIds.add(R.id.navigation_contacts);
+        menuItemIds.add(R.id.navigation_discovery);
+        menuItemIds.add(R.id.navigation_timeline);
+        menuItemIds.add(R.id.navigation_me);
     }
 
     private void setupViewPager() {
         viewPager = findViewById(R.id.fragment_container);
         viewPager.setAdapter(
-                new ZaloViewPagerAdapter(this, new ArrayList<>(fragments.values()))
+                new ZaloViewPagerAdapter(this, new ArrayList<>(fragmentClasses))
         );
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                List<Integer> menuItemIds = new ArrayList<>(fragments.keySet());
                 Integer menuItemId = menuItemIds.get(position);
 
                 if (!isBottomNavItemSelectedProgrammatically && bottomNavigationView.getSelectedItemId() != menuItemId) {
@@ -115,8 +117,8 @@ public class ZaloActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Integer itemId = item.getItemId();
-            if (fragments.containsKey(itemId)) {
-                int index = new ArrayList<>(fragments.keySet()).indexOf(itemId);
+            if (menuItemIds.contains(itemId)) {
+                int index = menuItemIds.indexOf(itemId);
                 if (viewPager.getCurrentItem() != index) {
                     isBottomNavItemSelectedProgrammatically = true;
                     viewPager.setCurrentItem(index);
