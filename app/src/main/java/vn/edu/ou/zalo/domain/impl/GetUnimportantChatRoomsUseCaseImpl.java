@@ -24,7 +24,7 @@ public class GetUnimportantChatRoomsUseCaseImpl implements IGetListUseCase<ChatR
     @Override
     public List<ChatRoom> execute() {
         Map<String, String> query = new HashMap<>();
-        query.put("priority", "1");
+        query.put("priority", ChatRoom.Priority.OTHER.name());
         return chatRoomRepository.getChatRooms(query);
     }
 }

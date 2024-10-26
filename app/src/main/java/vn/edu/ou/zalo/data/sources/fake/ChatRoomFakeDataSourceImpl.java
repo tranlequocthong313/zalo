@@ -55,7 +55,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
                 // Create group chat room
                 chatRoom = generateGroupChatRoom();
             }
-            chatRoom.setPriority(random.nextInt(10) % 2);
+            chatRoom.setPriority(ChatRoom.Priority.values()[random.nextInt(2)]);
             chatRooms.add(chatRoom);
         }
 
@@ -89,11 +89,11 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         }
         List<ChatRoom> result = chatRooms;
         if (query.containsKey("priority") && query.get("priority") != null) {
-            int priority = Integer.parseInt(query.get("priority"));
+            ChatRoom.Priority priority = ChatRoom.Priority.valueOf(query.get("priority"));
             result = chatRooms.stream().filter(chatRoom -> chatRoom.getPriority() == priority).collect(Collectors.toList());
         }
         if (query.containsKey("type") && query.get("type") != null) {
-            int type = Integer.parseInt(query.get("type"));
+            ChatRoom.Type type = ChatRoom.Type.valueOf(query.get("type"));
             result = result.stream().filter(chatRoom -> chatRoom.getType() == type).collect(Collectors.toList());
         }
         return result;
@@ -106,7 +106,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         String fullName = firstName + " " + lastName;
 
         ChatRoom oneOnOneChat = new ChatRoom();
-        oneOnOneChat.setType(0); // 0 = 1-1 chat
+        oneOnOneChat.setType(ChatRoom.Type.SINGLE); // 0 = 1-1 chat
         oneOnOneChat.setName(fullName);
 
         // Create member
@@ -130,7 +130,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
 
     private ChatRoom generateGroupChatRoom() {
         ChatRoom groupChat = new ChatRoom();
-        groupChat.setType(1); // 1 = Group chat
+        groupChat.setType(ChatRoom.Type.GROUP); // 1 = Group chat
         groupChat.setName(getRandomGroupName());
         groupChat.setGroupAvatarUrl(getRandomAvatar());
 

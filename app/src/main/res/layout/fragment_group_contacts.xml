@@ -53,8 +53,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="6dp"
-                android:text="@string/joined_groups"
-                android:textStyle="bold" />
+                android:text="@string/joined_groups" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_group_contacts_recycler_view"

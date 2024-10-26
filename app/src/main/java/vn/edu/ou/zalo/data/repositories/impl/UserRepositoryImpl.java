@@ -26,4 +26,9 @@ public class UserRepositoryImpl implements IUserRepository {
     public List<User> getUsers() {
         return userDataSource.getUsers();
     }
+
+    @Override
+    public User getLoginUser() {
+        return userDataSource.getLoginUser();
+    }
 }

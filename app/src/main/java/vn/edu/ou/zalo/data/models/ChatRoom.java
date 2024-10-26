@@ -5,6 +5,11 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 public class ChatRoom extends BaseModel {
+
+    public enum Type {SINGLE, GROUP}
+
+    public enum Priority {FOCUSED, OTHER}
+
     public static class LastMessage {
         private String content;
         private long timestamp;
@@ -74,24 +79,32 @@ public class ChatRoom extends BaseModel {
         }
     }
 
-    private int type = 0; // NOTE: 0 = 1-1 chat, 1 = group chat
+    private Type type = Type.SINGLE;
     private String name;
     @Nullable
     private String groupAvatarUrl;
     private LastMessage lastMessage;
     private List<Member> members;
-    private int priority = 0; // NOTE: 0 = Focused, 1 = Other
+    private Priority priority = Priority.FOCUSED;
 
     public boolean isGroupChat() {
-        return type == 1;
+        return Type.GROUP == type;
     }
 
-    public int getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Type type) {
         this.type = type;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public String getName() {
@@ -125,13 +138,5 @@ public class ChatRoom extends BaseModel {
 
     public void setMembers(List<Member> members) {
         this.members = members;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 }

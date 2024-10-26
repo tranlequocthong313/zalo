@@ -7,4 +7,6 @@ import vn.edu.ou.zalo.data.models.User;
 
 public interface IUserDataSource {
     List<User> getUsers();
+
+    User getLoginUser();
 }

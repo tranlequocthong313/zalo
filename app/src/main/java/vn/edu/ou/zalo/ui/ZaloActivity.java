@@ -106,6 +106,7 @@ public class ZaloActivity extends AppCompatActivity {
         viewPager.setAdapter(
                 new ZaloViewPagerAdapter(this, new ArrayList<>(fragmentClasses))
         );
+        viewPager.setOffscreenPageLimit(1);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

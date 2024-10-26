@@ -37,6 +37,11 @@ public class UserFakeDataSourceImpl implements IUserDataSource {
         return users;
     }
 
+    @Override
+    public User getLoginUser() {
+        return getUsers().get(0); // TODO: for dev purpose
+    }
+
     private User generateRandomUser() {
         User user = new User();
 
