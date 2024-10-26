@@ -11,7 +11,7 @@
     </style>
 
     <style name="BottomNavigation" parent="@style/Widget.Material3.BottomNavigationView">
-       
+
     </style>
 
     <style name="PopupMenuStyle" parent="android:Widget.Material.PopupMenu.Overflow">
@@ -27,6 +27,7 @@
     <style name="ToolbarPopupMenuOverflow" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="popupMenuBackground">@android:color/white</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:padding">1dp</item>
     </style>
 
     <style name="ThemeActionButtonOverflow" parent="Widget.AppCompat.ActionButton.Overflow">

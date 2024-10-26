@@ -3,13 +3,19 @@ package vn.edu.ou.zalo.ui.fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -76,10 +82,12 @@ public class ContactsFragment extends Fragment {
         if (fragmentClass == null) {
             return;
         }
+        Log.d("ContactsFragment", "Index: " + index);
 
         Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
         if (fragment == null) {
             try {
+                Log.d("ContactsFragment", "Create new contact fragment");
                 fragment = fragmentClass.newInstance();
                 fragments.set(index, fragment);
             } catch (IllegalAccessException | java.lang.InstantiationException e) {
@@ -90,6 +98,26 @@ public class ContactsFragment extends Fragment {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_contacts_fragment_container, fragment)
-                .commitAllowingStateLoss();
+                .commit();
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        MenuHost menuHost = requireActivity();
+
+        menuHost.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.contacts_top_app_bar_menu, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 }

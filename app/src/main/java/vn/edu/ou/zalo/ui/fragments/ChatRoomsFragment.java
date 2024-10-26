@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,8 +35,6 @@ import vn.edu.ou.zalo.R;
 
 @AndroidEntryPoint
 public class ChatRoomsFragment extends Fragment {
-    public static final String TAG = "ChatRoomFragment";
-
     private static final int FILTER_ICON_MARGIN = 10;
 
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
@@ -52,7 +54,6 @@ public class ChatRoomsFragment extends Fragment {
     private void createFragments() {
         fragmentClasses.add(FocusedChatRoomsFragment.class);
         fragmentClasses.add(OtherChatRoomsFragment.class);
-        Collections.fill(fragments, null);
     }
 
     @Nullable
@@ -97,6 +98,7 @@ public class ChatRoomsFragment extends Fragment {
         Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
         if (fragment == null) {
             try {
+                Log.d("ChatRoomsFragment", "Create new fragment");
                 fragment = fragmentClass.newInstance();
                 fragments.set(index, fragment);
             } catch (IllegalAccessException | java.lang.InstantiationException e) {
@@ -107,7 +109,7 @@ public class ChatRoomsFragment extends Fragment {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.chat_rooms_fragment_container, fragment)
-                .commitAllowingStateLoss();
+                .commit();
     }
 
     @SuppressLint("RestrictedApi")
@@ -134,8 +136,21 @@ public class ChatRoomsFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("ChatRoom", "onDestroy");
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        MenuHost menuHost = requireActivity();
+
+        menuHost.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.chat_rooms_top_app_bar_menu, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 }
