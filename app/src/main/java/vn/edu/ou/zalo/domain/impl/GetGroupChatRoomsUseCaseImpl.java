@@ -21,7 +21,7 @@ public class GetGroupChatRoomsUseCaseImpl implements IGetListUseCase<ChatRoom> {
     @Override
     public List<ChatRoom> execute() {
         Map<String, String> query = new HashMap<>();
-        query.put("type", "1");
+        query.put("type", ChatRoom.Type.GROUP.name());
         return chatRoomRepository.getChatRooms(query);
     }
 }

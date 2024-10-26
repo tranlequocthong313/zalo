@@ -6,6 +6,7 @@
     android:id="@+id/chat_rooms_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,8 +30,7 @@
             android:paddingTop="10dp"
             android:text="@string/suggestions"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_chat_rooms_suggestion_recycler_view"
@@ -60,8 +60,7 @@
             android:gravity="center"
             android:paddingHorizontal="10dp"
             android:text="@string/keep_unimportant_conversations"
-            android:textColor="@color/gray"
-            android:textStyle="bold" />
+            android:textColor="@color/gray" />
 
         <Button
             android:layout_width="wrap_content"

@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.di.AddedFriends;
+import vn.edu.ou.zalo.di.qualifiers.AddedFriends;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.ui.states.FriendContactsUiState;
 

@@ -11,8 +11,8 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
-import vn.edu.ou.zalo.di.ImportantChatRooms;
-import vn.edu.ou.zalo.di.UnimportantChatRooms;
+import vn.edu.ou.zalo.di.qualifiers.ImportantChatRooms;
+import vn.edu.ou.zalo.di.qualifiers.UnimportantChatRooms;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.ui.states.OtherChatRoomUiState;
 

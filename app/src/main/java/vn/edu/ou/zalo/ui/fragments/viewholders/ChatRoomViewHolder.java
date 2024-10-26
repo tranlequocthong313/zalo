@@ -57,7 +57,7 @@ public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
         lastMessageTextView.setText(lastMessage.getContent());
 
         long timestamp = lastMessage.getTimestamp();
-        String timeAgo = TimeUtils.getTimeAgo(timestamp);
+        String timeAgo = TimeUtils.getShortTimeAgo(timestamp);
         timeAgoTextView.setText(timeAgo);
     }
 }

@@ -31,7 +31,6 @@
             android:text="@string/people_you_may_know"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
-            android:textStyle="bold"
             tools:text="People you may know" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -107,8 +106,7 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:text="@string/easily_find_and_message_your_friends"
-            android:textColor="@color/gray"
-            android:textStyle="bold" />
+            android:textColor="@color/gray" />
 
         <Button
             android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package vn.edu.ou.zalo.di;
+package vn.edu.ou.zalo.di.qualifiers;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -51,4 +51,16 @@
     <string name="zingmp3">Zing MP3</string>
     <string name="create_new_group">Create new group</string>
     <string name="joined_groups">Joined groups (%1$d)</string>
+    <string name="menu_item_upload_post">Upload post</string>
+    <string name="menu_item_notification">Notification</string>
+    <string name="interested">Interested</string>
+    <string name="other">Other</string>
+    <string name="how_are_you_today">How are you today?</string>
+    <string name="photo">Photo</string>
+    <string name="video">Video</string>
+    <string name="album">Album</string>
+    <string name="memory">Memory</string>
+    <string name="story">Story</string>
+    <string name="create_new_story">Create new</string>
+    <string name="like">Like</string>
 </resources>

@@ -15,4 +15,10 @@
     <color name="gray">#8e8e93</color>
     <color name="light_gray">#dadde8</color>
     <color name="light_green">#57e13e</color>
+    <color name="light_green2">#36b75f</color>
+    <color name="pink">#db04b1</color>
+    <color name="orange">#e88240</color>
+    <color name="darker_white">#F0EEEE</color>
+    <color name="purple">#9b6dfc</color>
+    <color name="white_button_background">#f7f7f7</color>
 </resources>
