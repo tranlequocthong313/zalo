@@ -25,7 +25,7 @@ public class GetChatRoomsUseCaseImpl implements IGetListUseCase<ChatRoom> {
     @Override
     public List<ChatRoom> execute() {
         Map<String, String> query = new HashMap<>();
-        query.put("priority", "0");
+        query.put("priority", ChatRoom.Priority.FOCUSED.name());
         return chatRoomRepository.getChatRooms(query);
     }
 }

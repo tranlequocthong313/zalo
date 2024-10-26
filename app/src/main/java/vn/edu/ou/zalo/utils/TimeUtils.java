@@ -8,7 +8,41 @@ import java.util.Date;
 import java.util.Locale;
 
 public class TimeUtils {
-    public static String getTimeAgo(long timestamp) {
+    public static String getDetailedTimeAgo(long timestamp) {
+        long now = System.currentTimeMillis();
+        long difference = now - timestamp;
+
+        if (difference < DateUtils.MINUTE_IN_MILLIS) {
+            return "Just now";
+        } else if (difference < DateUtils.HOUR_IN_MILLIS) {
+            long minutes = difference / DateUtils.MINUTE_IN_MILLIS;
+            return (minutes == 1) ? "1 minute ago" : minutes + " minutes ago";
+        } else if (difference < DateUtils.DAY_IN_MILLIS) {
+            long hours = difference / DateUtils.HOUR_IN_MILLIS;
+            return (hours == 1) ? "1 hour ago" : hours + " hours ago";
+        }
+
+        Calendar messageCalendar = Calendar.getInstance();
+        messageCalendar.setTimeInMillis(timestamp);
+        Calendar currentCalendar = Calendar.getInstance();
+
+        if (difference < 2 * DateUtils.DAY_IN_MILLIS) {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            return "Yesterday at " + timeFormat.format(new Date(timestamp));
+        } else if (currentCalendar.get(Calendar.WEEK_OF_YEAR) == messageCalendar.get(Calendar.WEEK_OF_YEAR)
+                && currentCalendar.get(Calendar.YEAR) == messageCalendar.get(Calendar.YEAR)) {
+            SimpleDateFormat weekdayFormat = new SimpleDateFormat("EEEE 'at' HH:mm", Locale.getDefault());
+            return weekdayFormat.format(new Date(timestamp));
+        } else if (currentCalendar.get(Calendar.YEAR) == messageCalendar.get(Calendar.YEAR)) {
+            SimpleDateFormat monthDayFormat = new SimpleDateFormat("MMM d 'at' HH:mm", Locale.getDefault());
+            return monthDayFormat.format(new Date(timestamp));
+        } else {
+            SimpleDateFormat fullDateFormat = new SimpleDateFormat("MMM d yyyy", Locale.getDefault());
+            return fullDateFormat.format(new Date(timestamp));
+        }
+    }
+
+    public static String getShortTimeAgo(long timestamp) {
         long now = System.currentTimeMillis();
 
         // Calculate the difference in milliseconds
