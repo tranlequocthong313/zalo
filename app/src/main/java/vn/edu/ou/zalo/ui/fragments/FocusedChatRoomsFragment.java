@@ -89,6 +89,7 @@ public class FocusedChatRoomsFragment extends Fragment {
             friendSuggestionAdapter = new FriendSuggestionAdapter(friendSuggestions);
             recyclerView.setAdapter(chatRoomsAdapter);
             friendSuggestionRecyclerView.setAdapter(friendSuggestionAdapter);
+            Log.d("FocusedChatRoom", "create new adapter");
         } else {
             chatRoomsAdapter.updateChatRooms(chatRooms);
             friendSuggestionAdapter.updateFriendSuggestions(friendSuggestions);

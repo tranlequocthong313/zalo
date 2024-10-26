@@ -20,7 +20,6 @@
             android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:menu="@menu/top_app_bar_menu"
             app:navigationIcon="@drawable/ic_search_light"
             app:navigationIconTint="@color/white"
             app:popupTheme="@style/ToolbarPopupMenuOverflow"

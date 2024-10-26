@@ -53,6 +53,11 @@ public class ZaloActivity extends AppCompatActivity {
         setupBottomNavigation();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @SuppressLint("RestrictedApi")
     private void setupTopAppBar() {
         MaterialToolbar toolbar = findViewById(R.id.top_app_bar);
@@ -74,6 +79,8 @@ public class ZaloActivity extends AppCompatActivity {
                 item.setIcon(icon);
             }
         }
+
+        setSupportActionBar(toolbar);
     }
 
     private void setupMainContent() {
