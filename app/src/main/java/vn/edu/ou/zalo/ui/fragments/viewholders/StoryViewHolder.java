@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -34,16 +33,12 @@ public class StoryViewHolder extends RecyclerView.ViewHolder {
         if (story.getImageUrl() != null) {
             Glide.with(previewImageView.getContext())
                     .load(story.getImageUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(previewImageView);
         }
         if (story.getAuthor().getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(story.getAuthor().getAvatarUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(avatarImageView);
         }
@@ -56,12 +51,10 @@ public class StoryViewHolder extends RecyclerView.ViewHolder {
         if (loginuser.getAvatarUrl() != null) {
             Glide.with(previewImageView.getContext())
                     .load(loginuser.getAvatarUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(previewImageView);
         }
-        Drawable drawable = AppCompatResources.getDrawable(avatarImageView.getContext(), R.drawable.ic_pen_white_solid);
+        Drawable drawable = AppCompatResources.getDrawable(avatarImageView.getContext(), R.drawable.ic_pen_solid);
         avatarImageView.setImageDrawable(drawable);
     }
 }

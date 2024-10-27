@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,24 +13,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorSurface"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="12dp"
                 tools:ignore="UseCompoundDrawables,UselessParent">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:background="@drawable/custom_button"
+                    android:background="@color/colorPrimary"
                     android:contentDescription="@string/phonebook"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_use_group_solid"
-                    app:tint="@color/white" />
+                    android:tint="@color/colorOnPrimary"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.CurvedImageView" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,18 +47,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorSurface"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="12dp"
                 tools:ignore="UseCompoundDrawables,UselessParent">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:background="@drawable/custom_button"
+                    android:background="@color/colorPrimary"
                     android:contentDescription="@string/phonebook"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_contacts_solid"
-                    app:tint="@color/white" />
+                    android:tint="@color/colorOnPrimary"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.CurvedImageView" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -79,25 +83,28 @@
                         android:layout_marginStart="20dp"
                         android:gravity="center"
                         android:text="@string/contacts_who_use_zalo"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/colorOutlineVariant" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorSurface"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="12dp"
                 tools:ignore="UseCompoundDrawables,UselessParent">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:background="@drawable/custom_button"
+                    android:background="@color/colorPrimary"
                     android:contentDescription="@string/phonebook"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_cake_solid"
-                    app:tint="@color/white" />
+                    android:tint="@color/colorOnPrimary"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.CurvedImageView" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -119,7 +126,7 @@
                         android:layout_marginStart="20dp"
                         android:gravity="center"
                         android:text="@string/follow_birthdays"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/colorOutlineVariant" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -130,29 +137,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@color/colorSurface"
             android:orientation="horizontal"
             android:paddingHorizontal="10dp"
             android:paddingVertical="8dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/fragment_friend_contacts_all_friends_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="2dp"
-                android:backgroundTint="@color/light_gray"
+                android:backgroundTint="@color/colorOutlineVariant"
                 android:text="@string/all"
-                android:textColor="@color/black" />
+                android:textColor="@color/colorOnSurfaceVariant"
+                app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/fragment_friend_contacts_online_friends_button"
-                style="?android:attr/buttonBarButtonStyle"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/light_gray"
+                android:layout_marginHorizontal="8dp"
                 android:text="@string/recently_online"
-                android:textColor="@color/black" />
+                android:textColor="@color/colorOutlineVariant"
+                app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
         </LinearLayout>
 
@@ -161,13 +170,12 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.1"
-            android:background="@color/light_gray" />
+            android:background="@color/colorOutlineVariant" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_friend_contacts_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -28,8 +28,6 @@ public class FriendSuggestionViewHolder extends RecyclerView.ViewHolder {
         if (suggestion.getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(suggestion.getAvatarUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(avatarImageView);
         }

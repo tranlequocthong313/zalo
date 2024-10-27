@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#0068FF</color>
-    <color name="colorPrimaryDark">#0057d6</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#207BFF</color>
     <color name="colorAccent">#2980ff</color>
-
-    <color name="bottom_navigation_background">#fbfbfb</color>
-    <color name="background">#dee3e7</color>
-
-    <color name="cyan">#d8ebfe</color>
-    <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
-    <color name="searchTitle">#80FFFFFF</color>
-    <color name="endColorGradient">#09AAFB</color>
-    <color name="gray">#8e8e93</color>
-    <color name="light_gray">#dadde8</color>
-    <color name="light_green">#57e13e</color>
-    <color name="light_green2">#36b75f</color>
-    <color name="pink">#db04b1</color>
-    <color name="orange">#e88240</color>
-    <color name="darker_white">#F0EEEE</color>
-    <color name="purple">#9b6dfc</color>
-    <color name="white_button_background">#f7f7f7</color>
+    <color name="colorError">#F94F57</color>
+    <color name="colorSecondary">#DBEBFF</color>
+    <color name="colorOnSecondary">#0068FF</color>
+    <color name="colorOnBackground">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#ccd1d6</color>
+    <color name="colorOutlineVariant">#ccd1d6</color>
+    <color name="colorOutline">#ccd1d6</color>
+    <color name="colorSurfaceContainer">#F5F5F5</color>
+    <color name="colorOnSurfaceVariant">#000000</color>
+    <color name="colorOnSecondaryContainer">#0068FF</color>
+    <color name="colorTertiary">#F7F7F7</color>
+    <color name="colorOnTertiary">#ccd1d6</color>
 </resources>

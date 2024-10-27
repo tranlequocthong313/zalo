@@ -30,8 +30,6 @@ public class FriendContactViewHolder extends RecyclerView.ViewHolder {
         if (friend.getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(friend.getAvatarUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(avatarImageView);
         }

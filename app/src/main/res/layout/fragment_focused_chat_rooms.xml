@@ -10,26 +10,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_chat_rooms_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.google.android.material.divider.MaterialDivider
+            style="@style/Widget.Material3.MaterialDivider"
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/suggestion_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:background="@color/colorSurface"
             android:paddingHorizontal="20dp"
             android:paddingTop="10dp"
             android:text="@string/people_you_may_know"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             tools:text="People you may know" />
 
@@ -37,14 +39,13 @@
             android:id="@+id/fragment_chat_rooms_suggestion_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_chat_rooms_see_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/colorSurface"
             android:paddingHorizontal="20dp"
             android:paddingVertical="8dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +76,7 @@
                     android:layout_marginEnd="2dp"
                     android:contentDescription="@string/avatar"
                     android:scaleType="centerCrop"
-                    android:src="@color/light_gray"
-                    app:shapeAppearanceOverlay="@style/RoundedImageView" />
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/list_item_friend_suggestion_avatar2"
@@ -85,17 +85,16 @@
                     android:layout_marginEnd="2dp"
                     android:contentDescription="@string/avatar"
                     android:scaleType="centerCrop"
-                    android:src="@color/light_gray"
-                    app:shapeAppearanceOverlay="@style/RoundedImageView" />
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
                 <TextView
                     android:id="@+id/suggestion_remaining_count"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorOutlineVariant"
                     android:gravity="center"
                     android:text="5+"
-                    android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,10 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:text="@string/easily_find_and_message_your_friends"
-            android:textColor="@color/gray" />
+            android:text="@string/easily_find_and_message_your_friends" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

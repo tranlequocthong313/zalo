@@ -63,4 +63,5 @@
     <string name="story">Story</string>
     <string name="create_new_story">Create new</string>
     <string name="like">Like</string>
+    <string name="manange_other">Manage Other</string>
 </resources>

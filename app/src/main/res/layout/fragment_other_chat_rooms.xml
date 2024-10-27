@@ -10,39 +10,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_chat_rooms_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
         <TextView
             android:id="@+id/suggestion_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@color/colorSurface"
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:text="@string/suggestions"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_chat_rooms_suggestion_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/colorSurface"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="@string/see_more"
@@ -59,8 +59,7 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:paddingHorizontal="10dp"
-            android:text="@string/keep_unimportant_conversations"
-            android:textColor="@color/gray" />
+            android:text="@string/keep_unimportant_conversations" />
 
         <Button
             android:layout_width="wrap_content"

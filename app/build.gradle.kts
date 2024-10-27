@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "vn.edu.ou.zalo"
-        minSdk = 26
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -49,4 +49,8 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
 
     implementation("com.google.android.material:material:1.8.0")
+
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

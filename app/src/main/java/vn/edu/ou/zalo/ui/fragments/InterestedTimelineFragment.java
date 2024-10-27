@@ -29,7 +29,7 @@ import vn.edu.ou.zalo.ui.states.TimelineUiState;
 import vn.edu.ou.zalo.ui.viewmodels.TimelineViewModel;
 
 @AndroidEntryPoint
-public class InterestedTimelineFragment extends Fragment {
+public class InterestedTimelineFragment extends Fragment implements IRefreshable {
     @Inject
     TimelineViewModel timelineViewModel;
     private RecyclerView storiesRecyclerView;
@@ -52,7 +52,7 @@ public class InterestedTimelineFragment extends Fragment {
         storiesRecyclerView = view.findViewById(R.id.fragment_timeline_stories_recycler_view);
         storiesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        postsRecyclerView = view.findViewById(R.id.fragment_timeline_posts_recycler_view);
+        postsRecyclerView = view.findViewById(R.id.fragment_other_timeline_posts_recycler_view);
         postsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         postsRecyclerView.setFocusable(false);
         postsRecyclerView.setNestedScrollingEnabled(false);
@@ -63,15 +63,19 @@ public class InterestedTimelineFragment extends Fragment {
     }
 
     private void updateUi(TimelineUiState timelineUiState) {
+        if (timelineUiState.isLoading()) {
+            return;
+        }
+        if (timelineUiState.getErrorMessage() != null) {
+            return;
+        }
         List<Story> stories = timelineUiState.getStories();
         List<Post> posts = timelineUiState.getPosts();
         User loginUser = timelineUiState.getLoginUser();
 
-        if (loginUser.getAvatarUrl() != null) {
+        if (loginUser != null && loginUser.getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(loginUser.getAvatarUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .into(avatarImageView);
         }
 
@@ -84,5 +88,10 @@ public class InterestedTimelineFragment extends Fragment {
             storyAdapter.updateStories(stories);
             postAdapter.updatePosts(posts);
         }
+    }
+
+    @Override
+    public void refreshContent() {
+        timelineViewModel.fetchData();
     }
 }
