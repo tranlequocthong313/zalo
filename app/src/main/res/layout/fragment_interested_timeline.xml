@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
             android:id="@+id/fragment_timeline_upload_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/colorSurface"
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -24,8 +23,7 @@
                 android:layout_height="50dp"
                 android:layout_marginVertical="18dp"
                 android:layout_marginStart="20dp"
-                app:shapeAppearanceOverlay="@style/RoundedImageView"
-                tools:src="@color/gray" />
+                app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,7 +31,6 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical"
                 android:text="@string/how_are_you_today"
-                android:textColor="@android:color/darker_gray"
                 android:textSize="16sp" />
 
 
@@ -43,7 +40,7 @@
             android:id="@+id/fragment_timeline_upload_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/colorSurface"
             android:paddingHorizontal="4dp">
 
             <LinearLayout
@@ -52,74 +49,81 @@
                 android:orientation="horizontal"
                 android:paddingBottom="8dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:backgroundTint="@color/darker_white"
+                    android:backgroundTint="@color/colorTertiary"
                     android:paddingHorizontal="14dp"
                     android:text="@string/photo"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorOnSurfaceVariant"
                     android:textSize="13sp"
-                    app:icon="@drawable/ic_photo_green_solid"
+                    app:icon="@drawable/ic_photo_solid"
                     app:iconSize="16sp"
-                    app:iconTint="@color/light_green2" />
+                    app:iconTint="#53CE80"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:backgroundTint="@color/darker_white"
+                    android:backgroundTint="@color/colorTertiary"
                     android:paddingHorizontal="14dp"
                     android:text="@string/video"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorOnSurfaceVariant"
                     android:textSize="13sp"
                     app:icon="@drawable/ic_video_solid"
                     app:iconSize="16sp"
-                    app:iconTint="@color/pink" />
+                    app:iconTint="#E431BE"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:backgroundTint="@color/darker_white"
+                    android:backgroundTint="@color/colorTertiary"
                     android:paddingHorizontal="14dp"
                     android:text="@string/album"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorOnSurfaceVariant"
                     android:textSize="13sp"
                     app:icon="@drawable/ic_photos_solid"
                     app:iconSize="16sp"
-                    app:iconTint="@color/colorPrimaryDark" />
+                    app:iconTint="#2E89FA"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:backgroundTint="@color/darker_white"
+                    android:backgroundTint="@color/colorTertiary"
                     android:paddingHorizontal="14dp"
                     android:text="@string/memory"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorOnSurfaceVariant"
                     android:textSize="13sp"
                     app:icon="@drawable/ic_clock_rotate_solid"
                     app:iconSize="16sp"
-                    app:iconTint="@color/orange" />
+                    app:iconTint="#E88740"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.CurvedButtonView" />
 
             </LinearLayout>
         </HorizontalScrollView>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
         <LinearLayout
             android:id="@+id/fragment_timeline_stories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_timeline_upload_options">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorSurface"
                 android:paddingHorizontal="14dp"
                 android:paddingTop="10dp"
                 android:text="@string/story"
@@ -129,16 +133,15 @@
                 android:id="@+id/fragment_timeline_stories_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorSurface"
                 android:paddingVertical="10dp" />
 
         </LinearLayout>
 
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_timeline_posts_recycler_view"
+            android:id="@+id/fragment_other_timeline_posts_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

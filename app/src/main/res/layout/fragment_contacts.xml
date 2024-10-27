@@ -10,16 +10,14 @@
         android:id="@+id/fragment_contacts_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottom_navigation_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorAnimationMode="linear"
-        app:tabIndicatorColor="@color/colorPrimary"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="2dp"
         app:tabRippleColor="@android:color/transparent"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="@color/gray">
+        app:tabSelectedTextColor="@color/colorOnSurfaceVariant"
+        app:tabTextColor="@color/colorOutlineVariant">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/fragment_contacts_tab_friends"

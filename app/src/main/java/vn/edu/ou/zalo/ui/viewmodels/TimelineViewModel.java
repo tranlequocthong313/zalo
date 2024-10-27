@@ -38,7 +38,7 @@ public class TimelineViewModel extends ViewModel {
         return uiState;
     }
 
-    private void fetchData() {
+    public void fetchData() {
         uiState.setValue(new TimelineUiState(true, null, null, null, null));
 
         try {

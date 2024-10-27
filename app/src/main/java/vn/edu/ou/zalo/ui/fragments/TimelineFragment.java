@@ -1,6 +1,8 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +16,7 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,6 +31,8 @@ import vn.edu.ou.zalo.R;
 public class TimelineFragment extends Fragment {
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
     private static final List<Fragment> fragments = Arrays.asList(null, null);
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TabLayout tabLayout;
 
     public static TimelineFragment newInstance() {
         return new TimelineFragment();
@@ -42,6 +47,7 @@ public class TimelineFragment extends Fragment {
 
     private void createFragments() {
         fragmentClasses.add(InterestedTimelineFragment.class);
+        fragmentClasses.add(OtherTimelineFragment.class);
     }
 
     @Nullable
@@ -49,7 +55,11 @@ public class TimelineFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
 
-        TabLayout tabLayout = view.findViewById(R.id.fragment_timeline_tab_layout);
+        swipeRefreshLayout = view.findViewById(R.id.fragment_timeline_swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this::refreshContent);
+//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+
+        tabLayout = view.findViewById(R.id.fragment_timeline_tab_layout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -71,6 +81,23 @@ public class TimelineFragment extends Fragment {
         return view;
     }
 
+    private void refreshContent() {
+        swipeRefreshLayout.setRefreshing(true);
+        int selectedTabIndex = tabLayout.getSelectedTabPosition();
+        if (selectedTabIndex > fragments.size()) {
+            return;
+        }
+        Fragment fragment = fragments.get(selectedTabIndex);
+        if (fragment == null) {
+            return;
+        }
+        if (fragment instanceof IRefreshable) {
+            ((IRefreshable) fragment).refreshContent();
+        }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+        }, 1500);
+    }
 
     private void renderFragment(int index) {
         if (index >= fragmentClasses.size()) {

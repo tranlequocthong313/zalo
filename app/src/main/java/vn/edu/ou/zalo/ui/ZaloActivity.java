@@ -44,6 +44,8 @@ public class ZaloActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         setContentView(R.layout.activity_zalo);
 
         setupTopAppBar();
@@ -129,7 +131,7 @@ public class ZaloActivity extends AppCompatActivity {
                 int index = menuItemIds.indexOf(itemId);
                 if (viewPager.getCurrentItem() != index) {
                     isBottomNavItemSelectedProgrammatically = true;
-                    viewPager.setCurrentItem(index);
+                    viewPager.setCurrentItem(index, false);
                 }
 
                 new Handler(Looper.getMainLooper()).post(() -> {

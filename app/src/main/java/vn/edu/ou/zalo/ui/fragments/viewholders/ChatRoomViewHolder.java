@@ -35,15 +35,11 @@ public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
         if (chatRoom.isGroupChat() && chatRoom.getGroupAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(chatRoom.getGroupAvatarUrl())
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(avatarImageView);
         } else {
             Glide.with(avatarImageView.getContext())
                     .load(chatRoom.getMembers().get(0).getAvatarUrl()) // TODO: for dev purpose
-                    .placeholder(R.color.gray)
-                    .error(R.color.gray)
                     .signature(new ObjectKey(System.currentTimeMillis()))
                     .into(avatarImageView);
         }

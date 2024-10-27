@@ -215,7 +215,7 @@ public class PostFakeDataSourceImpl implements IPostDataSource {
         int imageCount = random.nextInt(4); // 0 to 3 images
 
         for (int i = 0; i < imageCount; i++) {
-            imageUrls.add("https://random.imagecdn.app/1920/1080");
+            imageUrls.add("https://random.imagecdn.app/500/500");
         }
 
         return imageUrls.isEmpty() ? null : imageUrls;

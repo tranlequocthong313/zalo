@@ -1,201 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@color/white">
+    android:backgroundTint="@color/colorSurface"
+    app:cardUseCompatPadding="true"
+    app:contentPaddingBottom="10dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/list_item_post_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/RoundedImageView"
-        tools:src="@color/gray" />
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
-    <TextView
-        android:id="@+id/list_item_post_author_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/list_item_post_avatar"
-        app:layout_constraintTop_toTopOf="@id/list_item_post_avatar"
-        tools:text="John Doe" />
-
-    <TextView
-        android:id="@+id/list_item_post_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/list_item_post_avatar"
-        app:layout_constraintTop_toBottomOf="@id/list_item_post_author_name"
-        tools:text="Today at 15:10" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/list_item_post_visibility"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="10dp"-->
-    <!--        android:textColor="@android:color/darker_gray"-->
-    <!--        android:textSize="12sp"-->
-    <!--        app:drawableStartCompat="@drawable/ic_lock_solid"-->
-    <!--        app:layout_constraintStart_toEndOf="@id/list_item_post_timestamp"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/list_item_post_author_name"-->
-    <!--        app:layout_goneMarginStart="8dp"-->
-    <!--        tools:text="Only me" />-->
-
-    <ImageView
-        android:id="@+id/list_item_post_set_other"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="40dp"
-        android:contentDescription="@string/other"
-        android:src="@drawable/ic_rectangle_history_light"
-        app:layout_constraintBottom_toBottomOf="@id/list_item_post_timestamp"
-        app:layout_constraintEnd_toEndOf="@id/list_item_post_more"
-        app:layout_constraintTop_toTopOf="@id/list_item_post_author_name" />
-
-    <ImageView
-        android:id="@+id/list_item_post_more"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/other"
-        android:src="@drawable/ic_three_dot_solid"
-        app:layout_constraintBottom_toBottomOf="@id/list_item_post_set_other"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/list_item_post_set_other" />
-
-    <LinearLayout
-        android:id="@+id/list_item_post_post_content_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/list_item_post_avatar"
-        app:layout_constraintTop_toBottomOf="@id/list_item_post_avatar">
+        android:layout_marginTop="26dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/list_item_post_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
         <TextView
-            android:id="@+id/list_item_post_post_text"
-            android:layout_width="match_parent"
+            android:id="@+id/list_item_post_author_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:maxLines="4"
-            tools:text="Hello World!" />
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/list_item_post_avatar"
+            app:layout_constraintTop_toTopOf="@id/list_item_post_avatar"
+            tools:text="John Doe" />
 
-        <!--                <TextView-->
-        <!--                    android:id="@+id/list_item_post_tagged_friends"-->
-        <!--                    android:layout_width="match_parent"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:layout_marginHorizontal="20dp"-->
-        <!--                    android:layout_marginBottom="8dp"-->
-        <!--                    android:textColor="@color/gray"-->
-        <!--                    tools:text="- with John Doe, Jane Doe and 2 others" />-->
+        <TextView
+            android:id="@+id/list_item_post_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/list_item_post_avatar"
+            app:layout_constraintTop_toBottomOf="@id/list_item_post_author_name"
+            tools:text="Today at 15:10" />
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/list_item_post_visibility"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginStart="10dp"-->
+        <!--        android:textColor="@android:color/darker_gray"-->
+        <!--        android:textSize="12sp"-->
+        <!--        app:drawableStartCompat="@drawable/ic_lock_solid"-->
+        <!--        app:layout_constraintStart_toEndOf="@id/list_item_post_timestamp"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/list_item_post_author_name"-->
+        <!--        app:layout_goneMarginStart="8dp"-->
+        <!--        tools:text="Only me" />-->
 
         <ImageView
-            android:id="@+id/list_item_post_image_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:contentDescription="@string/photo"
-            android:minHeight="350dp"
-            android:scaleType="center"
-            tools:src="@color/gray" />
-    </LinearLayout>
+            android:id="@+id/list_item_post_set_other"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="40dp"
+            android:contentDescription="@string/other"
+            android:src="@drawable/ic_rectangle_history_light"
+            app:layout_constraintBottom_toBottomOf="@id/list_item_post_timestamp"
+            app:layout_constraintEnd_toEndOf="@id/list_item_post_more"
+            app:layout_constraintTop_toTopOf="@id/list_item_post_author_name" />
 
-    <View
-        android:id="@+id/divider_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha="0.4"
-        android:background="@color/light_gray"
-        app:layout_constraintBottom_toTopOf="@id/list_item_post_action_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/list_item_post_action_container"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/list_item_post_post_content_container">
-
-        <Button
-            android:id="@+id/list_item_post_like"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="20dp"
-            android:backgroundTint="@color/white_button_background"
-            android:paddingHorizontal="16dp"
-            android:text="@string/like"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:icon="@drawable/ic_heart_light"
-            app:iconSize="20dp"
-            app:iconTint="@color/black" />
-
-        <Button
-            android:id="@+id/list_item_post_comment"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="54dp"
-            android:layout_height="38dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-            android:backgroundTint="@color/white_button_background"
-            android:paddingHorizontal="18dp"
-            android:textSize="12sp"
-            app:icon="@drawable/ic_message_light"
-            app:iconSize="20dp"
-            app:iconTint="@color/black" />
+        <ImageView
+            android:id="@+id/list_item_post_more"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/other"
+            android:src="@drawable/ic_three_dot_solid"
+            app:layout_constraintBottom_toBottomOf="@id/list_item_post_set_other"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/list_item_post_set_other" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal"
-            android:paddingHorizontal="20dp">
+            android:id="@+id/list_item_post_post_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/list_item_post_avatar"
+            app:layout_constraintTop_toBottomOf="@id/list_item_post_avatar">
 
             <TextView
-                android:id="@+id/list_item_post_like_user_remaining_count"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:text="5+"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:id="@+id/list_item_post_post_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:maxLines="4"
+                tools:text="Hello World!" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/list_item_post_like_user_avatar"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/avatar"
-                android:scaleType="centerCrop"
-                android:src="@color/light_gray"
-                app:shapeAppearanceOverlay="@style/RoundedImageView" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/list_item_post_tagged_friends"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginHorizontal="20dp"-->
+            <!--                    android:layout_marginBottom="8dp"-->
+            <!--                    android:textColor="@color/gray"-->
+            <!--                    tools:text="- with John Doe, Jane Doe and 2 others" />-->
+
+            <ImageView
+                android:id="@+id/list_item_post_image_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:contentDescription="@string/photo"
+                android:minHeight="350dp"
+                android:scaleType="center" />
         </LinearLayout>
 
+        <View
+            android:id="@+id/divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.4"
+            app:layout_constraintBottom_toTopOf="@id/list_item_post_action_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/list_item_post_action_container"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list_item_post_post_content_container">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/list_item_post_like"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginStart="20dp"
+                android:backgroundTint="@color/colorTertiary"
+                android:paddingHorizontal="16dp"
+                android:text="@string/like"
+                android:textColor="@color/colorOnTertiary"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_heart_light"
+                app:iconSize="20dp"
+                app:iconTint="@color/colorOnTertiary" />
+
+            <Button
+                android:id="@+id/list_item_post_comment"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="54dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="10dp"
+                android:paddingHorizontal="18dp"
+                android:textColor="@color/colorOnTertiary"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_message_light"
+                app:iconSize="20dp"
+                app:iconTint="@color/colorOnTertiary" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:id="@+id/list_item_post_like_user_remaining_count"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorOnSurface"
+                    android:gravity="center"
+                    android:text="5+"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/list_item_post_like_user_avatar"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorOnSurface"
+                    android:contentDescription="@string/avatar"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
