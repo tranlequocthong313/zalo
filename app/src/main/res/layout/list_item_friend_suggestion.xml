@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorSurfaceBright">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +48,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/people_you_may_know"
-            android:textColor="@color/colorOnSurface"
+            android:textColor="@color/colorOutline"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
@@ -67,6 +68,7 @@
             app:layout_constraintTop_toTopOf="@id/list_item_suggestion_name" />
 
         <ImageButton
+            android:contentDescription="@string/delete"
             android:id="@+id/list_item_suggestion_delete_button"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -74,7 +76,8 @@
             android:src="@drawable/ic_close_light"
             app:layout_constraintBottom_toBottomOf="@id/list_item_suggestion_add_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/list_item_suggestion_add_button" />
+            app:layout_constraintTop_toTopOf="@id/list_item_suggestion_add_button"
+            app:tint="@color/colorOnSurfaceVariant" />
 
         <View
             android:id="@+id/divider_line"

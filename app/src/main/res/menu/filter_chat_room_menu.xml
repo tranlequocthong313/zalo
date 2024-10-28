@@ -4,13 +4,16 @@
     <item
         android:icon="@drawable/ic_unread_message_light"
         android:title="@string/filter_chat_room_unread"
+        app:iconTint="@color/colorOnSurfaceVariant"
         app:showAsAction="never" />
     <item
         android:icon="@drawable/ic_mention_message_light"
         android:title="@string/filter_chat_room_mentions_me"
+        app:iconTint="@color/colorOnSurfaceVariant"
         app:showAsAction="never" />
     <item
         android:icon="@drawable/ic_tags_light"
         android:title="@string/filter_chat_room_labels"
+        app:iconTint="@color/colorOnSurfaceVariant"
         app:showAsAction="never" />
 </menu>

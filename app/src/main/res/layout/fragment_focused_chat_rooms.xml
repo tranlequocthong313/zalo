@@ -27,11 +27,11 @@
             android:id="@+id/suggestion_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:paddingHorizontal="20dp"
             android:paddingTop="10dp"
             android:text="@string/people_you_may_know"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorOnSecondary"
             android:textSize="15sp"
             tools:text="People you may know" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/fragment_chat_rooms_see_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:paddingHorizontal="20dp"
             android:paddingVertical="8dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/rounded_button"
-                    android:backgroundTint="@color/colorOutlineVariant"
+                    android:backgroundTint="@color/colorTertiary"
                     android:gravity="center"
                     android:text="5+"
                     android:textSize="12sp" />

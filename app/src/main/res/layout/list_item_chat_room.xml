@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorSurfaceBright">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="4dp">
+        android:paddingVertical="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/list_item_suggestion_avatar"
@@ -45,7 +46,7 @@
             android:layout_marginStart="18dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/colorOnSurface"
+            android:textColor="@color/colorOutline"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:textColor="@color/colorOnSurface"
+            android:textColor="@color/colorOutline"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/list_item_suggestion_name"
@@ -68,8 +69,9 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:alpha="0.1"
+            android:background="@color/colorOutline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
             app:layout_constraintTop_toBottomOf="@id/list_item_chat_message_last_message" />

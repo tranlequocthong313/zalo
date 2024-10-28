@@ -14,7 +14,7 @@
             android:id="@+id/fragment_timeline_upload_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -40,7 +40,7 @@
             android:id="@+id/fragment_timeline_upload_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:paddingHorizontal="4dp">
 
             <LinearLayout
@@ -116,6 +116,7 @@
             android:id="@+id/fragment_timeline_stories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorSurfaceBright"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_timeline_upload_options">
@@ -123,7 +124,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorSurface"
                 android:paddingHorizontal="14dp"
                 android:paddingTop="10dp"
                 android:text="@string/story"
@@ -133,7 +133,6 @@
                 android:id="@+id/fragment_timeline_stories_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorSurface"
                 android:paddingVertical="10dp" />
 
         </LinearLayout>

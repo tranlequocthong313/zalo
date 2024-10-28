@@ -26,11 +26,11 @@
             android:id="@+id/suggestion_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:text="@string/suggestions"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorOnSecondary"
             android:textSize="15sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="@string/see_more"

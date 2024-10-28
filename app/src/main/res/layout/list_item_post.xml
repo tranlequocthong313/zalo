@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/colorSurface"
+    android:backgroundTint="@color/colorSurfaceBright"
     app:cardUseCompatPadding="true"
     app:contentPaddingBottom="10dp">
 
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textColor="@color/colorOnSurface"
+            android:textColor="@color/colorOutline"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/list_item_post_avatar"
             app:layout_constraintTop_toBottomOf="@id/list_item_post_author_name"
@@ -71,7 +71,8 @@
             android:src="@drawable/ic_rectangle_history_light"
             app:layout_constraintBottom_toBottomOf="@id/list_item_post_timestamp"
             app:layout_constraintEnd_toEndOf="@id/list_item_post_more"
-            app:layout_constraintTop_toTopOf="@id/list_item_post_author_name" />
+            app:layout_constraintTop_toTopOf="@id/list_item_post_author_name"
+            app:tint="@color/colorOnSurfaceVariant" />
 
         <ImageView
             android:id="@+id/list_item_post_more"
@@ -82,7 +83,8 @@
             android:src="@drawable/ic_three_dot_solid"
             app:layout_constraintBottom_toBottomOf="@id/list_item_post_set_other"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/list_item_post_set_other" />
+            app:layout_constraintTop_toTopOf="@id/list_item_post_set_other"
+            app:tint="@color/colorOnSurfaceVariant" />
 
         <LinearLayout
             android:id="@+id/list_item_post_post_content_container"
@@ -163,6 +165,7 @@
                 android:layout_width="54dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="10dp"
+                android:backgroundTint="@color/colorTertiary"
                 android:paddingHorizontal="18dp"
                 android:textColor="@color/colorOnTertiary"
                 android:textSize="12sp"
@@ -185,7 +188,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/rounded_button"
-                    android:backgroundTint="@color/colorOnSurface"
+                    android:backgroundTint="@color/colorTertiary"
                     android:gravity="center"
                     android:text="5+"
                     android:textSize="12sp" />
@@ -195,7 +198,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/colorOnSurface"
+                    android:background="@color/colorTertiary"
                     android:contentDescription="@string/avatar"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />

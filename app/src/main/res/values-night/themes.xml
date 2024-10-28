@@ -1,4 +1,65 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Zalo" parent="Theme.Material3.Dark.NoActionBar" />
+    <style name="Theme.Zalo" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOutlineVariant">@color/colorOutlineVariant</item>
+        <item name="colorOutline">@color/colorOutline</item>
+        <item name="colorSurfaceContainer">@color/colorSurfaceContainer</item>
+        <item name="android:navigationBarColor">@color/colorSurfaceContainer</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
+        <item name="colorTertiary">@color/colorTertiary</item>
+        <item name="colorOnTertiary">@color/colorOnTertiary</item>
+
+        <!--        Background-->
+        <item name="android:colorBackground">@color/colorOutlineVariant</item>
+
+        <!--        Popup menu-->
+        <item name="popupMenuStyle">@style/Theme.Zalo.PopupMenu</item>
+
+        <!--        Splash screen-->
+        <item name="android:windowSplashScreenBackground">#003E45</item>
+        <item name="android:windowSplashScreenAnimatedIcon">
+            @drawable/zalo_splash_screen_logo_night
+        </item>
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+
+        <!--        Card view-->
+        <item name="materialCardViewStyle">@style/Theme.Zalo.MaterialCardView</item>
+
+        <!--        Toolbar-->
+        <item name="android:actionOverflowButtonStyle">@style/Theme.Zalo.ActionButtonOverflow</item>
+        <item name="actionBarSize">48dp</item>
+    </style>
+
+    <style name="Theme.Zalo.MaterialCardView" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardCornerRadius">0dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="Theme.Zalo.PopupMenu" parent="android:Widget.Material.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:popupBackground">@drawable/custom_popup_background</item>
+        <item name="android:dropDownVerticalOffset">22dp</item>
+        <item name="android:popupElevation">20dp</item>
+    </style>
+
+    <style name="Theme.Zalo.ToolbarPopupMenuOverflow" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="popupMenuBackground">@color/colorSurfaceBright</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:padding">1dp</item>
+    </style>
+
+    <style name="Theme.Zalo.ActionButtonOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_more_light</item>
+    </style>
 </resources>

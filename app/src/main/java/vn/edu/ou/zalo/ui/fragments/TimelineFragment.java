@@ -57,7 +57,7 @@ public class TimelineFragment extends Fragment {
 
         swipeRefreshLayout = view.findViewById(R.id.fragment_timeline_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this::refreshContent);
-//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
         tabLayout = view.findViewById(R.id.fragment_timeline_tab_layout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
