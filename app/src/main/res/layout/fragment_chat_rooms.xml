@@ -10,6 +10,7 @@
         android:id="@+id/fragment_chat_rooms_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorSurfaceBright"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorAnimationMode="linear"
@@ -19,7 +20,7 @@
         app:tabMode="scrollable"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/colorOnSurfaceVariant"
-        app:tabTextColor="@color/colorOutlineVariant">
+        app:tabTextColor="@color/colorOutline">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/fragment_chat_rooms_tab_focused"
@@ -45,7 +46,8 @@
         android:src="@drawable/ic_filter_light"
         app:layout_constraintBottom_toBottomOf="@id/fragment_chat_rooms_tab_layout"
         app:layout_constraintEnd_toEndOf="@id/fragment_chat_rooms_tab_layout"
-        app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout" />
+        app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout"
+        app:tint="@color/colorOnSurfaceVariant" />
 
     <FrameLayout
         android:id="@+id/chat_rooms_fragment_container"

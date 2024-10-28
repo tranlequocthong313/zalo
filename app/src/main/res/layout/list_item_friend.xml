@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorSurfaceBright">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -52,7 +53,8 @@
             android:src="@drawable/ic_phone_light"
             app:layout_constraintBottom_toBottomOf="@id/list_item_friend_name"
             app:layout_constraintEnd_toStartOf="@id/list_item_friend_video_call"
-            app:layout_constraintTop_toTopOf="@id/list_item_friend_name" />
+            app:layout_constraintTop_toTopOf="@id/list_item_friend_name"
+            app:tint="@color/colorOnSurfaceVariant" />
 
         <ImageView
             android:id="@+id/list_item_friend_video_call"
@@ -63,7 +65,8 @@
             android:src="@drawable/ic_video_light"
             app:layout_constraintBottom_toBottomOf="@id/list_item_friend_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/list_item_friend_name" />
+            app:layout_constraintTop_toTopOf="@id/list_item_friend_name"
+            app:tint="@color/colorOnSurfaceVariant" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

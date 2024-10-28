@@ -13,12 +13,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorSurfaceBright"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSurface"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="12dp"
@@ -47,7 +47,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSurface"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="12dp"
@@ -83,14 +82,13 @@
                         android:layout_marginStart="20dp"
                         android:gravity="center"
                         android:text="@string/contacts_who_use_zalo"
-                        android:textColor="@color/colorOutlineVariant" />
+                        android:textColor="@color/colorOutline" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSurface"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="12dp"
@@ -126,7 +124,7 @@
                         android:layout_marginStart="20dp"
                         android:gravity="center"
                         android:text="@string/follow_birthdays"
-                        android:textColor="@color/colorOutlineVariant" />
+                        android:textColor="@color/colorOutline" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -137,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorSurface"
+            android:background="@color/colorSurfaceBright"
             android:orientation="horizontal"
             android:paddingHorizontal="10dp"
             android:paddingVertical="8dp">
@@ -148,7 +146,7 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="2dp"
-                android:backgroundTint="@color/colorOutlineVariant"
+                android:backgroundTint="@color/colorOutline"
                 android:text="@string/all"
                 android:textColor="@color/colorOnSurfaceVariant"
                 app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
@@ -160,7 +158,7 @@
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="8dp"
                 android:text="@string/recently_online"
-                android:textColor="@color/colorOutlineVariant"
+                android:textColor="@color/colorOutline"
                 app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
 
         </LinearLayout>
@@ -170,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.1"
-            android:background="@color/colorOutlineVariant" />
+            android:background="@color/colorOutline" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_friend_contacts_recycler_view"

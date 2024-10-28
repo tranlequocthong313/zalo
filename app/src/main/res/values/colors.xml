@@ -8,13 +8,14 @@
     <color name="colorSecondary">#DBEBFF</color>
     <color name="colorOnSecondary">#0068FF</color>
     <color name="colorOnBackground">#FFFFFF</color>
-    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorSurface">#ffffff</color>
     <color name="colorOnSurface">#ccd1d6</color>
     <color name="colorOutlineVariant">#ccd1d6</color>
     <color name="colorOutline">#ccd1d6</color>
     <color name="colorSurfaceContainer">#F5F5F5</color>
     <color name="colorOnSurfaceVariant">#000000</color>
     <color name="colorOnSecondaryContainer">#0068FF</color>
-    <color name="colorTertiary">#F7F7F7</color>
-    <color name="colorOnTertiary">#ccd1d6</color>
+    <color name="colorTertiary">#F3F3F3</color>
+    <color name="colorOnTertiary">#A2A2A4</color>
+    <color name="colorSurfaceBright">#FFFFFF</color>
 </resources>

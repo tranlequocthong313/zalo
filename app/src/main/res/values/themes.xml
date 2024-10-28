@@ -10,7 +10,6 @@
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
-        <item name="android:colorBackground">@color/colorOutlineVariant</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="colorOutlineVariant">@color/colorOutlineVariant</item>
         <item name="colorOutline">@color/colorOutline</item>
@@ -20,6 +19,9 @@
         <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
         <item name="colorTertiary">@color/colorTertiary</item>
         <item name="colorOnTertiary">@color/colorOnTertiary</item>
+
+        <!--        Background -->
+        <item name="android:colorBackground">@color/colorOutlineVariant</item>
 
         <!--        Popup menu-->
         <item name="popupMenuStyle">@style/Theme.Zalo.PopupMenu</item>

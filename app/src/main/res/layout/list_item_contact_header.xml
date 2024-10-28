@@ -5,7 +5,7 @@
     android:id="@+id/list_item_contact_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorSurface"
+    android:background="@color/colorSurfaceBright"
     android:paddingHorizontal="20dp"
     android:paddingTop="10dp"
     android:textStyle="bold"
