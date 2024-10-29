@@ -23,14 +23,12 @@ import vn.edu.ou.zalo.data.sources.IUserDataSource;
 
 public class MessageFakeDataSourceImpl implements IMessageDataSource {
 
-    private final IUserDataSource userDataSource;
     private final IChatRoomDataSource chatRoomDataSource;
     private final User currentUser;
     private List<Message> messages;
 
     @Inject
     public MessageFakeDataSourceImpl(IUserDataSource userDataSource, IChatRoomDataSource chatRoomDataSource) {
-        this.userDataSource = userDataSource;
         this.chatRoomDataSource = chatRoomDataSource;
         this.currentUser = userDataSource.getLoginUser();
 
@@ -54,14 +52,14 @@ public class MessageFakeDataSourceImpl implements IMessageDataSource {
         Random random = new Random();
 
         for (ChatRoom room : chatRooms) {
-            int num = random.nextInt(10) + 10;
+            int num = random.nextInt(10) + 10; // 10 to 19 messages per room
             for (int i = 0; i < num; i++) {
                 Message message = new Message();
                 message.setId(UUID.randomUUID().toString());
                 message.setCreatedAt(System.currentTimeMillis() - random.nextInt(100000));
                 message.setUpdatedAt(message.getCreatedAt());
 
-                // Use currentUser as sender for some messages, and a random user for others
+                // Set sender
                 if (room.isGroupChat()) {
                     ChatRoom.Member[] members = room.getMembers().toArray(new ChatRoom.Member[0]);
                     message.setSender(i % 3 == 0 ? currentUser : members[random.nextInt(members.length)].getUser());
@@ -69,13 +67,23 @@ public class MessageFakeDataSourceImpl implements IMessageDataSource {
                     ChatRoom.Member[] members = room.getMembers().toArray(new ChatRoom.Member[0]);
                     message.setSender(members[random.nextInt(2)].getUser());
                 }
+
                 message.setLikeCount(random.nextInt(50));
                 message.setChatRoom(room);
                 room.setLastMessage(ChatRoom.LastMessage.fromMessage(message));
 
-                Message.Type type = Message.Type.TEXT;
+                // Set message type and content
+                Message.Type type = Message.Type.values()[random.nextInt(2)];
                 message.setType(type);
-                message.setTextContent(generateRandomTextContent());
+
+                if (type == Message.Type.TEXT) {
+                    message.setTextContent(generateRandomTextContent());
+                } else if (type == Message.Type.IMAGE) {
+                    // Generate image URLs with varying sizes from very small to very large
+                    int width = random.nextInt(1200) + 50;  // Width between 50 and 1250
+                    int height = random.nextInt(1200) + 50; // Height between 50 and 1250
+                    message.setImageUrls(new String[]{"https://picsum.photos/" + width + "/" + height});
+                }
 
                 messages.add(message);
             }
