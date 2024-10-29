@@ -29,9 +29,11 @@ public class StoryFakeDataSourceImpl implements IStoryDataSource {
         int storyCount = 10 + random.nextInt(11); // Generates between 10 and 20 stories
 
         for (int i = 0; i < storyCount; i++) {
+            int width = random.nextInt(1200) + 50;  // Width between 50 and 1250
+            int height = random.nextInt(1200) + 50; // Height between 50 and 1250
             Story story = new Story();
             story.setId(UUID.randomUUID().toString());
-            story.setImageUrl("https://loremflickr.com/240/320/");
+            story.setImageUrl("https://picsum.photos/" + width + "/" + height);
             story.setAuthor(users.get(random.nextInt(users.size())));
             story.setViewCount(random.nextInt(1000)); // Random view count for demonstration
             story.setStatus(Story.Status.values()[random.nextInt(2)]); // 0 or 1
