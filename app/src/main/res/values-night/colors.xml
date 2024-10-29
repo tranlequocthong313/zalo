@@ -17,5 +17,11 @@
     <color name="colorOnSurfaceVariant">#ffffff</color>
     <color name="colorOnSurface">#0068FF</color>
     <color name="colorSurfaceContainer">#333333</color>
+    <color name="colorSuccess">#37B361</color>
     <color name="colorOnSecondaryContainer">#0068FF</color>
+    <color name="colorTertiaryContainer">#3A4557</color>
+    <color name="colorSurfaceDim">#111111</color>
+    <color name="colorTextHighlight">#134A44</color>
+    <color name="colorTextSecondary">#E6E6E6</color>
+    <color name="colorOnTertiaryContainer">#787777</color>
 </resources>

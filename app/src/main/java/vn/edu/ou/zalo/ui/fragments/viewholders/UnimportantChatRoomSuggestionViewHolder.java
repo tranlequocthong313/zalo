@@ -31,13 +31,19 @@ public class UnimportantChatRoomSuggestionViewHolder extends RecyclerView.ViewHo
         if (chatRoom.isGroupChat() && chatRoom.getGroupAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(chatRoom.getGroupAvatarUrl())
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(chatRoom.getId()))
                     .into(avatarImageView);
         } else {
-            Glide.with(avatarImageView.getContext())
-                    .load(chatRoom.getMembers().get(0).getAvatarUrl()) // TODO: for dev purpose
-                    .signature(new ObjectKey(System.currentTimeMillis()))
-                    .into(avatarImageView);
+            for (Object obj : chatRoom.getMembers().toArray()) {
+                ChatRoom.Member member = (ChatRoom.Member) obj;
+                if (member.isAdmin()) {
+                    Glide.with(avatarImageView.getContext())
+                            .load(member.getUser().getAvatarUrl()) // TODO: for dev purpose
+                            .signature(new ObjectKey(member.getUser().getId()))
+                            .into(avatarImageView);
+                    break;
+                }
+            }
         }
         chatNameTextView.setText(chatRoom.getName());
     }

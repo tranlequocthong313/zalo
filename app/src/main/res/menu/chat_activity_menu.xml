@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_phone_light"
+        android:title="@string/audio_call"
+        app:iconTint="@color/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/ic_video_light"
+        android:title="@string/video_call"
+        app:iconTint="@color/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/ic_bars_light"
+        android:title="@string/options"
+        app:iconTint="@color/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+</menu>

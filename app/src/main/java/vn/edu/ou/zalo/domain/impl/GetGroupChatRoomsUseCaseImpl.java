@@ -1,5 +1,6 @@
 package vn.edu.ou.zalo.domain.impl;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,11 @@ public class GetGroupChatRoomsUseCaseImpl implements IGetListUseCase<ChatRoom> {
     public List<ChatRoom> execute() {
         Map<String, String> query = new HashMap<>();
         query.put("type", ChatRoom.Type.GROUP.name());
+        return chatRoomRepository.getChatRooms(query);
+    }
+
+    @Override
+    public List<ChatRoom> execute(Map<String, String> query) {
         return chatRoomRepository.getChatRooms(query);
     }
 }

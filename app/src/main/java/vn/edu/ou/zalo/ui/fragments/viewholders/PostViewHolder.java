@@ -36,13 +36,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         if (post.getAuthor().getAvatarUrl() != null) {
             Glide.with(authorAvatarImageView.getContext())
                     .load(post.getAuthor().getAvatarUrl())
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(post.getAuthor().getId()))
                     .into(authorAvatarImageView);
         }
         if (post.getImageUrls() != null && !post.getImageUrls().isEmpty()) {
             Glide.with(contentImageView.getContext())
                     .load(post.getImageUrls().get(0)) // TODO: for dev purpose
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(post.getId()))
                     .into(contentImageView);
         }
         authorNameTextView.setText(post.getAuthor().getFullName());

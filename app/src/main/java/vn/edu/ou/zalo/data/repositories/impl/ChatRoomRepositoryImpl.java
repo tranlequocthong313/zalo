@@ -24,4 +24,9 @@ public class ChatRoomRepositoryImpl implements IChatRoomRepository {
     public List<ChatRoom> getChatRooms(Map<String, String> query) {
         return chatRoomDataSource.getChatRooms(query);
     }
+
+    @Override
+    public ChatRoom getChatRoom(String id) {
+        return chatRoomDataSource.getChatRoom(id);
+    }
 }

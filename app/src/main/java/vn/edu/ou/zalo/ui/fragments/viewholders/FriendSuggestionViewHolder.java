@@ -28,7 +28,7 @@ public class FriendSuggestionViewHolder extends RecyclerView.ViewHolder {
         if (suggestion.getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(suggestion.getAvatarUrl())
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(suggestion.getId()))
                     .into(avatarImageView);
         }
         friendSugggestionNameTextView.setText(suggestion.getFullName());

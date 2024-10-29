@@ -3,6 +3,7 @@ package vn.edu.ou.zalo.data.sources.fake;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -29,6 +30,7 @@ public class StoryFakeDataSourceImpl implements IStoryDataSource {
 
         for (int i = 0; i < storyCount; i++) {
             Story story = new Story();
+            story.setId(UUID.randomUUID().toString());
             story.setImageUrl("https://loremflickr.com/240/320/");
             story.setAuthor(users.get(random.nextInt(users.size())));
             story.setViewCount(random.nextInt(1000)); // Random view count for demonstration

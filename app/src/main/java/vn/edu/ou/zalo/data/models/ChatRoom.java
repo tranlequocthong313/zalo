@@ -2,7 +2,7 @@ package vn.edu.ou.zalo.data.models;
 
 import androidx.annotation.Nullable;
 
-import java.util.List;
+import java.util.Set;
 
 public class ChatRoom extends BaseModel {
 
@@ -14,6 +14,15 @@ public class ChatRoom extends BaseModel {
         private String content;
         private long timestamp;
         private Member sender;
+
+        public static LastMessage fromMessage(Message message) {
+            LastMessage lastMessage = new LastMessage();
+            lastMessage.setSender(Member.fromUser(message.getSender()));
+            lastMessage.setTimestamp(message.getCreatedAt());
+            lastMessage.setContent(message.getTextContent());
+
+            return lastMessage;
+        }
 
         public String getContent() {
             return content;
@@ -41,25 +50,22 @@ public class ChatRoom extends BaseModel {
     }
 
     public static class Member {
-        private String fullName;
-        private String avatarUrl;
+        private User user;
         private boolean isAdmin;
         private boolean isMod;
 
-        public String getFullName() {
-            return fullName;
+        public static Member fromUser(User user) {
+            Member member = new Member();
+            member.setUser(user);
+            return member;
         }
 
-        public void setFullName(String fullName) {
-            this.fullName = fullName;
+        public User getUser() {
+            return user;
         }
 
-        public String getAvatarUrl() {
-            return avatarUrl;
-        }
-
-        public void setAvatarUrl(String avatarUrl) {
-            this.avatarUrl = avatarUrl;
+        public void setUser(User user) {
+            this.user = user;
         }
 
         public boolean isAdmin() {
@@ -77,6 +83,19 @@ public class ChatRoom extends BaseModel {
         public void setMod(boolean mod) {
             isMod = mod;
         }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != getClass()) return false;
+            Member member = (Member) obj;
+            return getUser().equals(member.getUser());
+        }
+
+        @Override
+        public int hashCode() {
+            return getUser().hashCode();
+        }
     }
 
     private Type type = Type.SINGLE;
@@ -84,8 +103,18 @@ public class ChatRoom extends BaseModel {
     @Nullable
     private String groupAvatarUrl;
     private LastMessage lastMessage;
-    private List<Member> members;
+    private Set<Member> members;
     private Priority priority = Priority.FOCUSED;
+
+    public Member getOtherMember(User loginUser) {
+        ChatRoom.Member[] members = getMembers().toArray(new ChatRoom.Member[0]);
+        for (Member member : members) {
+            if (!member.getUser().equals(loginUser)) {
+                return member;
+            }
+        }
+        return null;
+    }
 
     public boolean isGroupChat() {
         return Type.GROUP == type;
@@ -132,11 +161,11 @@ public class ChatRoom extends BaseModel {
         this.lastMessage = lastMessage;
     }
 
-    public List<Member> getMembers() {
+    public Set<Member> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Member> members) {
+    public void setMembers(Set<Member> members) {
         this.members = members;
     }
 }

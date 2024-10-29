@@ -33,13 +33,13 @@ public class StoryViewHolder extends RecyclerView.ViewHolder {
         if (story.getImageUrl() != null) {
             Glide.with(previewImageView.getContext())
                     .load(story.getImageUrl())
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(story.getId()))
                     .into(previewImageView);
         }
         if (story.getAuthor().getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(story.getAuthor().getAvatarUrl())
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(story.getAuthor().getId()))
                     .into(avatarImageView);
         }
         if (story.getAuthor().getFullName() != null) {
@@ -51,7 +51,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder {
         if (loginuser.getAvatarUrl() != null) {
             Glide.with(previewImageView.getContext())
                     .load(loginuser.getAvatarUrl())
-                    .signature(new ObjectKey(System.currentTimeMillis()))
+                    .signature(new ObjectKey(loginuser.getId()))
                     .into(previewImageView);
         }
         Drawable drawable = AppCompatResources.getDrawable(avatarImageView.getContext(), R.drawable.ic_pen_solid);

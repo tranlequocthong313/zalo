@@ -1,6 +1,8 @@
 package vn.edu.ou.zalo.domain.impl;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,6 +21,11 @@ public class GetFriendSuggestionsImpl implements IGetListUseCase<User> {
 
     @Override
     public List<User> execute() {
+        return userRepository.getUsers();
+    }
+
+    @Override
+    public List<User> execute(Map<String, String> query) {
         return userRepository.getUsers();
     }
 }

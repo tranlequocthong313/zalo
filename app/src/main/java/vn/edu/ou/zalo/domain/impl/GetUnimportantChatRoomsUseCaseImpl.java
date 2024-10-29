@@ -2,6 +2,7 @@ package vn.edu.ou.zalo.domain.impl;
 
 import android.util.Log;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,11 @@ public class GetUnimportantChatRoomsUseCaseImpl implements IGetListUseCase<ChatR
     public List<ChatRoom> execute() {
         Map<String, String> query = new HashMap<>();
         query.put("priority", ChatRoom.Priority.OTHER.name());
+        return chatRoomRepository.getChatRooms(query);
+    }
+
+    @Override
+    public List<ChatRoom> execute(Map<String, String> query) {
         return chatRoomRepository.getChatRooms(query);
     }
 }

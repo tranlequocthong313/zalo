@@ -11,11 +11,17 @@
     <color name="colorSurface">#ffffff</color>
     <color name="colorOnSurface">#ccd1d6</color>
     <color name="colorOutlineVariant">#ccd1d6</color>
-    <color name="colorOutline">#ccd1d6</color>
+    <color name="colorOutline">#AEB2B4</color>
     <color name="colorSurfaceContainer">#F5F5F5</color>
     <color name="colorOnSurfaceVariant">#000000</color>
     <color name="colorOnSecondaryContainer">#0068FF</color>
     <color name="colorTertiary">#F3F3F3</color>
-    <color name="colorOnTertiary">#A2A2A4</color>
+    <color name="colorOnTertiary">#7F7F7F</color>
     <color name="colorSurfaceBright">#FFFFFF</color>
+    <color name="colorSuccess">#37B361</color>
+    <color name="colorTertiaryContainer">#DBEBFF</color>
+    <color name="colorSurfaceDim">#E4E8F3</color>
+    <color name="colorTextHighlight">#134A44</color>
+    <color name="colorTextSecondary">#E6E6E6</color>
+    <color name="colorOnTertiaryContainer">#787777</color>
 </resources>

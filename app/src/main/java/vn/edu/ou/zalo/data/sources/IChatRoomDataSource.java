@@ -11,4 +11,6 @@ public interface IChatRoomDataSource {
     }
 
     List<ChatRoom> getChatRooms(Map<String, String> query);
+
+    ChatRoom getChatRoom(String id);
 }
