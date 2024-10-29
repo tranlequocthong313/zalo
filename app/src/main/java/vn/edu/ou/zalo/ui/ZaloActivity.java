@@ -44,8 +44,6 @@ public class ZaloActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         setContentView(R.layout.activity_zalo);
 
         setupTopAppBar();
@@ -124,7 +122,7 @@ public class ZaloActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.activity_chat_input);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Integer itemId = item.getItemId();
             if (menuItemIds.contains(itemId)) {

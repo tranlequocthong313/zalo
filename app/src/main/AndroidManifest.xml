@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Zalo">
         <activity
+            android:name=".ui.activities.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ZaloActivity"
             android:exported="true">
             <intent-filter>

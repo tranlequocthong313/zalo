@@ -6,16 +6,16 @@ import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IUserRepository;
 import vn.edu.ou.zalo.domain.IGetDetailUseCase;
 
-public class GetLoginUserUseCase implements IGetDetailUseCase<User> {
+public class GetLoginUserUseCaseImpl implements IGetDetailUseCase<User> {
     IUserRepository userRepository;
 
     @Inject
-    public GetLoginUserUseCase(IUserRepository userRepository) {
+    public GetLoginUserUseCaseImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public User execute() {
+    public User execute(String id) {
         return userRepository.getLoginUser();
     }
 }

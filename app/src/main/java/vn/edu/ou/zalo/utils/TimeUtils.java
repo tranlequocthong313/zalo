@@ -91,4 +91,17 @@ public class TimeUtils {
 
         return dateFormat.format(new Date(timestamp));
     }
+
+    public static String getHourMinute(long timestamp) {
+        // Create a Calendar instance
+        Calendar calendar = Calendar.getInstance();
+        // Set the time using the provided timestamp
+        calendar.setTimeInMillis(timestamp);
+
+        // Create a SimpleDateFormat instance to format the time
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        // Return the formatted time
+        return sdf.format(calendar.getTime());
+    }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -18,22 +19,24 @@ public class UserFakeDataSourceImpl implements IUserDataSource {
     private static final String[] BIOS = {"Loves coding", "Avid reader", "Coffee enthusiast", "Adventure seeker", "Tech geek", "Nature lover"};
 
     private final Random random = new Random();
+    private final List<User> users = new ArrayList<>();
 
     @Inject
     public UserFakeDataSourceImpl() {
+        initUsers();
+    }
+
+    private void initUsers() {
+        // Generate a random number of users (between 10 and 20)
+        for (int i = 0; i < 20; i++) {
+            User user = generateRandomUser();
+            user.setId(UUID.randomUUID().toString());
+            users.add(user);
+        }
     }
 
     @Override
     public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
-
-        // Generate a random number of users (between 10 and 20)
-        int numberOfUsers = random.nextInt(11) + 10;
-
-        for (int i = 0; i < numberOfUsers; i++) {
-            users.add(generateRandomUser());
-        }
-
         return users;
     }
 

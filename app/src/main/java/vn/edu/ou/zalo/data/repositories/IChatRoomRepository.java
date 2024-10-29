@@ -11,4 +11,6 @@ public interface IChatRoomRepository {
     }
 
     List<ChatRoom> getChatRooms(Map<String, String> query);
+
+    ChatRoom getChatRoom(String id);
 }

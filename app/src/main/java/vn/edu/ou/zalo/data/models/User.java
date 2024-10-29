@@ -1,5 +1,9 @@
 package vn.edu.ou.zalo.data.models;
 
+import androidx.annotation.Nullable;
+
+import java.util.Objects;
+
 public class User extends BaseModel {
     private String fullName;
     private String phoneNumber;
@@ -91,6 +95,20 @@ public class User extends BaseModel {
     public void setIsOnline(boolean isOnline) {
         this.isOnline = isOnline;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
 }
 
 

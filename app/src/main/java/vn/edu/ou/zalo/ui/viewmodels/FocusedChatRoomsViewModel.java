@@ -1,5 +1,7 @@
 package vn.edu.ou.zalo.ui.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -43,6 +45,7 @@ public class FocusedChatRoomsViewModel extends ViewModel {
 
         try {
             List<ChatRoom> chatRooms = getChatRoomsUseCase.execute();
+            Log.d("FocusedChatRoomViewModel", "Size: " + chatRooms.size());
             friendSuggestions = getFriendSuggestionsUseCase.execute();
             uiState.setValue(new FocusedChatRoomUiState(false, null, chatRooms, getLimitedFriendSuggestions()));
         } catch (Exception e) {

@@ -19,6 +19,11 @@
         <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
         <item name="colorTertiary">@color/colorTertiary</item>
         <item name="colorOnTertiary">@color/colorOnTertiary</item>
+        <item name="colorTertiaryContainer">@color/colorOnTertiary</item>
+        <item name="colorSurfaceDim">@color/colorSurfaceDim</item>
+        <item name="android:textColorHighlight">@color/colorTextHighlight</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
 
         <!--        Background-->
         <item name="android:colorBackground">@color/colorOutlineVariant</item>

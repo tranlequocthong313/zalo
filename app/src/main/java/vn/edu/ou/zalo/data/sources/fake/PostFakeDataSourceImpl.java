@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -53,6 +54,8 @@ public class PostFakeDataSourceImpl implements IPostDataSource {
 
             // Set a random created timestamp within the last month
             post.setCreatedAt(generateRandomTimestamp());
+
+            post.setId(UUID.randomUUID().toString());
 
             // Add the post to the list
             posts.add(post);

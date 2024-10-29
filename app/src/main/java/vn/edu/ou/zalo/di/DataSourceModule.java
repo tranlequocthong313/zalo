@@ -11,10 +11,12 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.impl.ChatRoomRepositoryImpl;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
+import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 import vn.edu.ou.zalo.data.sources.IPostDataSource;
 import vn.edu.ou.zalo.data.sources.IStoryDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
 import vn.edu.ou.zalo.data.sources.fake.ChatRoomFakeDataSourceImpl;
+import vn.edu.ou.zalo.data.sources.fake.MessageFakeDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.fake.PostFakeDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.fake.StoryFakeDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.fake.UserFakeDataSourceImpl;
@@ -39,4 +41,8 @@ public abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract IPostDataSource bindPostFakeDataSource(PostFakeDataSourceImpl postFakeDataSource);
+
+    @Binds
+    @Singleton
+    abstract IMessageDataSource bindMessageFakeDataSource(MessageFakeDataSourceImpl messageFakeDataSource);
 }

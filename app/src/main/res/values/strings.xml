@@ -65,4 +65,8 @@
     <string name="like">Like</string>
     <string name="manange_other">Manage Other</string>
     <string name="delete">Delete</string>
+    <string name="options">Options</string>
+    <string name="message">Message</string>
+    <string name="tab_for_more_info">Tab for more info</string>
+    <string name="last_seen">Last seen %1$s</string>
 </resources>

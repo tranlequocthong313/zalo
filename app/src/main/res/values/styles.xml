@@ -6,6 +6,11 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="Theme.Zalo.SubtitleTopAppBar" parent="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
     <style name="Theme.Zalo.RoundedImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

@@ -4,16 +4,21 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
+import vn.edu.ou.zalo.data.sources.IUserDataSource;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
@@ -38,9 +43,11 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
 
     private final Random random = new Random();
     private final List<ChatRoom> chatRooms;
+    private final IUserDataSource userDataSource;
 
     @Inject
-    public ChatRoomFakeDataSourceImpl() {
+    public ChatRoomFakeDataSourceImpl(IUserDataSource userDataSource) {
+        this.userDataSource = userDataSource;
         chatRooms = new ArrayList<>();
 
         // Generate a random number of chat rooms (between 10 and 20)
@@ -56,6 +63,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
                 chatRoom = generateGroupChatRoom();
             }
             chatRoom.setPriority(ChatRoom.Priority.values()[random.nextInt(2)]);
+            chatRoom.setId(UUID.randomUUID().toString());
             chatRooms.add(chatRoom);
         }
 
@@ -84,10 +92,14 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
 
     @Override
     public List<ChatRoom> getChatRooms(Map<String, String> query) {
+        List<ChatRoom> result = chatRooms.stream()
+                .filter(chatRoom -> chatRoom.getMembers().contains(ChatRoom.Member.fromUser(userDataSource.getLoginUser())))
+                .collect(Collectors.toList());
+
         if (query == null) {
-            return chatRooms;
+            return result;
         }
-        List<ChatRoom> result = chatRooms;
+
         if (query.containsKey("priority") && query.get("priority") != null) {
             ChatRoom.Priority priority = ChatRoom.Priority.valueOf(query.get("priority"));
             result = chatRooms.stream().filter(chatRoom -> chatRoom.getPriority() == priority).collect(Collectors.toList());
@@ -97,6 +109,14 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
             result = result.stream().filter(chatRoom -> chatRoom.getType() == type).collect(Collectors.toList());
         }
         return result;
+    }
+
+    @Override
+    public ChatRoom getChatRoom(String id) {
+        return chatRooms.stream()
+                .filter(chatRoom -> Objects.equals(chatRoom.getId(), id))
+                .findFirst()
+                .orElse(null);
     }
 
     private ChatRoom generateOneOnOneChatRoom() {
@@ -110,7 +130,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         oneOnOneChat.setName(fullName);
 
         // Create member
-        ChatRoom.Member member = createMember(fullName, getRandomAvatar());
+        ChatRoom.Member member = ChatRoom.Member.fromUser(userDataSource.getLoginUser());
 
         // Last message
         ChatRoom.LastMessage lastMessage = new ChatRoom.LastMessage();
@@ -120,7 +140,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         oneOnOneChat.setLastMessage(lastMessage);
 
         // Members list
-        List<ChatRoom.Member> members = new ArrayList<>();
+        Set<ChatRoom.Member> members = new HashSet<>();
         members.add(createMember(getRandomFirstName() + " " + getRandomLastName(), getRandomAvatar()));
         members.add(member); // Admin or primary user
         oneOnOneChat.setMembers(members);
@@ -136,19 +156,21 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
 
         // Generate random members for group chat
         int numberOfMembers = random.nextInt(3) + 3; // Between 3 and 5 members
-        List<ChatRoom.Member> members = new ArrayList<>();
-        for (int i = 0; i < numberOfMembers; i++) {
-            members.add(createMember(getRandomFirstName() + " " + getRandomLastName(), getRandomAvatar()));
-        }
-
-        // Set one member as admin
-        members.get(0).setAdmin(true);
-
-        // Last message in the group
+        Set<ChatRoom.Member> members = new HashSet<>();
+        members.add(ChatRoom.Member.fromUser(userDataSource.getLoginUser()));
         ChatRoom.LastMessage lastMessage = new ChatRoom.LastMessage();
         lastMessage.setContent(getRandomMessage());
         lastMessage.setTimestamp(generateRandomTimestamp()); // Set random timestamp
-        lastMessage.setSender(members.get(random.nextInt(members.size()))); // Random sender from the group
+        for (int i = 0; i < numberOfMembers; i++) {
+            ChatRoom.Member member = createMember(getRandomFirstName() + " " + getRandomLastName(), getRandomAvatar());
+            if (i == 0) {
+                member.setAdmin(true);
+                lastMessage.setSender(member); // Random sender from the group
+            }
+            members.add(member);
+        }
+
+        // Last message in the group
         groupChat.setLastMessage(lastMessage);
 
         groupChat.setMembers(members);
@@ -156,10 +178,14 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
     }
 
     private ChatRoom.Member createMember(String name, String avatar) {
-        ChatRoom.Member member = new ChatRoom.Member();
-        member.setFullName(name);
-        member.setAvatarUrl(avatar);
-        member.setMod(random.nextBoolean()); // Randomly set mod status
+        List<User> users = userDataSource.getUsers();
+        User user = users.get(random.nextInt(users.size()));
+        ChatRoom.Member member = ChatRoom.Member.fromUser(user);
+        while (member.getUser().equals(userDataSource.getLoginUser())) {
+            user = users.get(random.nextInt(users.size()));
+            member = ChatRoom.Member.fromUser(user);
+            member.setMod(random.nextBoolean()); // Randomly set mod status
+        }
         return member;
     }
 
