@@ -8,23 +8,23 @@ import javax.inject.Inject;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
+import vn.edu.ou.zalo.data.sources.IAuthDataSource;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
-import vn.edu.ou.zalo.di.qualifiers.Fake;
 
 public class ChatRoomRepositoryImpl implements IChatRoomRepository {
     private final IChatRoomDataSource chatRoomDataSource;
-    private final IUserDataSource userDataSource;
+    private final IAuthDataSource authDataSource;
 
     @Inject
-    public ChatRoomRepositoryImpl(@Fake IChatRoomDataSource chatRoomDataSource, @Fake IUserDataSource userDataSource) {
+    public ChatRoomRepositoryImpl(IChatRoomDataSource chatRoomDataSource, IAuthDataSource authDataSource) {
         this.chatRoomDataSource = chatRoomDataSource;
-        this.userDataSource = userDataSource;
+        this.authDataSource = authDataSource;
     }
 
     @Override
     public void getChatRooms(Map<String, String> query, IRepositoryCallback<List<ChatRoom>> callback) {
-        chatRoomDataSource.setLoginUser(userDataSource.getLoginUser());
+        chatRoomDataSource.setLoginUser(authDataSource.getSignedInUser());
         chatRoomDataSource.getChatRooms(query, new IRepositoryCallback<List<ChatRoom>>() {
             @Override
             public void onSuccess(List<ChatRoom> data) {

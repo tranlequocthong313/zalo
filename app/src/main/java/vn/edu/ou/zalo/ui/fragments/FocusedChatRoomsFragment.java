@@ -62,6 +62,9 @@ public class FocusedChatRoomsFragment extends Fragment {
     }
 
     private void updateUi(FocusedChatRoomUiState uiState) {
+        if (uiState.isLoading()) {
+            return;
+        }
         List<ChatRoom> chatRooms = uiState.getChatRooms();
         List<User> friendSuggestions = uiState.getFriendSuggestions();
 

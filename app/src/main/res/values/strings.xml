@@ -70,11 +70,11 @@
     <string name="tab_for_more_info">Tab for more info</string>
     <string name="last_seen">Last seen %1$s</string>
     <string name="english">English</string>
-    <string name="login">Log in</string>
+    <string name="signin">Log in</string>
     <string name="create_new_account">Create new account</string>
     <string name="zalo">Zalo</string>
-    <string name="login_title">Login</string>
-    <string name="please_enter_phone_number_and_password_to_login_in">Please enter phone number and password to log in</string>
+    <string name="signin_title">Login</string>
+    <string name="please_enter_phone_number_and_password_to_signin_in">Please enter phone number and password to log in</string>
     <string name="phone_number_hint">Phone number</string>
     <string name="password_hint">Password</string>
     <string name="recover_password">Recover password</string>
@@ -113,4 +113,5 @@
     <string name="confrim">Confirm</string>
     <string name="skip_avatar_confirm_description">Some features may be affected. Still skipping this step?</string>
     <string name="add_image">Add image</string>
+    <string name="signout">Sign Out</string>
 </resources>

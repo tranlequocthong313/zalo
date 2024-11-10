@@ -63,6 +63,10 @@ public class InterestedTimelineFragment extends Fragment implements IRefreshable
     }
 
     private void updateUi(TimelineUiState timelineUiState) {
+        if (timelineUiState.isLoading()) {
+            return;
+        }
+
         List<Story> stories = timelineUiState.getStories();
         List<Post> posts = timelineUiState.getPosts();
         User loginUser = timelineUiState.getLoginUser();

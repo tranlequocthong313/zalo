@@ -21,8 +21,8 @@ public class ChatRoomRemoteDataSourceImpl implements IChatRoomDataSource {
     private final FirebaseFirestore db;
 
     @Inject
-    public ChatRoomRemoteDataSourceImpl() {
-        this.db = FirebaseFirestore.getInstance();
+    public ChatRoomRemoteDataSourceImpl(FirebaseFirestore db) {
+        this.db = db;
     }
 
     @Override

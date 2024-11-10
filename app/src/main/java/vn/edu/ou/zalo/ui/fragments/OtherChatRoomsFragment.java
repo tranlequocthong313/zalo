@@ -59,6 +59,9 @@ public class OtherChatRoomsFragment extends Fragment {
     }
 
     private void updateUi(OtherChatRoomUiState uiState) {
+        if (uiState.isLoading()) {
+            return;
+        }
         List<ChatRoom> chatRooms = uiState.getChatRooms();
         List<ChatRoom> suggestions = uiState.getOtherChatRooms();
 

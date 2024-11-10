@@ -1,17 +1,12 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +18,20 @@ import com.bumptech.glide.Glide;
 
 import java.util.Random;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.ui.activities.ZaloActivity;
+import vn.edu.ou.zalo.ui.viewmodels.AuthViewModel;
 
+@AndroidEntryPoint
 public class SignUpAvatarFragment extends Fragment {
     private static final String ARGS_USER = "user";
     private ImageView avatarImageView;
+    @Inject
+    AuthViewModel authViewModel;
 
     public static SignUpAvatarFragment newInstance(User user) {
         Bundle bundle = new Bundle();
@@ -53,6 +56,13 @@ public class SignUpAvatarFragment extends Fragment {
 
         Button skipButton = view.findViewById(R.id.fragment_signup_avatar_skip_button);
         skipButton.setOnClickListener(v -> showSkipConfirmationDialog(user));
+
+        authViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+            if (uiState.isSignedUp()) {
+                requireActivity().finish();
+                startActivity(ZaloActivity.newIntent(getActivity()));
+            }
+        });
 
         return view;
     }
@@ -83,7 +93,7 @@ public class SignUpAvatarFragment extends Fragment {
                     // TODO: Handle add image action
                 })
                 .setNegativeButton(R.string.skip, (dialog12, which) -> {
-                    Log.d("SignUpAvatarFragment", "Finish Register Process: " + user.toString());
+                    authViewModel.signUp(user);
                 })
                 .create();
 

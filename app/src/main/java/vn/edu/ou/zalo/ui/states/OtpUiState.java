@@ -15,7 +15,7 @@ public class OtpUiState extends BaseUiState {
         return verificationId;
     }
 
-    public boolean isValidOtp() {
+    public boolean isVerifiedOtp() {
         return isValidOtp;
     }
 }

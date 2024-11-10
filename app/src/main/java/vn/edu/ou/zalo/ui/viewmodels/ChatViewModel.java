@@ -19,22 +19,23 @@ import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.IGetDetailUseCase;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
+import vn.edu.ou.zalo.domain.impl.GetSignedInUserUseCase;
 import vn.edu.ou.zalo.ui.states.ChatUiState;
 
 public class ChatViewModel extends ViewModel {
     private final MutableLiveData<ChatUiState> uiState =
             new MutableLiveData<>(new ChatUiState(false, null, null, null, null));
     private final IGetListUseCase<Message> getMessagesUseCase;
-    private final IGetDetailUseCase<User> getLoginUserUseCase;
+    private final GetSignedInUserUseCase getSignedInUserUseCase;
     private final IGetDetailUseCase<ChatRoom> getDetailChatRoomUseCase;
     private User loginUser;
     private List<Message> messages = new ArrayList<>();
     private ChatRoom chatRoom;
 
     @Inject
-    public ChatViewModel(IGetListUseCase<Message> getMessagesUseCase, IGetDetailUseCase<User> getLoginUserUseCase, IGetDetailUseCase<ChatRoom> getDetailChatRoomUseCase) {
+    public ChatViewModel(IGetListUseCase<Message> getMessagesUseCase, GetSignedInUserUseCase getSignedInUserUseCase, IGetDetailUseCase<ChatRoom> getDetailChatRoomUseCase) {
         this.getMessagesUseCase = getMessagesUseCase;
-        this.getLoginUserUseCase = getLoginUserUseCase;
+        this.getSignedInUserUseCase = getSignedInUserUseCase;
         this.getDetailChatRoomUseCase = getDetailChatRoomUseCase;
     }
 
@@ -77,18 +78,8 @@ public class ChatViewModel extends ViewModel {
 
                 }
             });
-            getLoginUserUseCase.execute(null, new IDomainCallback<User>() {
-                @Override
-                public void onSuccess(User data) {
-                    loginUser = data;
-                    updateUiState();
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-
-                }
-            });
+            loginUser = getSignedInUserUseCase.execute();
+            updateUiState();
         } catch (Exception e) {
             uiState.setValue(new ChatUiState(false, e.getMessage(), null, null, getChatRoom()));
         }

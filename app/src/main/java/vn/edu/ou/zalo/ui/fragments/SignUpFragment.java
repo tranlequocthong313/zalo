@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import vn.edu.ou.zalo.R;
-import vn.edu.ou.zalo.ui.activities.LoginActivity;
+import vn.edu.ou.zalo.ui.activities.SignInActivity;
 import vn.edu.ou.zalo.ui.activities.OtpActivity;
 
 public class SignUpFragment extends Fragment {
@@ -78,7 +78,7 @@ public class SignUpFragment extends Fragment {
 
         TextView loginTextView = view.findViewById(R.id.fragment_signup_login_text_view);
         loginTextView.setOnClickListener(v -> {
-            Intent i = LoginActivity.newIntent(getActivity());
+            Intent i = SignInActivity.newIntent(getActivity());
             startActivity(i);
         });
 

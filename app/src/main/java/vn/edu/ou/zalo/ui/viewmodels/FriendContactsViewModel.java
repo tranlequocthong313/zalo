@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,7 +17,7 @@ import vn.edu.ou.zalo.ui.states.FriendContactsUiState;
 
 public class FriendContactsViewModel extends ViewModel {
     private final MutableLiveData<FriendContactsUiState> uiState =
-            new MutableLiveData<>(new FriendContactsUiState(false, null, null));
+            new MutableLiveData<>(new FriendContactsUiState(false, null, new ArrayList<>()));
     private final IGetListUseCase<User> getFriendsUseCase;
 
     @Inject

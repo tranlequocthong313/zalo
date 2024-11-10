@@ -12,5 +12,5 @@ public interface IUserRepository {
 
     void getUsers(Map<String, String> query, IRepositoryCallback<List<User>> callback);
 
-    User getLoginUser();
+    void createUser(User user, IRepositoryCallback<Void> callback);
 }

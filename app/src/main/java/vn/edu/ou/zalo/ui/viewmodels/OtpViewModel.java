@@ -1,5 +1,7 @@
 package vn.edu.ou.zalo.ui.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -44,6 +46,9 @@ public class OtpViewModel extends ViewModel {
     }
 
     public void verifyOtp(String otp) {
+        if (Objects.requireNonNull(uiState.getValue()).getVerificationId() == null) {
+            return;
+        }
         verifyOtpUseCase.execute(
                 Objects.requireNonNull(uiState.getValue()).getVerificationId(),
                 otp,

@@ -10,9 +10,9 @@ import javax.inject.Inject;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
+import vn.edu.ou.zalo.data.sources.IAuthDataSource;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
-import vn.edu.ou.zalo.di.qualifiers.Fake;
 
 import java.util.Map;
 import java.util.Objects;
@@ -47,8 +47,8 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
     private User loginUser;
 
     @Inject
-    public ChatRoomFakeDataSourceImpl(@Fake IUserDataSource userDataSource) {
-        loginUser = userDataSource.getLoginUser();
+    public ChatRoomFakeDataSourceImpl(IAuthDataSource authDataSource, IUserDataSource userDataSource) {
+        loginUser = authDataSource.getSignedInUser();
         userDataSource.getUsers(new IRepositoryCallback<List<User>>() {
             @Override
             public void onSuccess(List<User> data) {

@@ -23,6 +23,7 @@ public class User extends BaseModel implements Parcelable {
     private long lastLogin;
     private boolean isOnline;
     private long friendCount;
+    private String hashedPassword;
 
     public String getFullName() {
         return fullName;
@@ -102,6 +103,18 @@ public class User extends BaseModel implements Parcelable {
 
     public void setIsOnline(boolean isOnline) {
         this.isOnline = isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     @Override
