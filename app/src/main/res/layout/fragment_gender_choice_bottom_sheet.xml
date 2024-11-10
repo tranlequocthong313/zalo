@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bottom_sheet"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="40dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/choose_gender"
+        android:textSize="18sp" />
+
+    <!-- Male Option -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_gender_choice_male"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:text="@string/male" />
+
+    <!-- Female Option -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_gender_choice_female"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:text="@string/female" />
+
+    <!-- Do Not Share Option -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_gender_choice_not_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:text="@string/prefer_not_to_say" />
+</LinearLayout>

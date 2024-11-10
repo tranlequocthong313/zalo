@@ -1,4 +1,4 @@
-package vn.edu.ou.zalo.ui;
+package vn.edu.ou.zalo.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;

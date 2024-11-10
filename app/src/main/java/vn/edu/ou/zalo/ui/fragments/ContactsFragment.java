@@ -82,12 +82,10 @@ public class ContactsFragment extends Fragment {
         if (fragmentClass == null) {
             return;
         }
-        Log.d("ContactsFragment", "Index: " + index);
 
         Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
         if (fragment == null) {
             try {
-                Log.d("ContactsFragment", "Create new contact fragment");
                 fragment = fragmentClass.newInstance();
                 fragments.set(index, fragment);
             } catch (IllegalAccessException | java.lang.InstantiationException e) {

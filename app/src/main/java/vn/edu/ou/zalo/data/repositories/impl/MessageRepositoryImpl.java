@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.repositories.IMessageRepository;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 
 public class MessageRepositoryImpl implements IMessageRepository {
@@ -18,7 +19,17 @@ public class MessageRepositoryImpl implements IMessageRepository {
     }
 
     @Override
-    public List<Message> getMessages(Map<String, String> query) {
-        return messageDataSource.getMessages(query);
+    public void getMessages(Map<String, String> query, IRepositoryCallback<List<Message>> callback) {
+        messageDataSource.getMessages(query, new IRepositoryCallback<List<Message>>() {
+            @Override
+            public void onSuccess(List<Message> data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+            }
+        });
     }
 }

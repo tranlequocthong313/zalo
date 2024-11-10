@@ -15,10 +15,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Zalo">
         <activity
+            android:name=".ui.activities.SignUpAvatarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.OtpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.activities.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ZaloActivity"
+            android:name=".ui.activities.SignUpEnterMorePersonalInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.SignUpEnterNameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ZaloActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 
 public interface IChatRoomDataSource {
-    default List<ChatRoom> getChatRooms() {
-        return getChatRooms(null);
-    }
 
-    List<ChatRoom> getChatRooms(Map<String, String> query);
+    void getChatRooms(Map<String, String> query, IRepositoryCallback<List<ChatRoom>> callback);
 
-    ChatRoom getChatRoom(String id);
+    void getChatRoom(String id, IRepositoryCallback<ChatRoom> callback);
+
+    void setLoginUser(User loginUser);
 }

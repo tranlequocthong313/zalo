@@ -7,4 +7,6 @@ import javax.inject.Qualifier;
 
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ImportantChatRooms {}
+public @interface Fake {
+}
+

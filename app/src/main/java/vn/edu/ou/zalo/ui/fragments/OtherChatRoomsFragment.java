@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,6 @@ import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
 import vn.edu.ou.zalo.ui.fragments.adapters.UnimportantChatRoomSuggestionAdapter;
-import vn.edu.ou.zalo.ui.states.FocusedChatRoomUiState;
 import vn.edu.ou.zalo.ui.states.OtherChatRoomUiState;
 import vn.edu.ou.zalo.ui.viewmodels.OtherChatRoomsViewModel;
 
@@ -55,28 +53,14 @@ public class OtherChatRoomsFragment extends Fragment {
         unimportantChatRoomSuggestionRecyclerView.setFocusable(false);
         unimportantChatRoomSuggestionRecyclerView.setNestedScrollingEnabled(false);
 
-        otherChatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
-            if (uiState.isLoading()) {
-                // TODO: Show loading indicator
-            } else {
-                // TODO: Hide loading indicator
-                if (uiState.getErrorMessage() != null) {
-                    // TODO: Show error message
-                    Toast.makeText(getActivity(), uiState.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                } else {
-                    updateUi(uiState);
-                }
-            }
-        });
-
-        Log.d("OtherChatRoom", "onCreateView");
+        otherChatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
         return view;
     }
 
     private void updateUi(OtherChatRoomUiState uiState) {
-        List<ChatRoom> chatRooms = uiState.getChatRooms() != null ? uiState.getChatRooms() : new ArrayList<>();
-        List<ChatRoom> suggestions = uiState.getUnimportantChatRooms() != null ? uiState.getUnimportantChatRooms() : new ArrayList<>();
+        List<ChatRoom> chatRooms = uiState.getChatRooms();
+        List<ChatRoom> suggestions = uiState.getOtherChatRooms();
 
         if (recyclerView.getAdapter() == null) {
             chatRoomsAdapter = new ChatRoomsAdapter(chatRooms);
@@ -87,17 +71,5 @@ public class OtherChatRoomsFragment extends Fragment {
             chatRoomsAdapter.updateChatRooms(chatRooms);
             unimportantChatRoomSuggestionAdapter.updateSuggestion(suggestions);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("OtherChatRoom", "onDestroyView");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("OtherChatRoom", "onDestroy");
     }
 }

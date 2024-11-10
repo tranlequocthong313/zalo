@@ -15,7 +15,7 @@ import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.ui.fragments.viewholders.FriendSuggestionViewHolder;
 
 public class FriendSuggestionAdapter extends RecyclerView.Adapter<FriendSuggestionViewHolder> {
-    private final List<User> friendSuggestions;
+    private List<User> friendSuggestions;
 
     public FriendSuggestionAdapter(List<User> friendSuggestions) {
         this.friendSuggestions = friendSuggestions;
@@ -44,8 +44,7 @@ public class FriendSuggestionAdapter extends RecyclerView.Adapter<FriendSuggesti
     @SuppressLint("NotifyDataSetChanged")
     public void updateFriendSuggestions(List<User> newSuggestions) {
         if (newSuggestions != null) {
-            this.friendSuggestions.clear();
-            this.friendSuggestions.addAll(newSuggestions);
+            this.friendSuggestions = newSuggestions;
             notifyDataSetChanged();
         }
     }

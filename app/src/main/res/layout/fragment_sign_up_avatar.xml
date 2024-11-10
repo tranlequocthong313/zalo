@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSurfaceBright"
+    android:paddingTop="40dp"
+    android:paddingBottom="10dp"
+    tools:context=".ui.fragments.SignUpAvatarFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_signup_avatar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:text="@string/update_avatar"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_signup_avatar_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="50dp"
+        android:text="@string/avatar_reminder"
+        android:textColor="@color/colorOnTertiary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_signup_avatar_title" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/fragment_signup_avatar_image_view"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_signup_avatar_reminder"
+        app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_signup_avatar_update_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="4dp"
+        android:paddingVertical="14dp"
+        android:text="@string/update"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/fragment_signup_avatar_skip_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_signup_avatar_skip_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:backgroundTint="@android:color/transparent"
+        android:paddingVertical="14dp"
+        android:text="@string/skip"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,14 @@
 package vn.edu.ou.zalo.data.sources.fake;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
 
 public class UserFakeDataSourceImpl implements IUserDataSource {
@@ -36,13 +34,13 @@ public class UserFakeDataSourceImpl implements IUserDataSource {
     }
 
     @Override
-    public List<User> getUsers() {
-        return users;
+    public void getUsers(IRepositoryCallback<List<User>> callback) {
+        callback.onSuccess(users);
     }
 
     @Override
     public User getLoginUser() {
-        return getUsers().get(0); // TODO: for dev purpose
+        return users.get(0); // TODO: for dev purpose
     }
 
     private User generateRandomUser() {
@@ -60,7 +58,7 @@ public class UserFakeDataSourceImpl implements IUserDataSource {
         user.setBirthdate(generateRandomBirthdate());
 
         // Set random gender
-        user.setGender(random.nextBoolean());
+        user.setGender(User.Gender.values()[random.nextInt(2)]);
 
         // Set random bio
         user.setBio(getRandomBio());

@@ -56,55 +56,23 @@ public class FocusedChatRoomsFragment extends Fragment {
         friendSuggestionRecyclerView.setFocusable(false);
         friendSuggestionRecyclerView.setNestedScrollingEnabled(false);
 
-        focusedChatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
-            if (uiState.isLoading()) {
-                // TODO: Show loading indicator
-                Log.d("FocusedChatRoom", "Loading");
-            } else {
-                // TODO: Hide loading indicator
-                if (uiState.getErrorMessage() != null) {
-                    // TODO: Show error message
-                    Log.d("FocusedChatRoom", "Err");
-                    Toast.makeText(getActivity(), uiState.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.d("FocusedChatRoom", "Update");
-                    updateUi(uiState);
-                }
-            }
-        });
-        Log.d("FocusedChatRoom", "onCreateView");
+        focusedChatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
         return view;
     }
 
     private void updateUi(FocusedChatRoomUiState uiState) {
-        List<ChatRoom> chatRooms = uiState.getChatRooms() != null ? uiState.getChatRooms() : new ArrayList<>();
-        List<User> friendSuggestions = uiState.getFriendSuggestions() != null ? uiState.getFriendSuggestions() : new ArrayList<>();
-
-        Log.d("FocusedChatRoom", String.valueOf(chatRooms.size()));
-        Log.d("FocusedChatRoom", String.valueOf(friendSuggestions.size()));
+        List<ChatRoom> chatRooms = uiState.getChatRooms();
+        List<User> friendSuggestions = uiState.getFriendSuggestions();
 
         if (recyclerView.getAdapter() == null) {
             chatRoomsAdapter = new ChatRoomsAdapter(chatRooms);
             friendSuggestionAdapter = new FriendSuggestionAdapter(friendSuggestions);
             recyclerView.setAdapter(chatRoomsAdapter);
             friendSuggestionRecyclerView.setAdapter(friendSuggestionAdapter);
-            Log.d("FocusedChatRoom", "create new adapter");
         } else {
             chatRoomsAdapter.updateChatRooms(chatRooms);
             friendSuggestionAdapter.updateFriendSuggestions(friendSuggestions);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("FocusedChatRoom", "onDestroyView");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("FocusedChatRoom", "onDestroy");
     }
 }

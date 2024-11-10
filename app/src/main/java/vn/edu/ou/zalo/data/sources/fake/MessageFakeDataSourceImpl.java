@@ -1,11 +1,6 @@
 package vn.edu.ou.zalo.data.sources.fake;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -17,9 +12,11 @@ import javax.inject.Inject;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
+import vn.edu.ou.zalo.di.qualifiers.Fake;
 
 public class MessageFakeDataSourceImpl implements IMessageDataSource {
 
@@ -28,7 +25,7 @@ public class MessageFakeDataSourceImpl implements IMessageDataSource {
     private List<Message> messages;
 
     @Inject
-    public MessageFakeDataSourceImpl(IUserDataSource userDataSource, IChatRoomDataSource chatRoomDataSource) {
+    public MessageFakeDataSourceImpl(@Fake IUserDataSource userDataSource, @Fake IChatRoomDataSource chatRoomDataSource) {
         this.chatRoomDataSource = chatRoomDataSource;
         this.currentUser = userDataSource.getLoginUser();
 
@@ -36,58 +33,68 @@ public class MessageFakeDataSourceImpl implements IMessageDataSource {
     }
 
     @Override
-    public List<Message> getMessages(Map<String, String> query) {
-        if (query == null) {
-            return new ArrayList<>();
+    public void getMessages(Map<String, String> query, IRepositoryCallback<List<Message>> dataSourceCallback) {
+        List<Message> results = messages;
+        if (query != null) {
+            String roomId = query.get("chatRoomId");
+            results = messages.stream()
+                    .filter(message -> message.getChatRoom().getId().equals(roomId))
+                    .collect(Collectors.toList());
         }
-        String roomId = query.get("chatRoomId");
-        return messages.stream()
-                .filter(message -> message.getChatRoom().getId().equals(roomId))
-                .collect(Collectors.toList());
+        dataSourceCallback.onSuccess(results);
     }
 
     private void initMessages() {
         messages = new ArrayList<>();
-        List<ChatRoom> chatRooms = chatRoomDataSource.getChatRooms();
-        Random random = new Random();
+        chatRoomDataSource.getChatRooms(null, new IRepositoryCallback<List<ChatRoom>>() {
+            @Override
+            public void onSuccess(List<ChatRoom> chatRooms) {
+                Random random = new Random();
 
-        for (ChatRoom room : chatRooms) {
-            int num = random.nextInt(10) + 10; // 10 to 19 messages per room
-            for (int i = 0; i < num; i++) {
-                Message message = new Message();
-                message.setId(UUID.randomUUID().toString());
-                message.setCreatedAt(System.currentTimeMillis() - random.nextInt(100000));
-                message.setUpdatedAt(message.getCreatedAt());
+                for (ChatRoom room : chatRooms) {
+                    int num = random.nextInt(10) + 10; // 10 to 19 messages per room
+                    for (int i = 0; i < num; i++) {
+                        Message message = new Message();
+                        message.setId(UUID.randomUUID().toString());
+                        message.setCreatedAt(System.currentTimeMillis() - random.nextInt(100000));
+                        message.setUpdatedAt(message.getCreatedAt());
 
-                // Set sender
-                if (room.isGroupChat()) {
-                    ChatRoom.Member[] members = room.getMembers().toArray(new ChatRoom.Member[0]);
-                    message.setSender(i % 3 == 0 ? currentUser : members[random.nextInt(members.length)].getUser());
-                } else {
-                    ChatRoom.Member[] members = room.getMembers().toArray(new ChatRoom.Member[0]);
-                    message.setSender(members[random.nextInt(2)].getUser());
+                        // Set sender
+                        if (room.isGroupChat()) {
+                            ChatRoom.Member[] members = room.getMembers().toArray(new ChatRoom.Member[0]);
+                            message.setSender(i % 3 == 0 ? currentUser : members[random.nextInt(members.length)].getUser());
+                        } else {
+                            ChatRoom.Member[] members = room.getMembers().toArray(new ChatRoom.Member[0]);
+                            message.setSender(members[random.nextInt(2)].getUser());
+                        }
+
+                        message.setLikeCount(random.nextInt(50));
+                        message.setChatRoom(room);
+                        room.setLastMessage(ChatRoom.LastMessage.fromMessage(message));
+
+                        // Set message type and content
+                        Message.Type type = Message.Type.values()[random.nextInt(2)];
+                        message.setType(type);
+
+                        if (type == Message.Type.TEXT) {
+                            message.setTextContent(generateRandomTextContent());
+                        } else if (type == Message.Type.IMAGE) {
+                            // Generate image URLs with varying sizes from very small to very large
+                            int width = random.nextInt(1200) + 50;  // Width between 50 and 1250
+                            int height = random.nextInt(1200) + 50; // Height between 50 and 1250
+                            message.setImageUrls(new String[]{"https://picsum.photos/" + width + "/" + height});
+                        }
+
+                        messages.add(message);
+                    }
                 }
-
-                message.setLikeCount(random.nextInt(50));
-                message.setChatRoom(room);
-                room.setLastMessage(ChatRoom.LastMessage.fromMessage(message));
-
-                // Set message type and content
-                Message.Type type = Message.Type.values()[random.nextInt(2)];
-                message.setType(type);
-
-                if (type == Message.Type.TEXT) {
-                    message.setTextContent(generateRandomTextContent());
-                } else if (type == Message.Type.IMAGE) {
-                    // Generate image URLs with varying sizes from very small to very large
-                    int width = random.nextInt(1200) + 50;  // Width between 50 and 1250
-                    int height = random.nextInt(1200) + 50; // Height between 50 and 1250
-                    message.setImageUrls(new String[]{"https://picsum.photos/" + width + "/" + height});
-                }
-
-                messages.add(message);
             }
-        }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     private String generateRandomTextContent() {
