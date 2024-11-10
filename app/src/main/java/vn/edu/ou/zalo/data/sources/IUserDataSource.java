@@ -9,5 +9,5 @@ import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 public interface IUserDataSource {
     void getUsers(IRepositoryCallback<List<User>> callback);
 
-    User getLoginUser();
+    void createUser(User user, IRepositoryCallback<Void> callback);
 }

@@ -13,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Zalo">
+        android:theme="@style/Theme.Zalo"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.activities.SignUpAvatarActivity"
             android:exported="false" />
@@ -22,7 +23,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name=".ui.activities.SignInActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -39,10 +40,13 @@
             android:name=".ui.activities.SignUpEnterNameActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ZaloActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.AuthActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

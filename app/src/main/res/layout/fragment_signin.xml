@@ -9,7 +9,7 @@
 
     <!-- Top App Bar -->
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/fragment_login_top_app_bar"
+        android:id="@+id/fragment_signin_top_app_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,21 +24,21 @@
             app:navigationIcon="@drawable/ic_arrow_left_light"
             app:navigationIconTint="?attr/colorOnPrimary"
             app:popupTheme="@style/Theme.Zalo.ToolbarPopupMenuOverflow"
-            app:title="@string/login_title"
+            app:title="@string/signin_title"
             app:titleTextAppearance="@style/Theme.Zalo.TitleTopAppBar"
             app:titleTextColor="@color/colorOnPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/fragment_login_reminder"
+        android:id="@+id/fragment_signin_reminder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorOutlineVariant"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
-        android:text="@string/please_enter_phone_number_and_password_to_login_in"
+        android:text="@string/please_enter_phone_number_and_password_to_signin_in"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_login_top_app_bar" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_signin_top_app_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_login_reminder">
+        app:layout_constraintTop_toBottomOf="@id/fragment_signin_reminder">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +63,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragment_login_phone_number_text_input"
+                android:id="@+id/fragment_signin_phone_number_text_input_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorSurfaceBright"
@@ -88,7 +88,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragment_login_password_text_view"
+                android:id="@+id/fragment_signin_password_text_input_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorSurfaceBright"
@@ -118,14 +118,14 @@
         app:drawableEndCompat="@drawable/ic_small_arrow_right_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fragment_login_fab" />
+        app:layout_constraintTop_toTopOf="@id/fragment_signin_fab" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_login_fab"
+        android:id="@+id/fragment_signin_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:contentDescription="@string/login"
+        android:contentDescription="@string/signin"
         android:enabled="false"
         app:backgroundTint="@color/enabled_state_primary_color"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -17,7 +17,7 @@ import vn.edu.ou.zalo.data.sources.fake.MessageFakeDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.fake.PostFakeDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.fake.StoryFakeDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.fake.UserFakeDataSourceImpl;
-import vn.edu.ou.zalo.data.sources.remote.AuthDataSourceImpl;
+import vn.edu.ou.zalo.data.sources.remote.AuthRemoteDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.remote.ChatRoomRemoteDataSourceImpl;
 import vn.edu.ou.zalo.data.sources.remote.UserRemoteDataSourceImpl;
 import vn.edu.ou.zalo.di.qualifiers.Fake;
@@ -57,5 +57,5 @@ public abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract IAuthDataSource bindAuthRemoteDataSource(AuthDataSourceImpl authDataSource);
+    abstract IAuthDataSource bindAuthRemoteDataSource(AuthRemoteDataSourceImpl authDataSource);
 }

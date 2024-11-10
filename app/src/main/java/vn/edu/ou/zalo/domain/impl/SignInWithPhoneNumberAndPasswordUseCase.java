@@ -1,22 +1,23 @@
 package vn.edu.ou.zalo.domain.impl;
 
+import android.util.Log;
+
 import javax.inject.Inject;
 
-import vn.edu.ou.zalo.BuildConfig;
 import vn.edu.ou.zalo.data.repositories.IAuthRepository;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.domain.IDomainCallback;
 
-public class VerifyOtpUseCase {
+public class SignInWithPhoneNumberAndPasswordUseCase {
     private final IAuthRepository authRepository;
 
     @Inject
-    public VerifyOtpUseCase(IAuthRepository authRepository) {
+    public SignInWithPhoneNumberAndPasswordUseCase(IAuthRepository authRepository) {
         this.authRepository = authRepository;
     }
 
-    public void execute(String phoneNumber, String verificationId, IDomainCallback<Boolean> callback) {
-        authRepository.verifyOtp(phoneNumber, verificationId, new IRepositoryCallback<Boolean>() {
+    public void execute(String phoneNumber, String password, IDomainCallback<Boolean> callback) {
+        authRepository.loginWithPhoneAndPassword(phoneNumber, password, new IRepositoryCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean data) {
                 callback.onSuccess(data);

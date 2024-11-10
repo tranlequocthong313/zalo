@@ -59,8 +59,11 @@ public class FriendContactsFragment extends Fragment {
     }
 
     private void updateUi(FriendContactsUiState uiState) {
-        List<User> friends = uiState.getFriends() != null ? uiState.getFriends() : new ArrayList<>();
-        List<User> onlineFriends = uiState.getOnlineFriends() != null ? uiState.getOnlineFriends() : new ArrayList<>();
+        if (uiState.isLoading()) {
+            return;
+        }
+        List<User> friends = uiState.getFriends();
+        List<User> onlineFriends = uiState.getOnlineFriends();
 
         String allFriendCount = String.format(
                 getResources().getString(R.string.all),

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -14,25 +13,25 @@ import vn.edu.ou.zalo.data.models.Post;
 import vn.edu.ou.zalo.data.models.Story;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.IDomainCallback;
-import vn.edu.ou.zalo.domain.IGetDetailUseCase;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
+import vn.edu.ou.zalo.domain.impl.GetSignedInUserUseCase;
 import vn.edu.ou.zalo.ui.states.TimelineUiState;
 
 public class TimelineViewModel extends ViewModel {
     private final MutableLiveData<TimelineUiState> uiState =
-            new MutableLiveData<>(new TimelineUiState(false, null, null, null, null));
+            new MutableLiveData<>(new TimelineUiState(false, null, new ArrayList<>(), null, new ArrayList<>()));
     private final IGetListUseCase<Story> getStoriesUseCase;
     private final IGetListUseCase<Post> getPostsUseCase;
-    private final IGetDetailUseCase<User> getLoginUserUseCase;
+    private final GetSignedInUserUseCase getSignedInUser;
     private List<Story> stories = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
     private User loginUser;
 
     @Inject
-    public TimelineViewModel(IGetListUseCase<Story> getStoriesUseCase, IGetDetailUseCase<User> getLoginUserUseCase, IGetListUseCase<Post> getPostsUseCase) {
+    public TimelineViewModel(IGetListUseCase<Story> getStoriesUseCase, IGetListUseCase<Post> getPostsUseCase, GetSignedInUserUseCase getSignedInUser) {
         this.getStoriesUseCase = getStoriesUseCase;
         this.getPostsUseCase = getPostsUseCase;
-        this.getLoginUserUseCase = getLoginUserUseCase;
+        this.getSignedInUser = getSignedInUser;
 
         fetchData();
     }
@@ -42,7 +41,7 @@ public class TimelineViewModel extends ViewModel {
     }
 
     public void fetchData() {
-        uiState.setValue(new TimelineUiState(true, null, null, null, null));
+        uiState.setValue(new TimelineUiState(true, null, new ArrayList<>(), null, new ArrayList<>()));
 
         try {
             getStoriesUseCase.execute(null, new IDomainCallback<List<Story>>() {
@@ -69,36 +68,14 @@ public class TimelineViewModel extends ViewModel {
 
                 }
             });
-            getLoginUserUseCase.execute(null, new IDomainCallback<User>() {
-                @Override
-                public void onSuccess(User data) {
-                    loginUser = data;
-                    updateUiState();
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-
-                }
-            });
+            loginUser = getSignedInUser.execute();
+            updateUiState();
         } catch (Exception e) {
-            uiState.setValue(new TimelineUiState(false, e.getMessage(), null, null, null));
+            uiState.setValue(new TimelineUiState(false, e.getMessage(), new ArrayList<>(), null, new ArrayList<>()));
         }
     }
 
     private void updateUiState() {
         uiState.setValue(new TimelineUiState(false, null, stories, loginUser, posts));
-    }
-
-    private User getLoginUser() {
-        return Objects.requireNonNull(uiState.getValue()).getLoginUser();
-    }
-
-    private List<Post> getPosts() {
-        return new ArrayList<>(Objects.requireNonNull(uiState.getValue()).getPosts());
-    }
-
-    private List<Story> getStories() {
-        return new ArrayList<>(Objects.requireNonNull(uiState.getValue()).getStories());
     }
 }

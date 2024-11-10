@@ -170,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@string/login_title"
+            android:text="@string/signin_title"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 

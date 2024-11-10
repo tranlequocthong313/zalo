@@ -13,6 +13,7 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
+import vn.edu.ou.zalo.data.sources.IAuthDataSource;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
@@ -25,9 +26,9 @@ public class MessageFakeDataSourceImpl implements IMessageDataSource {
     private List<Message> messages;
 
     @Inject
-    public MessageFakeDataSourceImpl(@Fake IUserDataSource userDataSource, @Fake IChatRoomDataSource chatRoomDataSource) {
+    public MessageFakeDataSourceImpl(IAuthDataSource authDataSource, IChatRoomDataSource chatRoomDataSource) {
         this.chatRoomDataSource = chatRoomDataSource;
-        this.currentUser = userDataSource.getLoginUser();
+        this.currentUser = authDataSource.getSignedInUser();
 
         initMessages();
     }

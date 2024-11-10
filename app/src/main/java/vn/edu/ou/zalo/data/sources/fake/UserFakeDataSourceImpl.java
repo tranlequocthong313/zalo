@@ -39,8 +39,8 @@ public class UserFakeDataSourceImpl implements IUserDataSource {
     }
 
     @Override
-    public User getLoginUser() {
-        return users.get(0); // TODO: for dev purpose
+    public void createUser(User user, IRepositoryCallback<Void> callback) {
+
     }
 
     private User generateRandomUser() {

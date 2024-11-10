@@ -1,6 +1,8 @@
 package vn.edu.ou.zalo.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -22,6 +25,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.ui.fragments.ChatRoomsFragment;
@@ -29,6 +34,7 @@ import vn.edu.ou.zalo.ui.fragments.ContactsFragment;
 import vn.edu.ou.zalo.ui.fragments.DiscoveryFragment;
 import vn.edu.ou.zalo.ui.fragments.MeFragment;
 import vn.edu.ou.zalo.ui.fragments.TimelineFragment;
+import vn.edu.ou.zalo.ui.viewmodels.AuthViewModel;
 
 @AndroidEntryPoint
 public class ZaloActivity extends AppCompatActivity {
@@ -39,6 +45,14 @@ public class ZaloActivity extends AppCompatActivity {
     private boolean isBottomNavItemSelectedProgrammatically = false;
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
     private static final List<Integer> menuItemIds = new ArrayList<>();
+    @Inject
+    AuthViewModel authViewModel;
+
+    public static Intent newIntent(Context context) {
+        Intent i = new Intent(context, ZaloActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return i;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

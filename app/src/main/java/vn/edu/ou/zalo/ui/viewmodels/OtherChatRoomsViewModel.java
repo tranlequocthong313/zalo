@@ -21,7 +21,7 @@ public class OtherChatRoomsViewModel extends ViewModel {
     private static final int MAX_CHAT_ROOM_SUGGESTIONS = 3;
 
     private final MutableLiveData<OtherChatRoomUiState> uiState =
-            new MutableLiveData<>(new OtherChatRoomUiState(false, null, null, null));
+            new MutableLiveData<>(new OtherChatRoomUiState(false, null, null, new ArrayList<>()));
     private final IGetListUseCase<ChatRoom> getChatRoomsUseCase;
     private List<ChatRoom> focusedChatRooms;
 

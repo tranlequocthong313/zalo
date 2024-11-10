@@ -15,7 +15,7 @@ public class UserRepositoryImpl implements IUserRepository {
     private final IUserDataSource userDataSource;
 
     @Inject
-    public UserRepositoryImpl(@Fake IUserDataSource userDataSource) {
+    public UserRepositoryImpl(IUserDataSource userDataSource) {
         this.userDataSource = userDataSource;
     }
 
@@ -35,7 +35,7 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public User getLoginUser() {
-        return userDataSource.getLoginUser();
+    public void createUser(User user, IRepositoryCallback<Void> callback) {
+        userDataSource.createUser(user, callback);
     }
 }

@@ -18,7 +18,9 @@ import vn.edu.ou.zalo.ui.fragments.AuthFragment;
 
 public class AuthActivity extends SingleFragmentActivity {
     public static Intent newIntent(Context context) {
-        return new Intent(context, AuthActivity.class);
+        Intent i = new Intent(context, AuthActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return i;
     }
 
     @Override

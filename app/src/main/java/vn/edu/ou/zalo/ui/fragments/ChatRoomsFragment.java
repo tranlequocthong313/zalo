@@ -38,7 +38,6 @@ public class ChatRoomsFragment extends Fragment {
     private static final int FILTER_ICON_MARGIN = 10;
 
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
-    private static final List<Fragment> fragments = Arrays.asList(null, null);
 
     public static ChatRoomsFragment newInstance() {
         return new ChatRoomsFragment();
@@ -95,20 +94,16 @@ public class ChatRoomsFragment extends Fragment {
             return;
         }
 
-        Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
-        if (fragment == null) {
-            try {
-                fragment = fragmentClass.newInstance();
-                fragments.set(index, fragment);
-            } catch (IllegalAccessException | java.lang.InstantiationException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        try {
+            Fragment fragment = fragmentClass.newInstance();
 
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.chat_rooms_fragment_container, fragment)
-                .commit();
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.chat_rooms_fragment_container, fragment)
+                    .commit();
+        } catch (IllegalAccessException | java.lang.InstantiationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @SuppressLint("RestrictedApi")

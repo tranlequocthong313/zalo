@@ -22,7 +22,7 @@ public class FocusedChatRoomsViewModel extends ViewModel {
     private static final int MAX_FRIEND_SUGGESTIONS = 3;
 
     private final MutableLiveData<FocusedChatRoomUiState> uiState =
-            new MutableLiveData<>(new FocusedChatRoomUiState(false, null, null, null));
+            new MutableLiveData<>(new FocusedChatRoomUiState(false, null, null, new ArrayList<>()));
     private final IGetListUseCase<ChatRoom> getChatRoomsUseCase;
     private final IGetListUseCase<User> getFriendSuggestionsUseCase;
     private List<User> friendSuggestions = new ArrayList<>();

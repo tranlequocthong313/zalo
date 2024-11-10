@@ -56,6 +56,10 @@ public class GroupContactsFragment extends Fragment {
     }
 
     private void updateUi(GroupChatRoomUiState uiState) {
+        if (uiState.isLoading()) {
+            return;
+        }
+
         List<ChatRoom> groupChats = uiState.getChatRooms();
 
         String groupCount = String.format(getString(R.string.joined_groups), groupChats.size());
