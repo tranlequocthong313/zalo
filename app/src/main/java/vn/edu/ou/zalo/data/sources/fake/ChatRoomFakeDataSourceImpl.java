@@ -1,7 +1,5 @@
 package vn.edu.ou.zalo.data.sources.fake;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,8 +9,10 @@ import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
+import vn.edu.ou.zalo.di.qualifiers.Fake;
 
 import java.util.Map;
 import java.util.Objects;
@@ -43,11 +43,24 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
 
     private final Random random = new Random();
     private final List<ChatRoom> chatRooms;
-    private final IUserDataSource userDataSource;
+    private List<User> users = new ArrayList<>();
+    private User loginUser;
 
     @Inject
-    public ChatRoomFakeDataSourceImpl(IUserDataSource userDataSource) {
-        this.userDataSource = userDataSource;
+    public ChatRoomFakeDataSourceImpl(@Fake IUserDataSource userDataSource) {
+        loginUser = userDataSource.getLoginUser();
+        userDataSource.getUsers(new IRepositoryCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> data) {
+                users = data;
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+
         chatRooms = new ArrayList<>();
 
         // Generate a random number of chat rooms (between 10 and 20)
@@ -70,53 +83,40 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         // Sort chat rooms by last message timestamp
         chatRooms.sort((r1, r2) -> Math.toIntExact(r1.getLastMessage().getTimestamp() - r2.getLastMessage().getTimestamp()));
         Collections.reverse(chatRooms);
+    }
 
-        boolean isSorted = true;
+    @Override
+    public void getChatRooms(Map<String, String> query, IRepositoryCallback<List<ChatRoom>> callback) {
+        List<ChatRoom> result = chatRooms.stream()
+                .filter(chatRoom -> chatRoom.getMembers().contains(ChatRoom.Member.fromUser(loginUser)))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < chatRooms.size() - 1; i++) {
-            long currentTimestamp = chatRooms.get(i).getLastMessage().getTimestamp();
-            long nextTimestamp = chatRooms.get(i + 1).getLastMessage().getTimestamp();
-
-            if (currentTimestamp < nextTimestamp) {
-                isSorted = false;
-                break;
+        if (query != null) {
+            if (query.containsKey("priority") && query.get("priority") != null) {
+                ChatRoom.Priority priority = ChatRoom.Priority.valueOf(query.get("priority"));
+                result = result.stream().filter(chatRoom -> chatRoom.getPriority() == priority).collect(Collectors.toList());
+            }
+            if (query.containsKey("type") && query.get("type") != null) {
+                ChatRoom.Type type = ChatRoom.Type.valueOf(query.get("type"));
+                result = result.stream().filter(chatRoom -> chatRoom.getType() == type).collect(Collectors.toList());
             }
         }
 
-        if (isSorted) {
-            Log.d("ChatRoomCheck", "Chat rooms are sorted in descending order by timestamp.");
-        } else {
-            Log.d("ChatRoomCheck", "Chat rooms are NOT sorted in descending order by timestamp.");
-        }
+        callback.onSuccess(result);
     }
 
     @Override
-    public List<ChatRoom> getChatRooms(Map<String, String> query) {
-        List<ChatRoom> result = chatRooms.stream()
-                .filter(chatRoom -> chatRoom.getMembers().contains(ChatRoom.Member.fromUser(userDataSource.getLoginUser())))
-                .collect(Collectors.toList());
-
-        if (query == null) {
-            return result;
-        }
-
-        if (query.containsKey("priority") && query.get("priority") != null) {
-            ChatRoom.Priority priority = ChatRoom.Priority.valueOf(query.get("priority"));
-            result = chatRooms.stream().filter(chatRoom -> chatRoom.getPriority() == priority).collect(Collectors.toList());
-        }
-        if (query.containsKey("type") && query.get("type") != null) {
-            ChatRoom.Type type = ChatRoom.Type.valueOf(query.get("type"));
-            result = result.stream().filter(chatRoom -> chatRoom.getType() == type).collect(Collectors.toList());
-        }
-        return result;
-    }
-
-    @Override
-    public ChatRoom getChatRoom(String id) {
-        return chatRooms.stream()
+    public void getChatRoom(String id, IRepositoryCallback<ChatRoom> callback) {
+         ChatRoom room = chatRooms.stream()
                 .filter(chatRoom -> Objects.equals(chatRoom.getId(), id))
                 .findFirst()
                 .orElse(null);
+         callback.onSuccess(room);
+    }
+
+    @Override
+    public void setLoginUser(User loginUser) {
+        this.loginUser = loginUser;
     }
 
     private ChatRoom generateOneOnOneChatRoom() {
@@ -130,7 +130,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         oneOnOneChat.setName(fullName);
 
         // Create member
-        ChatRoom.Member member = ChatRoom.Member.fromUser(userDataSource.getLoginUser());
+        ChatRoom.Member member = ChatRoom.Member.fromUser(loginUser);
 
         // Last message
         ChatRoom.LastMessage lastMessage = new ChatRoom.LastMessage();
@@ -141,7 +141,7 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
 
         // Members list
         Set<ChatRoom.Member> members = new HashSet<>();
-        members.add(createMember(getRandomFirstName() + " " + getRandomLastName(), getRandomAvatar()));
+        members.add(createMember());
         members.add(member); // Admin or primary user
         oneOnOneChat.setMembers(members);
 
@@ -157,12 +157,12 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         // Generate random members for group chat
         int numberOfMembers = random.nextInt(3) + 3; // Between 3 and 5 members
         Set<ChatRoom.Member> members = new HashSet<>();
-        members.add(ChatRoom.Member.fromUser(userDataSource.getLoginUser()));
+        members.add(ChatRoom.Member.fromUser(loginUser));
         ChatRoom.LastMessage lastMessage = new ChatRoom.LastMessage();
         lastMessage.setContent(getRandomMessage());
         lastMessage.setTimestamp(generateRandomTimestamp()); // Set random timestamp
         for (int i = 0; i < numberOfMembers; i++) {
-            ChatRoom.Member member = createMember(getRandomFirstName() + " " + getRandomLastName(), getRandomAvatar());
+            ChatRoom.Member member = createMember();
             if (i == 0) {
                 member.setAdmin(true);
                 lastMessage.setSender(member); // Random sender from the group
@@ -177,11 +177,10 @@ public class ChatRoomFakeDataSourceImpl implements IChatRoomDataSource {
         return groupChat;
     }
 
-    private ChatRoom.Member createMember(String name, String avatar) {
-        List<User> users = userDataSource.getUsers();
+    private ChatRoom.Member createMember() {
         User user = users.get(random.nextInt(users.size()));
         ChatRoom.Member member = ChatRoom.Member.fromUser(user);
-        while (member.getUser().equals(userDataSource.getLoginUser())) {
+        while (member.getUser().equals(loginUser)) {
             user = users.get(random.nextInt(users.size()));
             member = ChatRoom.Member.fromUser(user);
             member.setMod(random.nextBoolean()); // Randomly set mod status

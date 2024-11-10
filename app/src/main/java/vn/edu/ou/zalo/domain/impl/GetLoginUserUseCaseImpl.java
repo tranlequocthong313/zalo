@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IUserRepository;
+import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.IGetDetailUseCase;
 
 public class GetLoginUserUseCaseImpl implements IGetDetailUseCase<User> {
@@ -15,7 +16,7 @@ public class GetLoginUserUseCaseImpl implements IGetDetailUseCase<User> {
     }
 
     @Override
-    public User execute(String id) {
-        return userRepository.getLoginUser();
+    public void execute(String id, IDomainCallback<User> callback) {
+        callback.onSuccess(userRepository.getLoginUser());
     }
 }

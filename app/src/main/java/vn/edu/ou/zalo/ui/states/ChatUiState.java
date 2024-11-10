@@ -11,11 +11,11 @@ public class ChatUiState extends BaseUiState {
     private final User loginUser;
     private final ChatRoom chatRoom;
 
-    public ChatUiState(boolean isLoading, String errorMessage, List<Message> messages, User loginUser, ChatRoom chatRoomId) {
+    public ChatUiState(boolean isLoading, String errorMessage, List<Message> messages, User loginUser, ChatRoom chatRoom) {
         super(isLoading, errorMessage);
         this.messages = messages;
         this.loginUser = loginUser;
-        this.chatRoom = chatRoomId;
+        this.chatRoom = chatRoom;
     }
 
     public List<Message> getMessages() {

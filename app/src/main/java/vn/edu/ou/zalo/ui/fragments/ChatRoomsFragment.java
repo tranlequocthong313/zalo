@@ -98,7 +98,6 @@ public class ChatRoomsFragment extends Fragment {
         Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
         if (fragment == null) {
             try {
-                Log.d("ChatRoomsFragment", "Create new fragment");
                 fragment = fragmentClass.newInstance();
                 fragments.set(index, fragment);
             } catch (IllegalAccessException | java.lang.InstantiationException e) {

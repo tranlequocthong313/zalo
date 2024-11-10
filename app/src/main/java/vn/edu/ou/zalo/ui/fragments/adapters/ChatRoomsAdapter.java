@@ -15,7 +15,7 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.ui.fragments.viewholders.ChatRoomViewHolder;
 
 public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomViewHolder> {
-    private final List<ChatRoom> chatRooms;
+    private List<ChatRoom> chatRooms;
 
     public ChatRoomsAdapter(List<ChatRoom> chatRooms) {
         this.chatRooms = chatRooms;
@@ -44,8 +44,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void updateChatRooms(List<ChatRoom> newChatRooms) {
         if (newChatRooms != null) {
-            this.chatRooms.clear();
-            this.chatRooms.addAll(newChatRooms);
+            this.chatRooms = newChatRooms;
             notifyDataSetChanged();
         }
     }

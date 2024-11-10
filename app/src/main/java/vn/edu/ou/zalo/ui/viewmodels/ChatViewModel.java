@@ -1,9 +1,11 @@
 package vn.edu.ou.zalo.ui.viewmodels;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import javax.inject.Inject;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.IGetDetailUseCase;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.ui.states.ChatUiState;
@@ -24,6 +27,9 @@ public class ChatViewModel extends ViewModel {
     private final IGetListUseCase<Message> getMessagesUseCase;
     private final IGetDetailUseCase<User> getLoginUserUseCase;
     private final IGetDetailUseCase<ChatRoom> getDetailChatRoomUseCase;
+    private User loginUser;
+    private List<Message> messages = new ArrayList<>();
+    private ChatRoom chatRoom;
 
     @Inject
     public ChatViewModel(IGetListUseCase<Message> getMessagesUseCase, IGetDetailUseCase<User> getLoginUserUseCase, IGetDetailUseCase<ChatRoom> getDetailChatRoomUseCase) {
@@ -37,12 +43,20 @@ public class ChatViewModel extends ViewModel {
     }
 
     public void fetchChatRoom(String chatRoomId) {
-        ChatRoom chatRoom = getDetailChatRoomUseCase.execute(chatRoomId);
-        uiState.setValue(new ChatUiState(false, null, null, null, chatRoom));
-    }
+        uiState.setValue(new ChatUiState(true, null, null, null, null));
 
-    private ChatRoom getChatRoom() {
-        return Objects.requireNonNull(uiState.getValue()).getChatRoom();
+        getDetailChatRoomUseCase.execute(chatRoomId, new IDomainCallback<ChatRoom>() {
+            @Override
+            public void onSuccess(ChatRoom data) {
+                chatRoom = data;
+                updateUiState();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                uiState.setValue(new ChatUiState(false, e.getMessage(), null, null, null));
+            }
+        });
     }
 
     public void fetchData() {
@@ -51,11 +65,49 @@ public class ChatViewModel extends ViewModel {
         try {
             Map<String, String> query = new HashMap<>();
             query.put("chatRoomId", getChatRoom().getId());
-            List<Message> messages = getMessagesUseCase.execute(query);
-            User loginUser = getLoginUserUseCase.execute();
-            uiState.setValue(new ChatUiState(false, null, messages, loginUser, getChatRoom()));
+            getMessagesUseCase.execute(query, new IDomainCallback<List<Message>>() {
+                @Override
+                public void onSuccess(List<Message> data) {
+                    messages = data;
+                    updateUiState();
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
+            getLoginUserUseCase.execute(null, new IDomainCallback<User>() {
+                @Override
+                public void onSuccess(User data) {
+                    loginUser = data;
+                    updateUiState();
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
         } catch (Exception e) {
             uiState.setValue(new ChatUiState(false, e.getMessage(), null, null, getChatRoom()));
         }
+    }
+
+    private void updateUiState() {
+        uiState.setValue(new ChatUiState(false, null, messages, loginUser, chatRoom));
+    }
+
+    @NonNull
+    private List<Message> getMessages() {
+        return Objects.requireNonNull(Objects.requireNonNull(uiState.getValue()).getMessages());
+    }
+
+    private User getLoginUser() {
+        return Objects.requireNonNull(uiState.getValue()).getLoginUser();
+    }
+
+    private ChatRoom getChatRoom() {
+        return Objects.requireNonNull(uiState.getValue()).getChatRoom();
     }
 }

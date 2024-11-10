@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ZaloActivity">
+    tools:context=".ui.activities.ZaloActivity">
 
     <!-- Top App Bar -->
     <com.google.android.material.appbar.AppBarLayout
@@ -20,7 +20,7 @@
             style="@style/Widget.Material3.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/top_app_bar_background"
+            android:background="@drawable/gradient_background"
             app:menu="@menu/chat_activity_menu"
             app:navigationIcon="@drawable/ic_arrow_left_light"
             app:navigationIconTint="@color/colorOnPrimary"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorSurfaceBright"
                 android:hint="@string/message"
-                android:imeOptions="actionSend"
+                android:imeOptions="actionGo"
                 android:inputType="text"
                 android:paddingVertical="16dp"
                 android:textColor="@color/colorOnSurfaceVariant"

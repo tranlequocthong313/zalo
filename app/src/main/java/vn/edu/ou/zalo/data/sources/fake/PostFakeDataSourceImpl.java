@@ -3,18 +3,17 @@ package vn.edu.ou.zalo.data.sources.fake;
 import android.text.format.DateUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.Post;
-import vn.edu.ou.zalo.data.models.Story;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IPostDataSource;
-import vn.edu.ou.zalo.data.sources.IStoryDataSource;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
 
 public class PostFakeDataSourceImpl implements IPostDataSource {
@@ -27,41 +26,49 @@ public class PostFakeDataSourceImpl implements IPostDataSource {
     }
 
     @Override
-    public List<Post> getPosts() {
-        List<Post> posts = new ArrayList<>();
-
+    public void getPosts(Map<String, String> query, IRepositoryCallback<List<Post>> dataSourceCallback) {
         // Create some sample users to set as authors
-        List<User> users = userDataSource.getUsers();
+        userDataSource.getUsers(new IRepositoryCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> users) {
+                List<Post> posts = new ArrayList<>();
 
-        for (int i = 0; i < 20; i++) {
-            Post post = new Post();
+                for (int i = 0; i < 20; i++) {
+                    Post post = new Post();
 
-            // Set a random author from the list of users
-            post.setAuthor(users.get(random.nextInt(users.size())));
+                    // Set a random author from the list of users
+                    post.setAuthor(users.get(random.nextInt(users.size())));
 
-            // Generate random text content
-            post.setTextContent(generateRandomTextContent());
+                    // Generate random text content
+                    post.setTextContent(generateRandomTextContent());
 
-            // Generate random image URLs
-            post.setImageUrls(generateRandomImageUrls());
+                    // Generate random image URLs
+                    post.setImageUrls(generateRandomImageUrls());
 
-            // Set random like and comment counts
-            post.setLikeCount(random.nextInt(200)); // Up to 200 likes
-            post.setCommentCount(random.nextInt(50)); // Up to 50 comments
+                    // Set random like and comment counts
+                    post.setLikeCount(random.nextInt(200)); // Up to 200 likes
+                    post.setCommentCount(random.nextInt(50)); // Up to 50 comments
 
-            // Randomly assign visibility
-            post.setVisibility(Post.Visibility.values()[random.nextInt(Post.Visibility.values().length)]);
+                    // Randomly assign visibility
+                    post.setVisibility(Post.Visibility.values()[random.nextInt(Post.Visibility.values().length)]);
 
-            // Set a random created timestamp within the last month
-            post.setCreatedAt(generateRandomTimestamp());
+                    // Set a random created timestamp within the last month
+                    post.setCreatedAt(generateRandomTimestamp());
 
-            post.setId(UUID.randomUUID().toString());
+                    post.setId(UUID.randomUUID().toString());
 
-            // Add the post to the list
-            posts.add(post);
-        }
+                    // Add the post to the list
+                    posts.add(post);
+                }
 
-        return posts;
+                dataSourceCallback.onSuccess(posts);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     private String generateRandomTextContent() {

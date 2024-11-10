@@ -24,6 +24,9 @@
         <item name="android:textColorHighlight">@color/colorTextHighlight</item>
         <item name="android:textColorSecondary">@color/colorTextSecondary</item>
         <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/colorSurfaceContainerHigh</item>
+        <item name="colorSurfaceContainerLow">@color/colorSurfaceContainerLow</item>
+        <item name="colorPrimaryInverse">@color/colorPrimaryInverse</item>
 
         <!--        Background-->
         <item name="android:colorBackground">@color/colorOutlineVariant</item>
@@ -66,5 +69,15 @@
 
     <style name="Theme.Zalo.ActionButtonOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_more_light</item>
+    </style>
+
+    <style name="Theme.Zalo.NumberPicker">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Theme.Zalo.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/colorOnSurfaceVariant</item>
+        <item name="android:background">@color/colorSurfaceBright</item>
+        <item name="dialogCornerRadius">15dp</item>
     </style>
 </resources>

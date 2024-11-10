@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.di.qualifiers.AddedFriends;
+import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.ui.states.FriendContactsUiState;
 
@@ -33,8 +34,17 @@ public class FriendContactsViewModel extends ViewModel {
         uiState.setValue(new FriendContactsUiState(true, null, null));
 
         try {
-            List<User> friends = getFriendsUseCase.execute();
-            uiState.setValue(new FriendContactsUiState(false, null, friends));
+            getFriendsUseCase.execute(null, new IDomainCallback<List<User>>() {
+                @Override
+                public void onSuccess(List<User> data) {
+                    uiState.setValue(new FriendContactsUiState(false, null, data));
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
         } catch (Exception e) {
             uiState.setValue(new FriendContactsUiState(false, e.getMessage(), null));
         }

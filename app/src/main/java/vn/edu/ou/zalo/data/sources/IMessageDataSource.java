@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import vn.edu.ou.zalo.data.models.Message;
-import vn.edu.ou.zalo.data.models.Post;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 
 public interface IMessageDataSource {
-    List<Message> getMessages(Map<String, String> query);
+    void getMessages(Map<String, String> query, IRepositoryCallback<List<Message>> dataSourceCallback);
 }

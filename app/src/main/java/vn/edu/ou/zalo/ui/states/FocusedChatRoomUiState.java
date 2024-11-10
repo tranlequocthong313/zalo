@@ -1,5 +1,6 @@
 package vn.edu.ou.zalo.ui.states;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;

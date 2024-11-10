@@ -6,11 +6,7 @@ import java.util.Map;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 
 public interface IChatRoomRepository {
-    default List<ChatRoom> getChatRooms() {
-        return getChatRooms(null);
-    }
+    void getChatRooms(Map<String, String> query, IRepositoryCallback<List<ChatRoom>> callback);
 
-    List<ChatRoom> getChatRooms(Map<String, String> query);
-
-    ChatRoom getChatRoom(String id);
+    void getChatRoom(String id, IRepositoryCallback<ChatRoom> callback);
 }

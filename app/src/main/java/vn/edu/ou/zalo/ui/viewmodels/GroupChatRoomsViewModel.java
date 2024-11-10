@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.ui.states.GroupChatRoomUiState;
 
@@ -33,8 +34,17 @@ public class GroupChatRoomsViewModel extends ViewModel {
         uiState.setValue(new GroupChatRoomUiState(true, null, null));
 
         try {
-            List<ChatRoom> chatRooms = getGroupChatRoomsUseCase.execute();
-            uiState.setValue(new GroupChatRoomUiState(false, null, chatRooms));
+            getGroupChatRoomsUseCase.execute(Map.of("type", ChatRoom.Type.GROUP.name()), new IDomainCallback<List<ChatRoom>>() {
+                @Override
+                public void onSuccess(List<ChatRoom> data) {
+                    uiState.setValue(new GroupChatRoomUiState(false, null, data));
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    uiState.setValue(new GroupChatRoomUiState(false, e.getMessage(), null));
+                }
+            });
         } catch (Exception e) {
             uiState.setValue(new GroupChatRoomUiState(false, e.getMessage(), null));
         }

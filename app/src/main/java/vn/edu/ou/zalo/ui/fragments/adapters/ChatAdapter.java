@@ -26,7 +26,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int MARGIN_DIFFERENT_SENDER_MESSAGE = 16;
     public static final int DEFAULT_MARGIN_MESSAGE = 2;
 
-    private final List<Message> messages;
+    private List<Message> messages;
     private final User loginUser;
 
     public ChatAdapter(List<Message> messages, User loginUser) {
@@ -89,7 +89,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     );
         } else if (viewType == VIEW_TYPE_RECEIVED_MESSAGE_IMAGE) {
             ((ReceivedMessageImageViewHolder) holder)
-                    .bindMessage(message, shouldHideTimestamp(position));
+                    .bindMessage(message, shouldHideTimestamp(position), shouldHideAvatar(position));
         } else if (viewType == VIEW_TYPE_SEND_MESSAGE_IMAGE) {
             ((SendMessageImageViewHolder) holder)
                     .bindMessage(message, shouldHideTimestamp(position));
@@ -153,8 +153,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateMessages(List<Message> messages) {
-        this.messages.clear();
-        this.messages.addAll(messages);
+        if (messages == null) {
+            return;
+        }
+        this.messages = messages;
         notifyDataSetChanged();
     }
 }

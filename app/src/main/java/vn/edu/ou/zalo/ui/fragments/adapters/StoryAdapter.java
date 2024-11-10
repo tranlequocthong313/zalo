@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.ou.zalo.R;
@@ -19,7 +20,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolder> {
     private static final int VIEW_TYPE_CREATE_NEW = 0;
     private static final int VIEW_TYPE_STORY = 1;
 
-    private final List<Story> stories;
+    private List<Story> stories;
     private final User loginuser;
 
     public StoryAdapter(List<Story> stories, User loginUser) {
@@ -58,8 +59,10 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolder> {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateStories(List<Story> stories) {
-        this.stories.clear();
-        this.stories.addAll(stories);
+        if (stories == null) {
+            return;
+        }
+        this.stories = stories;
         notifyDataSetChanged();
     }
 }

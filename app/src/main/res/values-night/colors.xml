@@ -24,4 +24,7 @@
     <color name="colorTextHighlight">#134A44</color>
     <color name="colorTextSecondary">#E6E6E6</color>
     <color name="colorOnTertiaryContainer">#787777</color>
+    <color name="colorSurfaceContainerHigh">#161616</color>
+    <color name="colorSurfaceContainerLow">#3D3D3D</color>
+    <color name="colorPrimaryInverse">#39CBF1</color>
 </resources>

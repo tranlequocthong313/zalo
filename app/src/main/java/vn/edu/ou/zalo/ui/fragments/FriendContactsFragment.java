@@ -76,9 +76,7 @@ public class FriendContactsFragment extends Fragment {
         if (recyclerView.getAdapter() == null) {
             adapter = new FriendContactAdapter(friends);
             recyclerView.setAdapter(adapter);
-            Log.d("FriendContactsFragment", "create new adapter");
         } else {
-            Log.d("FriendContactsFragment", "updateFriends");
             adapter.updateFriends(friends);
         }
     }

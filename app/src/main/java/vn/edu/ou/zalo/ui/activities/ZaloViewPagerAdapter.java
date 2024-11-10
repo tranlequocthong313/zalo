@@ -1,4 +1,4 @@
-package vn.edu.ou.zalo.ui;
+package vn.edu.ou.zalo.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

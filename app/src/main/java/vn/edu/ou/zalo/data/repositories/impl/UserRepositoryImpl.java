@@ -1,30 +1,37 @@
 package vn.edu.ou.zalo.data.repositories.impl;
 
-import android.util.Log;
-
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
-import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.IUserRepository;
-import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
+import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IUserDataSource;
+import vn.edu.ou.zalo.di.qualifiers.Fake;
 
 public class UserRepositoryImpl implements IUserRepository {
     private final IUserDataSource userDataSource;
 
     @Inject
-    public UserRepositoryImpl(IUserDataSource userDataSource) {
+    public UserRepositoryImpl(@Fake IUserDataSource userDataSource) {
         this.userDataSource = userDataSource;
     }
 
     @Override
-    public List<User> getUsers() {
-        return userDataSource.getUsers();
+    public void getUsers(Map<String, String> query, IRepositoryCallback<List<User>> callback) {
+        userDataSource.getUsers(new IRepositoryCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+            }
+        });
     }
 
     @Override

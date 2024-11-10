@@ -1,14 +1,22 @@
 package vn.edu.ou.zalo.data.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Objects;
 
-public class User extends BaseModel {
+public class User extends BaseModel implements Parcelable {
+    public enum Gender {
+        MALE, FEMALE, UNKNOWN
+    }
+
     private String fullName;
     private String phoneNumber;
     private long birthdate;
-    private boolean gender;
+    private Gender gender;
     private String bio;
     private String avatarUrl;
     private String backgroundUrl;
@@ -40,11 +48,11 @@ public class User extends BaseModel {
         this.birthdate = birthdate;
     }
 
-    public boolean isGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -108,6 +116,70 @@ public class User extends BaseModel {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "User{" +
+                "fullName='" + fullName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthdate=" + birthdate +
+                ", gender=" + gender +
+                ", bio='" + bio + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", backgroundUrl='" + backgroundUrl + '\'' +
+                ", lastLogin=" + lastLogin +
+                ", isOnline=" + isOnline +
+                ", friendCount=" + friendCount +
+                '}';
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        fullName = in.readString();
+        phoneNumber = in.readString();
+        birthdate = in.readLong();
+        gender = Gender.valueOf(in.readString());
+        bio = in.readString();
+        avatarUrl = in.readString();
+        backgroundUrl = in.readString();
+        lastLogin = in.readLong();
+        isOnline = in.readByte() != 0;
+        friendCount = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(fullName != null ? fullName : "");
+        dest.writeString(phoneNumber != null ? phoneNumber : "");
+        dest.writeLong(birthdate);
+        dest.writeString(gender != null ? gender.name() : "UNKNOWN");
+        dest.writeString(bio != null ? bio : "");
+        dest.writeString(avatarUrl != null ? avatarUrl : "");
+        dest.writeString(backgroundUrl != null ? backgroundUrl : "");
+        dest.writeLong(lastLogin);
+        dest.writeByte((byte) (isOnline ? 1 : 0));
+        dest.writeLong(friendCount);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
 }
 
