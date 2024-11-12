@@ -9,4 +9,6 @@ public interface IChatRoomRepository {
     void getChatRooms(Map<String, String> query, IRepositoryCallback<List<ChatRoom>> callback);
 
     void getChatRoom(String id, IRepositoryCallback<ChatRoom> callback);
+
+    void checkEmptyChatRoom(IRepositoryCallback<Map<ChatRoom.Priority, Boolean>> callback);
 }

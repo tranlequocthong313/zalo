@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272109931596",
+    "project_id": "zalo-34653",
+    "storage_bucket": "zalo-34653.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272109931596:android:5f590725e011108d6638e9",
+        "android_client_info": {
+          "package_name": "vn.edu.ou.zalo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVQO48V2IeZzuz7srf0N5jcved4tETQPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

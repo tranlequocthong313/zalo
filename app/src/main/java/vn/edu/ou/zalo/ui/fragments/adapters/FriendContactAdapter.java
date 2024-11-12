@@ -63,9 +63,9 @@ public class FriendContactAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateFriends(List<User> friends) {
-        items.clear();
-
         if (friends == null || friends.isEmpty()) return;
+
+        items.clear();
 
         String currentHeader = "";
 

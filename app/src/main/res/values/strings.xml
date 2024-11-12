@@ -114,4 +114,10 @@
     <string name="skip_avatar_confirm_description">Some features may be affected. Still skipping this step?</string>
     <string name="add_image">Add image</string>
     <string name="signout">Sign Out</string>
+    <string name="send_free_message_to_friend">Send free messages to friends</string>
+    <string name="add_friend_from_contact">Add friend from contacts</string>
+    <string name="search">Search</string>
+    <string name="zalo_video">Zalo Video</string>
+    <string name="discovery_content_1">Hot News</string>
+    <string name="phone_number">Phone number</string>
 </resources>

@@ -6,48 +6,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/fragment_chat_rooms_tab_layout"
+    <FrameLayout
+        android:id="@+id/fragment_chat_rooms_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/fragment_empty_chat_rooms" />
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_chat_rooms_tab_layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSurfaceBright"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorAnimationMode="linear"
-        app:tabIndicatorColor="@color/colorOnSurfaceVariant"
-        app:tabIndicatorFullWidth="true"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="scrollable"
-        app:tabRippleColor="@android:color/transparent"
-        app:tabSelectedTextColor="@color/colorOnSurfaceVariant"
-        app:tabTextColor="@color/colorOutline">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/fragment_chat_rooms_tab_focused"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragment_chat_rooms_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/fragment_chat_rooms_focused_tab_item" />
+            android:layout_height="wrap_content"
+            android:background="@color/colorSurfaceBright"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorAnimationMode="linear"
+            app:tabIndicatorColor="@color/colorOnSurfaceVariant"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="@color/colorOnSurfaceVariant"
+            app:tabTextColor="@color/colorOutline">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/fragment_chat_rooms_tab_other"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/fragment_chat_rooms_other_tab_item" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/fragment_chat_rooms_tab_focused"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/fragment_chat_rooms_focused_tab_item" />
 
-    </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/fragment_chat_rooms_tab_other"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/fragment_chat_rooms_other_tab_item" />
 
-    <ImageButton
-        android:id="@+id/fragment_chat_rooms_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/filter"
-        android:src="@drawable/ic_filter_light"
-        app:layout_constraintBottom_toBottomOf="@id/fragment_chat_rooms_tab_layout"
-        app:layout_constraintEnd_toEndOf="@id/fragment_chat_rooms_tab_layout"
-        app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout"
-        app:tint="@color/colorOnSurfaceVariant" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <ImageButton
+            android:id="@+id/fragment_chat_rooms_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/filter"
+            android:src="@drawable/ic_filter_light"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_chat_rooms_tab_layout"
+            app:layout_constraintEnd_toEndOf="@id/fragment_chat_rooms_tab_layout"
+            app:layout_constraintTop_toTopOf="@id/fragment_chat_rooms_tab_layout"
+            app:tint="@color/colorOnSurfaceVariant" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/chat_rooms_fragment_container"
@@ -56,6 +78,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_chat_rooms_tab_layout" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_rooms_tab_layout_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

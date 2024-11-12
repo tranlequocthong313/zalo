@@ -105,10 +105,6 @@ public class User extends BaseModel implements Parcelable {
         this.isOnline = isOnline;
     }
 
-    public void setOnline(boolean online) {
-        isOnline = online;
-    }
-
     public String getHashedPassword() {
         return hashedPassword;
     }
@@ -144,6 +140,7 @@ public class User extends BaseModel implements Parcelable {
                 ", lastLogin=" + lastLogin +
                 ", isOnline=" + isOnline +
                 ", friendCount=" + friendCount +
+                ", id=" + getId() +
                 '}';
     }
 
