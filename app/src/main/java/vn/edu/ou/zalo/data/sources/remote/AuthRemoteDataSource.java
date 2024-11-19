@@ -168,29 +168,24 @@ public class AuthRemoteDataSource implements IAuthDataSource {
     }
 
     @Override
-    public User getSignedInUser() {
+    public void getSignedInUser(IRepositoryCallback<User> callback) {
         FirebaseUser firebaseUser = auth.getCurrentUser();
         User user = new User();
-        if (firebaseUser != null) {
-            user.setId(firebaseUser.getUid());
+        if (firebaseUser == null) {
+            callback.onFailure(new Exception("User is not signed in"));
+            return;
         }
-        return user;
-    }
-
-    private void fetchUserDataFromFirestore(User user) {
         db.collection(Constants.USER_COLLECTION_NAME)
-                .document(user.getId())
+                .whereEqualTo("phoneNumber", getPhoneNumber(Objects.requireNonNull(firebaseUser.getPhoneNumber())))
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful() || task.getResult() == null) {
-                        return;
+                .addOnSuccessListener(documentSnapshots -> {
+                    if (documentSnapshots.isEmpty()) {
+                        callback.onFailure(new Exception("User not found"));
                     }
 
-                    DocumentSnapshot document = task.getResult();
-                    if (!document.exists()) {
-                        return;
-                    }
+                    DocumentSnapshot document = documentSnapshots.getDocuments().get(0);
 
+                    user.setId(document.getId());
                     user.setAvatarUrl(document.getString("avatarUrl"));
                     Long birthdate = document.getLong("birthdate");
                     String genderName = document.get("gender", String.class);
@@ -208,8 +203,13 @@ public class AuthRemoteDataSource implements IAuthDataSource {
                     user.setBio(document.getString("bio"));
                     user.setBackgroundUrl(document.getString("backgroundUrl"));
                     user.setLastLogin(System.currentTimeMillis());
+                    callback.onSuccess(user);
                 })
-                .addOnFailureListener(e -> Log.d("AuthRemoteDataSource", Objects.requireNonNull(e.getMessage())));
+                .addOnFailureListener(callback::onFailure);
+    }
+
+    private String getPhoneNumber(String phoneNumber) {
+        return phoneNumber.replace("+84", "0");
     }
 
     @Override

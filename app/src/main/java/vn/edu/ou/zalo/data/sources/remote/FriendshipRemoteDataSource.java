@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -29,24 +30,24 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
 
     @Override
     public void addFriend(User friend, IRepositoryCallback<Friendship> cb) {
-        checkAddedFriend(friend, new IRepositoryCallback<Boolean>() {
+        checkFriendStatus(friend, new IRepositoryCallback<Friendship.Status>() {
             @Override
-            public void onSuccess(Boolean isAdded) {
-                if (isAdded) {
+            public void onSuccess(Friendship.Status status) {
+                if (status != null) {
                     return;
                 }
 
+                String id = friend.getId() + signedInUser.getId();
                 Friendship friendship = new Friendship();
+                friendship.setId(id);
                 friendship.setReceiverId(friend.getId());
                 friendship.setSenderId(signedInUser.getId());
 
                 db
                         .collection(Constants.FRIENDSHIP_COLLECTION_NAME)
-                        .add(friendship)
-                        .addOnSuccessListener(d -> {
-                            friendship.setId(d.getId());
-                            cb.onSuccess(friendship);
-                        })
+                        .document(id)
+                        .set(friendship)
+                        .addOnSuccessListener(doc -> cb.onSuccess(friendship))
                         .addOnFailureListener(cb::onFailure);
             }
 
@@ -58,23 +59,31 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
     }
 
     @Override
-    public void checkAddedFriend(User user, IRepositoryCallback<Boolean> cb) {
+    public void checkFriendStatus(User user, IRepositoryCallback<Friendship.Status> cb) {
+        String id1 = user.getId() + signedInUser.getId();
+        String id2 = signedInUser.getId() + user.getId();
+
         db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
-                .whereEqualTo("status", Friendship.Status.ACCEPTED)
-                .whereEqualTo("senderId", signedInUser.getId())
+                .document(id1)
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                        cb.onSuccess(true);
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Friendship friendship = documentSnapshot.toObject(Friendship.class);
+                        assert friendship != null;
+                        cb.onSuccess(friendship.getStatus());
                         return;
                     }
-
                     db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
-                            .whereEqualTo("status", Friendship.Status.ACCEPTED)
-                            .whereEqualTo("receiverId", signedInUser.getId())
+                            .document(id2)
                             .get()
                             .addOnSuccessListener(doc -> {
-                                cb.onSuccess(!doc.isEmpty());
+                                if (doc.exists()) {
+                                    Friendship friendship = doc.toObject(Friendship.class);
+                                    assert friendship != null;
+                                    cb.onSuccess(friendship.getStatus());
+                                    return;
+                                }
+                                cb.onSuccess(null);
                             }).addOnFailureListener(cb::onFailure);
                 })
                 .addOnFailureListener(cb::onFailure);

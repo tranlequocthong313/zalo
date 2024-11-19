@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,25 +15,32 @@ import android.view.ViewGroup;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.ui.activities.ChatActivity;
 import vn.edu.ou.zalo.ui.fragments.adapters.SearchAdapter;
-import vn.edu.ou.zalo.ui.fragments.listeners.OnAddFriendClickListener;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 import vn.edu.ou.zalo.ui.states.SearchUiState;
+import vn.edu.ou.zalo.ui.viewmodels.AuthViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.FriendshipViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.SearchViewModel;
 
 @AndroidEntryPoint
-public class SearchFragment extends Fragment implements OnAddFriendClickListener {
+public class SearchFragment extends Fragment implements OnFriendClickListener {
     @Inject
     SearchViewModel searchViewModel;
     @Inject
     FriendshipViewModel friendshipViewModel;
+    @Inject
+    AuthViewModel authViewModel;
     private RecyclerView recyclerView;
     private SearchAdapter searchAdapter;
+    private User signedInUser = new User();
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -70,12 +78,41 @@ public class SearchFragment extends Fragment implements OnAddFriendClickListener
 
         searchViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
+        friendshipViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+            if (uiState.isLoading() || uiState.getErrorMessage() != null) {
+                return;
+            }
+            if (uiState.getFriendshipStatuses() == null) {
+                return;
+            }
+            if (searchAdapter != null) {
+                searchAdapter.setStatusMap(uiState.getFriendshipStatuses());
+            }
+        });
+
+        authViewModel.getSignedInUser();
+        authViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+            if (uiState.isLoading() || uiState.getErrorMessage() != null) {
+                return;
+            }
+            signedInUser = uiState.getCurrentSignedInUser();
+            if (searchAdapter != null) {
+                searchAdapter.setSignedInUser(uiState.getCurrentSignedInUser());
+            } else if (recyclerView.getAdapter() != null) {
+                searchAdapter.setSignedInUser(uiState.getCurrentSignedInUser());
+            }
+        });
+
         return view;
     }
 
     private void updateUi(SearchUiState searchUiState) {
         if (searchUiState.isLoading()) {
             return;
+        }
+
+        if (searchUiState.getUsers() != null && !searchUiState.getUsers().isEmpty()) {
+            friendshipViewModel.checkFriendStatuses(searchUiState.getUsers());
         }
 
         if (recyclerView.getAdapter() == null) {
@@ -88,6 +125,16 @@ public class SearchFragment extends Fragment implements OnAddFriendClickListener
 
     @Override
     public void onAddFriendClick(User friend) {
-        friendshipViewModel.addFriend(friend);
+        if (!Objects.equals(friend.getId(), signedInUser.getId())) {
+            friendshipViewModel.addFriend(friend);
+        }
+    }
+
+    @Override
+    public void onItemClick(User friend) {
+        if (!friend.getId().equals(signedInUser.getId())) {
+            startActivity(ChatActivity.newIntent(getActivity(), friend));
+        }
+        // TODO: navigate to profile screen
     }
 }

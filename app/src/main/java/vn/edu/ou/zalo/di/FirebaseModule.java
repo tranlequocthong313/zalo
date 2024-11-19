@@ -29,8 +29,6 @@ public class FirebaseModule {
     public FirebaseAuth provideFirebaseAuth() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        Log.d("FirebaseModule", String.valueOf(BuildConfig.DEBUG));
-
         // Use Firebase Emulator in debug builds
         if (BuildConfig.DEBUG) {
             firebaseAuth.useEmulator(EMULATOR_HOST, AUTH_EMULATOR_PORT);

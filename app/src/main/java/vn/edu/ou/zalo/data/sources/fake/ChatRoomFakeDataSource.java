@@ -42,17 +42,49 @@ public class ChatRoomFakeDataSource implements IChatRoomDataSource {
     };
 
     private final Random random = new Random();
-    private final List<ChatRoom> chatRooms;
+    private List<ChatRoom> chatRooms;
     private List<User> users = new ArrayList<>();
     private User loginUser;
 
     @Inject
     public ChatRoomFakeDataSource(IAuthDataSource authDataSource, IUserDataSource userDataSource) {
-        loginUser = authDataSource.getSignedInUser();
-        userDataSource.getUsers(new IRepositoryCallback<List<User>>() {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
-            public void onSuccess(List<User> data) {
-                users = data;
+            public void onSuccess(User data) {
+                userDataSource.getUsers(new IRepositoryCallback<List<User>>() {
+                    @Override
+                    public void onSuccess(List<User> data) {
+                        users = data;
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                });
+
+                chatRooms = new ArrayList<>();
+
+                // Generate a random number of chat rooms (between 10 and 20)
+                int numberOfRooms = random.nextInt(11) + 10;
+
+                for (int i = 0; i < numberOfRooms; i++) {
+                    ChatRoom chatRoom;
+                    if (random.nextInt(10) % 2 == 0) {
+                        // Create 1-1 chat room
+                        chatRoom = generateOneOnOneChatRoom();
+                    } else {
+                        // Create group chat room
+                        chatRoom = generateGroupChatRoom();
+                    }
+                    chatRoom.setPriority(ChatRoom.Priority.values()[random.nextInt(2)]);
+                    chatRoom.setId(UUID.randomUUID().toString());
+                    chatRooms.add(chatRoom);
+                }
+
+                // Sort chat rooms by last message timestamp
+                chatRooms.sort((r1, r2) -> Math.toIntExact(r1.getLastMessage().getTimestamp() - r2.getLastMessage().getTimestamp()));
+                Collections.reverse(chatRooms);
             }
 
             @Override
@@ -60,29 +92,6 @@ public class ChatRoomFakeDataSource implements IChatRoomDataSource {
 
             }
         });
-
-        chatRooms = new ArrayList<>();
-
-        // Generate a random number of chat rooms (between 10 and 20)
-        int numberOfRooms = random.nextInt(11) + 10;
-
-        for (int i = 0; i < numberOfRooms; i++) {
-            ChatRoom chatRoom;
-            if (random.nextInt(10) % 2 == 0) {
-                // Create 1-1 chat room
-                chatRoom = generateOneOnOneChatRoom();
-            } else {
-                // Create group chat room
-                chatRoom = generateGroupChatRoom();
-            }
-            chatRoom.setPriority(ChatRoom.Priority.values()[random.nextInt(2)]);
-            chatRoom.setId(UUID.randomUUID().toString());
-            chatRooms.add(chatRoom);
-        }
-
-        // Sort chat rooms by last message timestamp
-        chatRooms.sort((r1, r2) -> Math.toIntExact(r1.getLastMessage().getTimestamp() - r2.getLastMessage().getTimestamp()));
-        Collections.reverse(chatRooms);
     }
 
     @Override
@@ -112,6 +121,11 @@ public class ChatRoomFakeDataSource implements IChatRoomDataSource {
                 .findFirst()
                 .orElse(null);
          callback.onSuccess(room);
+    }
+
+    @Override
+    public void getChatRoom(User user, IRepositoryCallback<ChatRoom> callback) {
+
     }
 
     @Override

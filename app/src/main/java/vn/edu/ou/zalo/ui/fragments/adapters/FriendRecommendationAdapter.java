@@ -12,14 +12,14 @@ import java.util.List;
 
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.ui.fragments.listeners.OnAddFriendClickListener;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 import vn.edu.ou.zalo.ui.fragments.viewholders.FriendRecommendationViewHolder;
 
 public class FriendRecommendationAdapter extends RecyclerView.Adapter<FriendRecommendationViewHolder> {
     private List<User> friendRecommendations;
-    private final OnAddFriendClickListener listener;
+    private final OnFriendClickListener listener;
 
-    public FriendRecommendationAdapter(List<User> friendRecommendations, OnAddFriendClickListener listener) {
+    public FriendRecommendationAdapter(List<User> friendRecommendations, OnFriendClickListener listener) {
         this.friendRecommendations = friendRecommendations;
         this.listener = listener;
     }

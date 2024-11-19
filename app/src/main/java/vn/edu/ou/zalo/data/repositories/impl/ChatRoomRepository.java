@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IAuthDataSource;
@@ -23,10 +24,36 @@ public class ChatRoomRepository implements IChatRoomRepository {
 
     @Override
     public void getChatRooms(Map<String, String> query, IRepositoryCallback<List<ChatRoom>> callback) {
-        chatRoomDataSource.setLoginUser(authDataSource.getSignedInUser());
-        chatRoomDataSource.getChatRooms(query, new IRepositoryCallback<List<ChatRoom>>() {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
-            public void onSuccess(List<ChatRoom> data) {
+            public void onSuccess(User data) {
+                chatRoomDataSource.setLoginUser(data);
+                chatRoomDataSource.getChatRooms(query, new IRepositoryCallback<List<ChatRoom>>() {
+                    @Override
+                    public void onSuccess(List<ChatRoom> data) {
+                        callback.onSuccess(data);
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        callback.onFailure(e);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+            }
+        });
+    }
+
+    @Override
+    public void getChatRoom(User user, IRepositoryCallback<ChatRoom> callback) {
+        chatRoomDataSource.getChatRoom(user, new IRepositoryCallback<ChatRoom>() {
+            @Override
+            public void onSuccess(ChatRoom data) {
                 callback.onSuccess(data);
             }
 
@@ -51,9 +78,20 @@ public class ChatRoomRepository implements IChatRoomRepository {
             }
         });
     }
+
     @Override
     public void checkEmptyChatRoom(IRepositoryCallback<Map<ChatRoom.Priority, Boolean>> callback) {
-        chatRoomDataSource.setLoginUser(authDataSource.getSignedInUser());
-        chatRoomDataSource.checkEmptyChatRoom(callback);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                chatRoomDataSource.setLoginUser(data);
+                chatRoomDataSource.checkEmptyChatRoom(callback);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure(e);
+            }
+        });
     }
 }

@@ -68,7 +68,17 @@ public class TimelineViewModel extends ViewModel {
 
                 }
             });
-            loginUser = getSignedInUser.execute();
+            getSignedInUser.execute(new IDomainCallback<User>() {
+                @Override
+                public void onSuccess(User data) {
+                    loginUser = data;
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
             updateUiState();
         } catch (Exception e) {
             uiState.setValue(new TimelineUiState(false, e.getMessage(), new ArrayList<>(), null, new ArrayList<>()));

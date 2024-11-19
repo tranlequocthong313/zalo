@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +23,14 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
 import vn.edu.ou.zalo.ui.fragments.adapters.FriendRecommendationAdapter;
-import vn.edu.ou.zalo.ui.fragments.listeners.OnAddFriendClickListener;
-import vn.edu.ou.zalo.ui.states.BaseUiState;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 import vn.edu.ou.zalo.ui.states.ChatRoomUiState;
 import vn.edu.ou.zalo.ui.states.FriendshipUiState;
 import vn.edu.ou.zalo.ui.viewmodels.ChatRoomsViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.FriendshipViewModel;
 
 @AndroidEntryPoint
-public class FocusedChatRoomsFragment extends Fragment implements OnAddFriendClickListener {
+public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickListener {
     @Inject
     ChatRoomsViewModel chatRoomsViewModel;
     @Inject
@@ -120,5 +118,10 @@ public class FocusedChatRoomsFragment extends Fragment implements OnAddFriendCli
     @Override
     public void onAddFriendClick(User friend) {
         friendshipViewModel.addFriend(friend);
+    }
+
+    @Override
+    public void onItemClick(User friend) {
+
     }
 }

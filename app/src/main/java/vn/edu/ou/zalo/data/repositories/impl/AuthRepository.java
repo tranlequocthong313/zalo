@@ -50,8 +50,8 @@ public class AuthRepository implements IAuthRepository {
     }
 
     @Override
-    public User getSignedInUser() {
-        return authDataSource.getSignedInUser();
+    public void getSignedInUser(IRepositoryCallback<User> callback) {
+        authDataSource.getSignedInUser(callback);
     }
 
     @Override

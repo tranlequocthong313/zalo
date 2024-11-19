@@ -12,7 +12,7 @@ public interface IAuthDataSource {
 
     void signInWithPhoneAndPassword(String phoneNumber, String password, IRepositoryCallback<Boolean> callback);
 
-    User getSignedInUser();
+    void getSignedInUser(IRepositoryCallback<User> callback);
 
     void signOut();
 }

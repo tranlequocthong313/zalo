@@ -13,14 +13,13 @@ import vn.edu.ou.zalo.data.models.Post;
 import vn.edu.ou.zalo.data.models.Story;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.ICreateUseCase;
-import vn.edu.ou.zalo.domain.IGetDetailUseCase;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.domain.impl.AddFriendUseCase;
+import vn.edu.ou.zalo.domain.impl.GetDetailChatRoomByIdUseCase;
 import vn.edu.ou.zalo.domain.impl.GetMessagesUseCase;
 import vn.edu.ou.zalo.domain.impl.SearchUserUseCase;
 import vn.edu.ou.zalo.domain.impl.SignUpUseCase;
 import vn.edu.ou.zalo.domain.impl.GetChatRoomsUseCase;
-import vn.edu.ou.zalo.domain.impl.GetDetailChatRoomUseCase;
 import vn.edu.ou.zalo.domain.impl.GetPostsUseCase;
 import vn.edu.ou.zalo.domain.impl.GetSortedFriends;
 import vn.edu.ou.zalo.domain.impl.GetStoriesUseCase;
@@ -28,10 +27,6 @@ import vn.edu.ou.zalo.domain.impl.GetStoriesUseCase;
 @dagger.Module
 @InstallIn(SingletonComponent.class)
 public abstract class DomainModule {
-    @Binds
-    @Singleton
-    abstract IGetDetailUseCase<ChatRoom> bindGetDetailChatRoom(GetDetailChatRoomUseCase getDetailChatRoomUseCase);
-
     @Binds
     @Singleton
     abstract ICreateUseCase<User, Void> bindCreateUserUseCase(SignUpUseCase createUserUseCase);

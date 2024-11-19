@@ -13,13 +13,13 @@ import com.bumptech.glide.signature.ObjectKey;
 
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.ui.fragments.listeners.OnAddFriendClickListener;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 
 public class FriendRecommendationViewHolder extends RecyclerView.ViewHolder {
     private final ImageView avatarImageView;
     private final TextView friendSugggestionNameTextView;
 
-    public FriendRecommendationViewHolder(@NonNull View itemView, OnAddFriendClickListener listener) {
+    public FriendRecommendationViewHolder(@NonNull View itemView, OnFriendClickListener listener) {
         super(itemView);
 
         avatarImageView = itemView.findViewById(R.id.list_item_suggestion_avatar);

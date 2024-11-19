@@ -36,18 +36,13 @@ public class UserRemoteDataSource implements IUserDataSource {
 
     @Override
     public void getUsers(Map<String, String> query, @Nullable User signedInUser, IRepositoryCallback<List<User>> callback) {
-        CollectionReference collectionReference = db.collection(Constants.USER_COLLECTION_NAME);
+        Query baseQuery = db.collection(Constants.USER_COLLECTION_NAME);
         List<User> users = new ArrayList<>();
-
-        Query baseQuery = (signedInUser != null) ?
-                collectionReference.whereNotEqualTo(FieldPath.documentId(), signedInUser.getId()) :
-                collectionReference;
 
         if (query != null && query.containsKey("query")) {
             String q = query.get("query");
 
             Task<QuerySnapshot> phoneQueryTask = baseQuery.whereEqualTo("phoneNumber", q).get();
-
             Task<QuerySnapshot> nameQueryTask = baseQuery.whereEqualTo("name", q).get();
 
             Tasks.whenAllComplete(phoneQueryTask, nameQueryTask).addOnCompleteListener(task -> {

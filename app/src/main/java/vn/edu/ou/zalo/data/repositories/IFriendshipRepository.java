@@ -10,7 +10,7 @@ public interface IFriendshipRepository {
 
     void getRecommendedFriends(IRepositoryCallback<List<User>> cb);
 
-    void checkAddedFriend(User user, IRepositoryCallback<Boolean> cb);
-
     void getAddedFriends(IRepositoryCallback<List<User>> cb);
+
+    void checkFriendStatus(User user, IRepositoryCallback<Friendship.Status> iRepositoryCallback);
 }

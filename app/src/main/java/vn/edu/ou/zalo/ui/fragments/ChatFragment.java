@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -21,27 +22,43 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.data.models.Friendship;
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatAdapter;
 import vn.edu.ou.zalo.ui.states.ChatUiState;
+import vn.edu.ou.zalo.ui.states.FriendshipUiState;
 import vn.edu.ou.zalo.ui.viewmodels.ChatViewModel;
+import vn.edu.ou.zalo.ui.viewmodels.FriendshipViewModel;
 import vn.edu.ou.zalo.utils.TimeUtils;
 
 @AndroidEntryPoint
 public class ChatFragment extends Fragment {
     private static final String ARGS_CHAT_ROOM_ID = "chat_room_id";
+    private static final String ARGS_USER = "user";
 
     @Inject
     ChatViewModel chatViewModel;
+    @Inject
+    FriendshipViewModel friendshipViewModel;
 
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
     private MaterialToolbar toolbar;
+    private View addFriendView;
+    private User user;
 
     public static ChatFragment newInstance(String chatRoomId) {
         Bundle bundle = new Bundle();
         bundle.putString(ARGS_CHAT_ROOM_ID, chatRoomId);
+        ChatFragment fragment = new ChatFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static ChatFragment newInstance(User user) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ARGS_USER, user);
         ChatFragment fragment = new ChatFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -52,8 +69,10 @@ public class ChatFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        toolbar = view.findViewById(R.id.chat_activity_top_app_bar);
+        toolbar = view.findViewById(R.id.fragment_chat_top_app_bar);
         toolbar.setNavigationOnClickListener(v -> requireActivity().finish());
+
+        addFriendView = view.findViewById(R.id.fragment_chat_add_friend_layout);
 
         recyclerView = view.findViewById(R.id.fragment_chat_messages_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -62,29 +81,57 @@ public class ChatFragment extends Fragment {
 
         assert getArguments() != null;
         String chatRoomId = getArguments().getString(ARGS_CHAT_ROOM_ID);
-        chatViewModel.fetchChatRoom(chatRoomId);
+        user = getArguments().getParcelable(ARGS_USER);
+        if (chatRoomId != null) {
+            chatViewModel.fetchChatRoom(chatRoomId);
+        } else if (user != null) {
+            chatViewModel.fetchChatRoom(user);
+            friendshipViewModel.checkFriendStatus(user);
+            toolbar.setTitle(user.getFullName());
+            String onlineStatus = String.format(getString(R.string.last_seen), TimeUtils.getDetailedTimeAgo(user.getLastLogin()));
+            toolbar.setSubtitle(onlineStatus);
+        }
+
         chatViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
-        chatViewModel.fetchData();
+        friendshipViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
         return view;
     }
 
+    private void updateUi(FriendshipUiState friendshipUiState) {
+        TextView textView = addFriendView.findViewById(R.id.fragment_chat_add_friend_layout_text_view);
+
+        if (friendshipUiState.getStatus() == Friendship.Status.ACCEPTED || friendshipUiState.getStatus() == Friendship.Status.BLOCKED) {
+            addFriendView.setVisibility(View.GONE);
+        } else if (friendshipUiState.getStatus() == Friendship.Status.PENDING) {
+            addFriendView.setVisibility(View.VISIBLE);
+            textView.setText(R.string.friend_request_has_been_sent);
+        } else {
+            addFriendView.setVisibility(View.VISIBLE);
+            textView.setText(R.string.add_friend);
+            addFriendView.setOnClickListener(v -> friendshipViewModel.addFriend(user));
+        }
+    }
+
     private void updateUi(ChatUiState chatUiState) {
+        if (chatUiState.isLoading()) {
+            return;
+        }
+
         List<Message> messages = chatUiState.getMessages();
-        User loginUser = chatUiState.getLoginUser();
         ChatRoom chatRoom = chatUiState.getChatRoom();
 
-        toolbar.setTitle(chatRoom.getName());
+        if (chatRoom == null) {
+            return;
+        }
+
         if (chatRoom.isGroupChat()) {
+            toolbar.setTitle(chatRoom.getName());
             toolbar.setSubtitle(R.string.tab_for_more_info);
-        } else {
-            ChatRoom.Member otherMember = chatRoom.getOtherMember(loginUser);
-            String onlineStatus = String.format(getString(R.string.last_seen), TimeUtils.getDetailedTimeAgo(otherMember.getUser().getLastLogin()));
-            toolbar.setSubtitle(onlineStatus);
         }
 
         if (recyclerView.getAdapter() == null) {
-            chatAdapter = new ChatAdapter(messages, loginUser);
+            chatAdapter = new ChatAdapter(messages, chatUiState.getSignedInUser());
             recyclerView.setAdapter(chatAdapter);
         } else {
             chatAdapter.updateMessages(messages);

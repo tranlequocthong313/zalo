@@ -1,28 +1,25 @@
 package vn.edu.ou.zalo.domain.impl;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 
-import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.data.models.Friendship;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.IFriendshipRepository;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.domain.IDomainCallback;
 
-public class CheckAddedFriendUseCase {
+public class CheckFriendStatusUseCase {
     private final IFriendshipRepository friendshipRepository;
 
     @Inject
-    public CheckAddedFriendUseCase(IFriendshipRepository friendshipRepository) {
+    public CheckFriendStatusUseCase(IFriendshipRepository friendshipRepository) {
         this.friendshipRepository = friendshipRepository;
     }
 
-    public void execute(User user, IDomainCallback<Boolean> cb) {
-        friendshipRepository.checkAddedFriend(user, new IRepositoryCallback<Boolean>() {
+    public void execute(User user, IDomainCallback<Friendship.Status> cb) {
+        friendshipRepository.checkFriendStatus(user, new IRepositoryCallback<Friendship.Status>() {
             @Override
-            public void onSuccess(Boolean data) {
+            public void onSuccess(Friendship.Status data) {
                 cb.onSuccess(data);
             }
 

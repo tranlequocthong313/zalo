@@ -23,10 +23,20 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void getUsers(Map<String, String> query, IRepositoryCallback<List<User>> callback) {
-        userDataSource.getUsers(query, authDataSource.getSignedInUser(), new IRepositoryCallback<List<User>>() {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
-            public void onSuccess(List<User> data) {
-                callback.onSuccess(data);
+            public void onSuccess(User data) {
+                userDataSource.getUsers(query, data, new IRepositoryCallback<List<User>>() {
+                    @Override
+                    public void onSuccess(List<User> data) {
+                        callback.onSuccess(data);
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        callback.onFailure(e);
+                    }
+                });
             }
 
             @Override

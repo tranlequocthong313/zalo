@@ -104,8 +104,14 @@ public class TimelineFragment extends Fragment {
         try {
             Fragment fragment = fragmentClass.newInstance();
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            Fragment f = fragmentManager.findFragmentById(R.id.fragment_timeline_fragment_container);
+            if (f != null) {
+                fragmentManager.beginTransaction()
+                        .remove(f)
+                        .commit();
+            }
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_timeline_fragment_container, fragment)
+                    .add(R.id.fragment_timeline_fragment_container, fragment)
                     .commit();
         } catch (IllegalAccessException | java.lang.InstantiationException e) {
             throw new RuntimeException(e);

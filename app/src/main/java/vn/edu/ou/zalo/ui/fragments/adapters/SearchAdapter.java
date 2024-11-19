@@ -8,18 +8,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vn.edu.ou.zalo.R;
+import vn.edu.ou.zalo.data.models.Friendship;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.ui.fragments.listeners.OnAddFriendClickListener;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 import vn.edu.ou.zalo.ui.fragments.viewholders.SearchUserViewHolder;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchUserViewHolder> {
     private List<User> users;
-    private final OnAddFriendClickListener listener;
+    private Map<String, Friendship.Status> statusMap = new HashMap<>();
+    private final OnFriendClickListener listener;
+    private User signedInUser = new User();
 
-    public SearchAdapter(List<User> users, OnAddFriendClickListener listener) {
+    public SearchAdapter(List<User> users, OnFriendClickListener listener) {
         this.users = users;
         this.listener = listener;
     }
@@ -36,7 +41,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchUserViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull SearchUserViewHolder holder, int position) {
         User user = users.get(position);
-        holder.bindUser(user);
+        holder.bindUser(user, signedInUser, statusMap);
     }
 
     @Override
@@ -50,5 +55,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchUserViewHolder> {
             this.users = newUsers;
             notifyDataSetChanged();
         }
+    }
+
+    public void setStatusMap(Map<String, Friendship.Status> statusMap) {
+        this.statusMap = statusMap;
+        updateSearchResult(users);
+    }
+
+    public void setSignedInUser(User signedInUser) {
+        this.signedInUser = signedInUser;
     }
 }

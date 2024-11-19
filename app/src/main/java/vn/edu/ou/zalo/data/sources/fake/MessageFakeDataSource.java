@@ -20,13 +20,23 @@ import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 public class MessageFakeDataSource implements IMessageDataSource {
 
     private final IChatRoomDataSource chatRoomDataSource;
-    private final User currentUser;
+    private User currentUser;
     private List<Message> messages;
 
     @Inject
     public MessageFakeDataSource(IAuthDataSource authDataSource, IChatRoomDataSource chatRoomDataSource) {
         this.chatRoomDataSource = chatRoomDataSource;
-        this.currentUser = authDataSource.getSignedInUser();
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                currentUser = data;
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
 
         initMessages();
     }

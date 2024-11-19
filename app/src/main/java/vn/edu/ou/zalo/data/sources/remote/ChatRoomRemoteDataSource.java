@@ -1,13 +1,21 @@
 package vn.edu.ou.zalo.data.sources.remote;
 
+import android.util.Log;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -68,6 +76,62 @@ public class ChatRoomRemoteDataSource implements IChatRoomDataSource {
                     callback.onSuccess(room);
                 });
     }
+
+    @Override
+    public void getChatRoom(User user, IRepositoryCallback<ChatRoom> callback) {
+        db.collection(Constants.CHAT_ROOM_COLLECTION_NAME)
+                .whereEqualTo("type", ChatRoom.Type.SINGLE.name())
+                .get()
+                .addOnSuccessListener(chatRoomDocs -> {
+                    for (DocumentSnapshot chatRoomDoc : chatRoomDocs.getDocuments()) {
+                        String chatRoomId = chatRoomDoc.getId();
+
+                        db.collection(Constants.CHAT_ROOM_COLLECTION_NAME)
+                                .document(chatRoomId)
+                                .collection("members")
+                                .get()
+                                .addOnSuccessListener(memberDocs -> {
+                                    List<String> memberIds = new ArrayList<>();
+                                    for (DocumentSnapshot memberDoc : memberDocs.getDocuments()) {
+                                        memberIds.add(memberDoc.getId());
+                                    }
+
+                                    if (memberIds.size() == 2 && memberIds.contains(user.getId()) && memberIds.contains(loginUser.getId())) {
+                                        ChatRoom chatRoom = chatRoomDoc.toObject(ChatRoom.class);
+                                        if (chatRoom != null) {
+                                            Set<ChatRoom.Member> members = new HashSet<>();
+                                            List<Task<DocumentSnapshot>> userTasks = new ArrayList<>();
+
+                                            for (DocumentSnapshot doc : memberDocs.getDocuments()) {
+                                                Task<DocumentSnapshot> userTask = db.collection(Constants.USER_COLLECTION_NAME)
+                                                        .document(doc.getId())
+                                                        .get()
+                                                        .addOnSuccessListener(documentSnapshot -> {
+                                                            ChatRoom.Member member = doc.toObject(ChatRoom.Member.class);
+                                                            if (member != null) {
+                                                                member.setId(doc.getId());
+                                                                member.setUser(documentSnapshot.toObject(User.class));
+                                                                members.add(member);
+                                                            }
+                                                        });
+                                                userTasks.add(userTask);
+                                            }
+
+                                            Tasks.whenAllComplete(userTasks)
+                                                    .addOnSuccessListener(tasks -> {
+                                                        chatRoom.setMembers(members);
+                                                        callback.onSuccess(chatRoom);
+                                                    })
+                                                    .addOnFailureListener(callback::onFailure);
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(callback::onFailure);
+                    }
+                })
+                .addOnFailureListener(callback::onFailure);
+    }
+
 
     @Override
     public void setLoginUser(User loginUser) {

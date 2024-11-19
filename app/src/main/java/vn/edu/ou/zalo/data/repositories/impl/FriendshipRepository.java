@@ -13,35 +13,40 @@ import vn.edu.ou.zalo.data.sources.IFriendshipDataSource;
 
 public class FriendshipRepository implements IFriendshipRepository {
     private final IFriendshipDataSource friendshipDataSource;
-    private final IAuthDataSource authDataSource;
+    private User signedInUser;
 
     @Inject
     public FriendshipRepository(IFriendshipDataSource friendshipDataSource, IAuthDataSource authDataSource) {
         this.friendshipDataSource = friendshipDataSource;
-        this.authDataSource = authDataSource;
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
     public void addFriend(User friend, IRepositoryCallback<Friendship> cb) {
-        this.friendshipDataSource.setSignedInUser(authDataSource.getSignedInUser());
         friendshipDataSource.addFriend(friend, cb);
     }
 
     @Override
     public void getRecommendedFriends(IRepositoryCallback<List<User>> cb) {
-        this.friendshipDataSource.setSignedInUser(authDataSource.getSignedInUser());
         friendshipDataSource.getRecommendedFriends(cb);
     }
 
     @Override
-    public void checkAddedFriend(User user, IRepositoryCallback<Boolean> cb) {
-        this.friendshipDataSource.setSignedInUser(authDataSource.getSignedInUser());
-        friendshipDataSource.checkAddedFriend(user, cb);
-    }
-    
-    @Override
     public void getAddedFriends(IRepositoryCallback<List<User>> cb) {
-        this.friendshipDataSource.setSignedInUser(authDataSource.getSignedInUser());
         friendshipDataSource.getAddedFriends(cb);
+    }
+
+    @Override
+    public void checkFriendStatus(User user, IRepositoryCallback<Friendship.Status> callback) {
+        friendshipDataSource.checkFriendStatus(user, callback);
     }
 }

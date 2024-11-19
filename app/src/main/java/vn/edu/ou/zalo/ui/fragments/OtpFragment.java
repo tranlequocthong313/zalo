@@ -83,7 +83,6 @@ public class OtpFragment extends Fragment {
             if (!isFilledOtp()) {
                 return; // Notify error message
             }
-            Log.d("OtpFragment", "Verify otp");
             otpViewModel.verifyOtp(getOtp());
         });
 
@@ -104,17 +103,12 @@ public class OtpFragment extends Fragment {
     }
 
     private void updateUi(OtpUiState otpUiState) {
-        if (otpUiState.getVerificationId() != null) {
-            Log.d("OtpFragment", otpUiState.getVerificationId());
-        }
         if (otpUiState.isVerifiedOtp()) {
             User user = new User();
             user.setPhoneNumber(phoneNumber);
             startActivity(SignUpEnterNameActivity.newIntent(getActivity(), user));
-            Log.d("OtpFragment", "Is valid OTP");
         } else {
             if (otpUiState.getErrorMessage() != null) {
-                Log.d("OtpFragment", otpUiState.getErrorMessage());
                 Toast.makeText(requireActivity(), otpUiState.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         }

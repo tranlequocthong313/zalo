@@ -120,4 +120,6 @@
     <string name="zalo_video">Zalo Video</string>
     <string name="discovery_content_1">Hot News</string>
     <string name="phone_number">Phone number</string>
+    <string name="add_friend">Add friend</string>
+    <string name="friend_request_has_been_sent">Friend request has been sent</string>
 </resources>
