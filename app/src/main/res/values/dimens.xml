@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!--    <dimen name="bottom_navigation_height">56dp</dimen>-->
     <dimen name="m3_bottom_nav_min_height" tools:override="true">56dp</dimen>
     <dimen name="bottom_layout_min_height">56dp</dimen>
+    <dimen name="search_view_height">40dp</dimen>
 </resources>

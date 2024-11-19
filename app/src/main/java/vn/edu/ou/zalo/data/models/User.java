@@ -2,6 +2,7 @@ package vn.edu.ou.zalo.data.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,10 +106,6 @@ public class User extends BaseModel implements Parcelable {
         this.isOnline = isOnline;
     }
 
-    public void setOnline(boolean online) {
-        isOnline = online;
-    }
-
     public String getHashedPassword() {
         return hashedPassword;
     }
@@ -144,6 +141,7 @@ public class User extends BaseModel implements Parcelable {
                 ", lastLogin=" + lastLogin +
                 ", isOnline=" + isOnline +
                 ", friendCount=" + friendCount +
+                ", id=" + getId() +
                 '}';
     }
 
@@ -151,6 +149,8 @@ public class User extends BaseModel implements Parcelable {
     }
 
     protected User(Parcel in) {
+        setId(in.readString());
+
         fullName = in.readString();
         phoneNumber = in.readString();
         birthdate = in.readLong();
@@ -165,6 +165,8 @@ public class User extends BaseModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(getId());
+
         dest.writeString(fullName != null ? fullName : "");
         dest.writeString(phoneNumber != null ? phoneNumber : "");
         dest.writeLong(birthdate);

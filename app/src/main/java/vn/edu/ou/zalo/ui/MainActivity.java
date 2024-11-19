@@ -2,11 +2,7 @@ package vn.edu.ou.zalo.ui;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import javax.inject.Inject;
 
@@ -25,11 +21,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (authViewModel.isSignedIn()) {
-            startActivity(ZaloActivity.newIntent(this));
-        } else {
-            startActivity(AuthActivity.newIntent(this));
-        }
-        finish();
+        authViewModel.checkIsSignedIn();
+        authViewModel.getUiState().observe(this, uiState -> {
+            if (uiState.isLoading()) {
+                return;
+            }
+            if (uiState.isSignedIn()) {
+                startActivity(ZaloActivity.newIntent(this));
+            } else {
+                startActivity(AuthActivity.newIntent(this));
+            }
+            finish();
+        });
     }
 }

@@ -19,7 +19,7 @@ import vn.edu.ou.zalo.BuildConfig;
 public class FirebaseModule {
 
     // Emulator host and port for Firebase Auth
-    private static final String EMULATOR_HOST = "192.168.1.175"; // Special IP for emulator
+    private static final String EMULATOR_HOST = "192.168.1.175"; // TODO: Special IP for emulator
     private static final int AUTH_EMULATOR_PORT = 9099;
     private static final int FIRESTORE_EMULATOR_PORT = 8080;
     public static final int FUNCTIONS_EMULATOR_PORT = 5001;
@@ -28,8 +28,6 @@ public class FirebaseModule {
     @Singleton
     public FirebaseAuth provideFirebaseAuth() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        Log.d("FirebaseModule", String.valueOf(BuildConfig.DEBUG));
 
         // Use Firebase Emulator in debug builds
         if (BuildConfig.DEBUG) {

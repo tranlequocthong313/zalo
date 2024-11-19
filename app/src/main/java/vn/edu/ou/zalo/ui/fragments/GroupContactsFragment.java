@@ -1,7 +1,6 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
 import vn.edu.ou.zalo.ui.states.GroupChatRoomUiState;
-import vn.edu.ou.zalo.ui.viewmodels.FocusedChatRoomsViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.GroupChatRoomsViewModel;
 
 @AndroidEntryPoint

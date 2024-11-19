@@ -1,0 +1,19 @@
+<!-- res/menu/top_app_bar_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_item_action_search"
+        android:icon="@drawable/ic_search_light"
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:iconTint="@color/colorOnPrimary"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/menu_item_qr_code"
+        android:contentDescription="@string/menu_item_qrcode"
+        android:icon="@drawable/ic_qr_code_scanner_24px"
+        android:title="@string/menu_item_qrcode"
+        app:iconTint="@color/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+</menu>

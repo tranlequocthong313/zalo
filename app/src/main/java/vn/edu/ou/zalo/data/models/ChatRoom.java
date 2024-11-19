@@ -2,6 +2,9 @@ package vn.edu.ou.zalo.data.models;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.util.Set;
 
 public class ChatRoom extends BaseModel {
@@ -49,8 +52,10 @@ public class ChatRoom extends BaseModel {
         }
     }
 
+    @IgnoreExtraProperties
     public static class Member {
         private User user;
+        private String id;
         private boolean isAdmin;
         private boolean isMod;
 
@@ -60,6 +65,7 @@ public class ChatRoom extends BaseModel {
             return member;
         }
 
+        @Exclude
         public User getUser() {
             return user;
         }
@@ -84,17 +90,12 @@ public class ChatRoom extends BaseModel {
             isMod = mod;
         }
 
-        @Override
-        public boolean equals(@Nullable Object obj) {
-            if (obj == this) return true;
-            if (obj == null || obj.getClass() != getClass()) return false;
-            Member member = (Member) obj;
-            return getUser().equals(member.getUser());
+        public String getId() {
+            return id;
         }
 
-        @Override
-        public int hashCode() {
-            return getUser().hashCode();
+        public void setId(String id) {
+            this.id = id;
         }
     }
 
@@ -106,10 +107,10 @@ public class ChatRoom extends BaseModel {
     private Set<Member> members;
     private Priority priority = Priority.FOCUSED;
 
-    public Member getOtherMember(User loginUser) {
+    public Member getOtherMember(User signedInUser) {
         ChatRoom.Member[] members = getMembers().toArray(new ChatRoom.Member[0]);
         for (Member member : members) {
-            if (!member.getUser().equals(loginUser)) {
+            if (!member.getId().equals(signedInUser.getId())) {
                 return member;
             }
         }

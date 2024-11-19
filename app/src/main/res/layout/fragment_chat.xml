@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/chat_activity_top_app_bar"
+            android:id="@+id/fragment_chat_top_app_bar"
             style="@style/Widget.Material3.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,6 +31,34 @@
             tools:title="John Doe" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/fragment_chat_add_friend_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurfaceBright"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_app_bar_layout">
+
+        <ImageView
+            android:id="@+id/fragment_chat_add_friend_layout_img_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/add_friend"
+            android:src="@drawable/ic_person_add_24px" />
+
+        <TextView
+            android:id="@+id/fragment_chat_add_friend_layout_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_friend" />
+    </LinearLayout>
+
+
     <!-- Main Content -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_chat_messages_recycler_view"
@@ -41,7 +69,7 @@
         app:layout_constraintBottom_toTopOf="@id/fragment_chat_message_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_chat_app_bar_layout" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_add_friend_layout" />
 
     <!-- Chat Input Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
