@@ -45,7 +45,7 @@ public class AuthRepository implements IAuthRepository {
     }
 
     @Override
-    public void loginWithPhoneAndPassword(String phoneNumber, String password, IRepositoryCallback<Boolean> callback) {
+    public void signInWithPhoneAndPassword(String phoneNumber, String password, IRepositoryCallback<Boolean> callback) {
         authDataSource.signInWithPhoneAndPassword(phoneNumber, password, callback);
     }
 

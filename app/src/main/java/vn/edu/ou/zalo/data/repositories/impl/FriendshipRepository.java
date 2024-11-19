@@ -13,11 +13,12 @@ import vn.edu.ou.zalo.data.sources.IFriendshipDataSource;
 
 public class FriendshipRepository implements IFriendshipRepository {
     private final IFriendshipDataSource friendshipDataSource;
-    private User signedInUser;
+    private final IAuthDataSource authDataSource;
 
     @Inject
     public FriendshipRepository(IFriendshipDataSource friendshipDataSource, IAuthDataSource authDataSource) {
         this.friendshipDataSource = friendshipDataSource;
+        this.authDataSource = authDataSource;
         authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
             public void onSuccess(User data) {
@@ -42,11 +43,41 @@ public class FriendshipRepository implements IFriendshipRepository {
 
     @Override
     public void getAddedFriends(IRepositoryCallback<List<User>> cb) {
-        friendshipDataSource.getAddedFriends(cb);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.getAddedFriends(cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
     public void checkFriendStatus(User user, IRepositoryCallback<Friendship.Status> callback) {
         friendshipDataSource.checkFriendStatus(user, callback);
+    }
+
+    @Override
+    public void getReceivedFriendRequests(IRepositoryCallback<List<Friendship>> cb) {
+        friendshipDataSource.getFriendRequests(true, cb);
+    }
+
+    @Override
+    public void getSentFriendRequests(IRepositoryCallback<List<Friendship>> cb) {
+        friendshipDataSource.getFriendRequests(false, cb);
+    }
+
+    @Override
+    public void updateFriendshipStatus(Friendship friendship, IRepositoryCallback<Void> cb) {
+        friendshipDataSource.updateFriendshipStatus(friendship, cb);
+    }
+
+    @Override
+    public void deleteFriendship(String id, IRepositoryCallback<Void> cb) {
+        friendshipDataSource.deleteFriendship(id, cb);
     }
 }

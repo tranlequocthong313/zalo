@@ -109,7 +109,7 @@ public class ChatFragment extends Fragment {
         } else {
             addFriendView.setVisibility(View.VISIBLE);
             textView.setText(R.string.add_friend);
-            addFriendView.setOnClickListener(v -> friendshipViewModel.addFriend(user));
+            addFriendView.setOnClickListener(v -> friendshipViewModel.sendFriendRequest(user));
         }
     }
 

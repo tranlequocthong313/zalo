@@ -24,7 +24,7 @@ public class FriendshipViewModel extends ViewModel {
     private final MutableLiveData<FriendshipUiState> uiState =
             new MutableLiveData<>(new FriendshipUiState(false, null, new ArrayList<>(), null, null));
 
-    private final ICreateUseCase<User, Friendship> addFriendUseCase;
+    private final ICreateUseCase<User, Friendship> sendFriendRequestUseCase;
     private final GetFriendRecommendations getFriendRecommendationsUseCase;
     private final CheckFriendStatusUseCase checkFriendStatusUseCase;
 
@@ -35,8 +35,8 @@ public class FriendshipViewModel extends ViewModel {
     }
 
     @Inject
-    public FriendshipViewModel(ICreateUseCase<User, Friendship> addFriendUseCase, GetFriendRecommendations getFriendRecommendationsUseCase, CheckFriendStatusUseCase checkFriendStatusUseCase) {
-        this.addFriendUseCase = addFriendUseCase;
+    public FriendshipViewModel(ICreateUseCase<User, Friendship> sendFriendRequestUseCase, GetFriendRecommendations getFriendRecommendationsUseCase, CheckFriendStatusUseCase checkFriendStatusUseCase) {
+        this.sendFriendRequestUseCase = sendFriendRequestUseCase;
         this.getFriendRecommendationsUseCase = getFriendRecommendationsUseCase;
         this.checkFriendStatusUseCase = checkFriendStatusUseCase;
     }
@@ -56,8 +56,8 @@ public class FriendshipViewModel extends ViewModel {
         });
     }
 
-    public void addFriend(User friend) {
-        addFriendUseCase.execute(friend, new IDomainCallback<Friendship>() {
+    public void sendFriendRequest(User friend) {
+        sendFriendRequestUseCase.execute(friend, new IDomainCallback<Friendship>() {
             @Override
             public void onSuccess(Friendship data) {
                 uiState.setValue(new FriendshipUiState(false, null, Objects.requireNonNull(uiState.getValue()).getFriendRecommendations(), Friendship.Status.PENDING, Objects.requireNonNull(uiState.getValue()).getFriendshipStatuses()));

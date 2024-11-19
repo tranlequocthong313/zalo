@@ -16,4 +16,10 @@ public interface IFriendshipDataSource {
     void setSignedInUser(User user);
 
     void getRecommendedFriends(IRepositoryCallback<List<User>> cb);
+
+    void getFriendRequests(boolean isReceived, IRepositoryCallback<List<Friendship>> cb);
+
+    void updateFriendshipStatus(Friendship friendship, IRepositoryCallback<Void> cb);
+
+    void deleteFriendship(String id, IRepositoryCallback<Void> cb);
 }

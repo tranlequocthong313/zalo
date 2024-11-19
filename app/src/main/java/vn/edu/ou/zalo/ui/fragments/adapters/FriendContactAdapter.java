@@ -13,6 +13,7 @@ import java.util.List;
 
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 import vn.edu.ou.zalo.ui.fragments.viewholders.ContactHeaderViewHolder;
 import vn.edu.ou.zalo.ui.fragments.viewholders.FriendContactViewHolder;
 
@@ -21,8 +22,10 @@ public class FriendContactAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEW_TYPE_FRIEND = 1;
 
     private final List<Object> items = new ArrayList<>();
+    private final OnFriendClickListener listener;
 
-    public FriendContactAdapter(List<User> friends) {
+    public FriendContactAdapter(List<User> friends, OnFriendClickListener listener) {
+        this.listener = listener;
         updateFriends(friends);
     }
 
@@ -41,7 +44,7 @@ public class FriendContactAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item_friend, parent, false);
-            return new FriendContactViewHolder(itemView);
+            return new FriendContactViewHolder(itemView, listener);
         }
     }
 

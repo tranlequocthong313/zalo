@@ -9,7 +9,7 @@ public interface IAuthRepository {
 
     void checkPhoneNumberExists(String phoneNumber, IRepositoryCallback<Boolean> callback);
 
-    void loginWithPhoneAndPassword(String phoneNumber, String password, IRepositoryCallback<Boolean> callback);
+    void signInWithPhoneAndPassword(String phoneNumber, String password, IRepositoryCallback<Boolean> callback);
 
     void getSignedInUser(IRepositoryCallback<User> callback);
 

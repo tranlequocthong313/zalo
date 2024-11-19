@@ -1,10 +1,10 @@
 package vn.edu.ou.zalo.ui.viewmodels;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ import vn.edu.ou.zalo.domain.impl.SignOutUseCase;
 import vn.edu.ou.zalo.ui.states.AuthUiState;
 
 public class AuthViewModel extends ViewModel {
-    private final MutableLiveData<AuthUiState> authUiStateMutableLiveData = new MutableLiveData<>(new AuthUiState(false, null, false, false, null));
+    private final MutableLiveData<AuthUiState> uiState = new MutableLiveData<>(new AuthUiState(false, null, false, false, null));
     private final ICreateUseCase<User, Void> signUpUseCase;
     private final SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase;
     private final GetSignedInUserUseCase getSignedInUserUseCase;
@@ -32,35 +32,35 @@ public class AuthViewModel extends ViewModel {
     }
 
     public LiveData<AuthUiState> getUiState() {
-        return authUiStateMutableLiveData;
+        return uiState;
     }
 
     public void signIn(String phoneNumber, String password) {
-        authUiStateMutableLiveData.setValue(new AuthUiState(true, null, false, false, null));
+        uiState.setValue(new AuthUiState(true, null, false, false, null));
         signInWithPhoneNumberAndPasswordUseCase.execute(phoneNumber, password, new IDomainCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, null, false, result, null));
+                uiState.setValue(new AuthUiState(false, null, false, result, null));
             }
 
             @Override
             public void onFailure(Exception e) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, e.getMessage(), false, false, null));
+                uiState.setValue(new AuthUiState(false, e.getMessage(), false, false, null));
             }
         });
     }
 
     public void signUp(User user) {
-        authUiStateMutableLiveData.setValue(new AuthUiState(true, null, false, false, null));
+        uiState.setValue(new AuthUiState(true, null, false, false, null));
         signUpUseCase.execute(user, new IDomainCallback<Void>() {
             @Override
             public void onSuccess(Void result) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, null, true, false, null));
+                uiState.setValue(new AuthUiState(false, null, true, false, null));
             }
 
             @Override
             public void onFailure(Exception e) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, e.getMessage(), false, false, null));
+                uiState.setValue(new AuthUiState(false, e.getMessage(), false, false, null));
             }
         });
     }
@@ -70,16 +70,16 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void checkIsSignedIn() {
-        authUiStateMutableLiveData.setValue(new AuthUiState(true, null, false, false, null));
+        uiState.setValue(new AuthUiState(true, null, false, false, Objects.requireNonNull(uiState.getValue()).getCurrentSignedInUser()));
         getSignedInUserUseCase.execute(new IDomainCallback<User>() {
             @Override
             public void onSuccess(User user) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, null, false, user.getId() != null, null));
+                uiState.setValue(new AuthUiState(false, null, false, user.getId() != null, Objects.requireNonNull(uiState.getValue()).getCurrentSignedInUser()));
             }
 
             @Override
             public void onFailure(Exception e) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, e.getMessage(), false, false, null));
+                uiState.setValue(new AuthUiState(false, e.getMessage(), false, false, Objects.requireNonNull(uiState.getValue()).getCurrentSignedInUser()));
             }
         });
     }
@@ -88,12 +88,12 @@ public class AuthViewModel extends ViewModel {
         getSignedInUserUseCase.execute(new IDomainCallback<User>() {
             @Override
             public void onSuccess(User user) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, null, false, user.getId() != null, user));
+                uiState.setValue(new AuthUiState(false, null, false, user.getId() != null, user));
             }
 
             @Override
             public void onFailure(Exception e) {
-                authUiStateMutableLiveData.setValue(new AuthUiState(false, e.getMessage(), false, false, null));
+                uiState.setValue(new AuthUiState(false, e.getMessage(), false, false, Objects.requireNonNull(uiState.getValue()).getCurrentSignedInUser()));
             }
         });
     }

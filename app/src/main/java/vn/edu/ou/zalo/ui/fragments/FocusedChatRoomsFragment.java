@@ -117,7 +117,7 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
 
     @Override
     public void onAddFriendClick(User friend) {
-        friendshipViewModel.addFriend(friend);
+        friendshipViewModel.sendFriendRequest(friend);
     }
 
     @Override
