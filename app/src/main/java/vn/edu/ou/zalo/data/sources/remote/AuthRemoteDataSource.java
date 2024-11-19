@@ -170,42 +170,54 @@ public class AuthRemoteDataSource implements IAuthDataSource {
     @Override
     public void getSignedInUser(IRepositoryCallback<User> callback) {
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        User user = new User();
         if (firebaseUser == null) {
             callback.onFailure(new Exception("User is not signed in"));
             return;
         }
-        db.collection(Constants.USER_COLLECTION_NAME)
-                .whereEqualTo("phoneNumber", getPhoneNumber(Objects.requireNonNull(firebaseUser.getPhoneNumber())))
-                .get()
-                .addOnSuccessListener(documentSnapshots -> {
-                    if (documentSnapshots.isEmpty()) {
-                        callback.onFailure(new Exception("User not found"));
-                    }
+        if (firebaseUser.getPhoneNumber() != null && !firebaseUser.getPhoneNumber().isEmpty()) {
+            db.collection(Constants.USER_COLLECTION_NAME)
+                    .whereEqualTo("phoneNumber", getPhoneNumber(Objects.requireNonNull(firebaseUser.getPhoneNumber())))
+                    .get()
+                    .addOnSuccessListener(documentSnapshots -> {
+                        if (documentSnapshots.isEmpty()) {
+                            callback.onFailure(new Exception("User not found"));
+                            return;
+                        }
+                        DocumentSnapshot document = documentSnapshots.getDocuments().get(0);
+                        createUser(callback, document);
+                    })
+                    .addOnFailureListener(callback::onFailure);
+        } else {
+            db.collection(Constants.USER_COLLECTION_NAME)
+                    .document(firebaseUser.getUid())
+                    .get()
+                    .addOnSuccessListener(document -> createUser(callback, document))
+                    .addOnFailureListener(callback::onFailure);
+        }
+    }
 
-                    DocumentSnapshot document = documentSnapshots.getDocuments().get(0);
+    private static void createUser(IRepositoryCallback<User> callback, DocumentSnapshot document) {
+        User user = new User();
 
-                    user.setId(document.getId());
-                    user.setAvatarUrl(document.getString("avatarUrl"));
-                    Long birthdate = document.getLong("birthdate");
-                    String genderName = document.get("gender", String.class);
-                    User.Gender gender = User.Gender.valueOf(genderName);
-                    Long friendCount = document.getLong("friendCount");
-                    if (birthdate != null) {
-                        user.setBirthdate(birthdate);
-                    }
-                    user.setGender(gender);
-                    if (friendCount != null) {
-                        user.setFriendCount(friendCount);
-                    }
-                    user.setFullName(document.getString("fullName"));
-                    user.setPhoneNumber(document.getString("phoneNumber"));
-                    user.setBio(document.getString("bio"));
-                    user.setBackgroundUrl(document.getString("backgroundUrl"));
-                    user.setLastLogin(System.currentTimeMillis());
-                    callback.onSuccess(user);
-                })
-                .addOnFailureListener(callback::onFailure);
+        user.setId(document.getId());
+        user.setAvatarUrl(document.getString("avatarUrl"));
+        Long birthdate = document.getLong("birthdate");
+        String genderName = document.get("gender", String.class);
+        User.Gender gender = User.Gender.valueOf(genderName);
+        Long friendCount = document.getLong("friendCount");
+        if (birthdate != null) {
+            user.setBirthdate(birthdate);
+        }
+        user.setGender(gender);
+        if (friendCount != null) {
+            user.setFriendCount(friendCount);
+        }
+        user.setFullName(document.getString("fullName"));
+        user.setPhoneNumber(document.getString("phoneNumber"));
+        user.setBio(document.getString("bio"));
+        user.setBackgroundUrl(document.getString("backgroundUrl"));
+        user.setLastLogin(System.currentTimeMillis());
+        callback.onSuccess(user);
     }
 
     private String getPhoneNumber(String phoneNumber) {

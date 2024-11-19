@@ -83,7 +83,12 @@ public class SignInFragment extends Fragment {
         });
 
         signInButton = view.findViewById(R.id.fragment_signin_fab);
-        signInButton.setOnClickListener(v -> authViewModel.signIn(phoneNumberEditText.getText().toString(), passwordEditText.getText().toString()));
+        signInButton.setOnClickListener(v ->
+                authViewModel.signIn(
+                        phoneNumberEditText.getText().toString(),
+                        passwordEditText.getText().toString()
+                )
+        );
 
         authViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
             if (uiState.isSignedIn()) {

@@ -23,7 +23,6 @@
     <string name="filter_chat_room_unread">Unread</string>
     <string name="filter_chat_room_mentions_me">Mentions me</string>
     <string name="filter_chat_room_labels">Labels</string>
-    <string name="add_button">Add friend</string>
     <string name="people_you_may_know">People you may know</string>
     <string name="see_more">See more</string>
     <string name="easily_find_and_message_your_friends">Easily find and message your friends</string>
@@ -122,4 +121,12 @@
     <string name="phone_number">Phone number</string>
     <string name="add_friend">Add friend</string>
     <string name="friend_request_has_been_sent">Friend request has been sent</string>
+    <string name="settings">Settings</string>
+    <string name="received">Received</string>
+    <string name="sent">Sent</string>
+    <string name="no_friend_requests_sent">No friend requests sent</string>
+    <string name="refuse">Refuse</string>
+    <string name="accept">Accept</string>
+    <string name="recall">Recall</string>
+    <string name="no_friend_requests_received">No friend requests received</string>
 </resources>

@@ -14,8 +14,7 @@ import vn.edu.ou.zalo.data.models.Story;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.ICreateUseCase;
 import vn.edu.ou.zalo.domain.IGetListUseCase;
-import vn.edu.ou.zalo.domain.impl.AddFriendUseCase;
-import vn.edu.ou.zalo.domain.impl.GetDetailChatRoomByIdUseCase;
+import vn.edu.ou.zalo.domain.impl.SendFriendRequestUseCase;
 import vn.edu.ou.zalo.domain.impl.GetMessagesUseCase;
 import vn.edu.ou.zalo.domain.impl.SearchUserUseCase;
 import vn.edu.ou.zalo.domain.impl.SignUpUseCase;
@@ -33,7 +32,7 @@ public abstract class DomainModule {
 
     @Binds
     @Singleton
-    abstract ICreateUseCase<User, Friendship> bindAddFriendUseCase(AddFriendUseCase addFriendUseCase);
+    abstract ICreateUseCase<User, Friendship> bindSendFriendRequestUseCase(SendFriendRequestUseCase sendFriendRequestUseCase);
 
     @Binds
     @Singleton

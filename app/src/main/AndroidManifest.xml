@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Zalo"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activities.FriendRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.SearchActivity"
             android:exported="false" />
         <activity

@@ -1,7 +1,5 @@
 package vn.edu.ou.zalo.domain.impl;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.repositories.IAuthRepository;
@@ -17,7 +15,7 @@ public class SignInWithPhoneNumberAndPasswordUseCase {
     }
 
     public void execute(String phoneNumber, String password, IDomainCallback<Boolean> callback) {
-        authRepository.loginWithPhoneAndPassword(phoneNumber, password, new IRepositoryCallback<Boolean>() {
+        authRepository.signInWithPhoneAndPassword(phoneNumber, password, new IRepositoryCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean data) {
                 callback.onSuccess(data);

@@ -1,5 +1,6 @@
 package vn.edu.ou.zalo.ui.states;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,9 @@ public class FriendContactsUiState extends BaseUiState {
     }
 
     public List<User> getOnlineFriends() {
+        if (friends == null) {
+            return new ArrayList<>();
+        }
         return friends.stream()
                 .filter(User::isOnline)
                 .collect(Collectors.toList());

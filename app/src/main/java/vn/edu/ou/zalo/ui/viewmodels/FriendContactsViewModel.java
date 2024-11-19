@@ -23,31 +23,25 @@ public class FriendContactsViewModel extends ViewModel {
     @Inject
     public FriendContactsViewModel(GetAddedFriendsUseCase getFriendsUseCase) {
         this.getFriendsUseCase = getFriendsUseCase;
-
-        fetchData();
     }
 
     public LiveData<FriendContactsUiState> getUiState() {
         return uiState;
     }
 
-    private void fetchData() {
+    public void fetchFriends() {
         uiState.setValue(new FriendContactsUiState(true, null, new ArrayList<>()));
 
-        try {
-            getFriendsUseCase.execute(new IDomainCallback<List<User>>() {
-                @Override
-                public void onSuccess(List<User> data) {
-                    uiState.setValue(new FriendContactsUiState(false, null, data));
-                }
+        getFriendsUseCase.execute(new IDomainCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> data) {
+                uiState.setValue(new FriendContactsUiState(false, null, data));
+            }
 
-                @Override
-                public void onFailure(Exception e) {
-
-                }
-            });
-        } catch (Exception e) {
-            uiState.setValue(new FriendContactsUiState(false, e.getMessage(), new ArrayList<>()));
-        }
+            @Override
+            public void onFailure(Exception e) {
+                uiState.setValue(new FriendContactsUiState(false, e.getMessage(), null));
+            }
+        });
     }
 }

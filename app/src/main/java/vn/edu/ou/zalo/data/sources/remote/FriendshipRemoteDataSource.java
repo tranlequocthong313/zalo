@@ -1,11 +1,14 @@
 package vn.edu.ou.zalo.data.sources.remote;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -92,6 +95,10 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
     @Override
     public void getAddedFriends(IRepositoryCallback<List<User>> cb) {
         List<User> friends = new ArrayList<>();
+        if (signedInUser == null) {
+            cb.onFailure(new Exception("User is not signed in"));
+            return;
+        }
 
         db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
                 .whereEqualTo("status", Friendship.Status.ACCEPTED)
@@ -208,6 +215,63 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
                                         .addOnFailureListener(cb::onFailure);
                             });
                 })
+                .addOnFailureListener(cb::onFailure);
+    }
+
+    @Override
+    public void getFriendRequests(boolean isReceived, IRepositoryCallback<List<Friendship>> cb) {
+
+        db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
+                .whereEqualTo("status", Friendship.Status.PENDING.name())
+                .whereEqualTo(isReceived ? "receiverId" : "senderId", signedInUser.getId())
+                .get()
+                .addOnSuccessListener(docs -> {
+                    List<Task<DocumentSnapshot>> userTasks = new ArrayList<>();
+                    List<Friendship> friendships = new ArrayList<>();
+                    for (DocumentSnapshot doc : docs) {
+                        Friendship friendship = doc.toObject(Friendship.class);
+                        assert friendship != null;
+                        friendship.setId(doc.getId());
+                        Task<DocumentSnapshot> task = db.collection(Constants.USER_COLLECTION_NAME)
+                                .document(Objects.requireNonNull(doc.getString(isReceived ? "senderId" : "receiverId")))
+                                .get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    User user = documentSnapshot.toObject(User.class);
+                                    assert user != null;
+                                    user.setId(documentSnapshot.getId());
+                                    if (isReceived) {
+                                        friendship.setSender(user);
+                                    } else {
+                                        friendship.setReceiver(user);
+                                    }
+                                    friendships.add(friendship);
+                                })
+                                .addOnFailureListener(cb::onFailure);
+                        userTasks.add(task);
+                    }
+
+                    Tasks.whenAllComplete(userTasks)
+                            .addOnSuccessListener(tasks -> cb.onSuccess(friendships))
+                            .addOnFailureListener(cb::onFailure);
+                })
+                .addOnFailureListener(cb::onFailure);
+    }
+
+    @Override
+    public void updateFriendshipStatus(Friendship friendship, IRepositoryCallback<Void> cb) {
+        db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
+                .document(friendship.getId())
+                .set(friendship, SetOptions.mergeFields(Collections.singletonList("status")))
+                .addOnSuccessListener(cb::onSuccess)
+                .addOnFailureListener(cb::onFailure);
+    }
+
+    @Override
+    public void deleteFriendship(String id, IRepositoryCallback<Void> cb) {
+        db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
+                .document(id)
+                .delete()
+                .addOnSuccessListener(cb::onSuccess)
                 .addOnFailureListener(cb::onFailure);
     }
 }

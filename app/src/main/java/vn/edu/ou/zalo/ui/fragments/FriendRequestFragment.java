@@ -1,21 +1,17 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.MenuHost;
-import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toolbar;
+
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -23,11 +19,11 @@ import java.util.List;
 
 import vn.edu.ou.zalo.R;
 
-public class ContactsFragment extends Fragment {
+public class FriendRequestFragment extends Fragment {
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
 
-    public static ContactsFragment newInstance() {
-        return new ContactsFragment();
+    public static FriendRequestFragment newInstance() {
+        return new FriendRequestFragment();
     }
 
     @Override
@@ -38,17 +34,19 @@ public class ContactsFragment extends Fragment {
     }
 
     private void createFragments() {
-        fragmentClasses.add(FriendContactsFragment.class);
-        fragmentClasses.add(GroupContactsFragment.class);
-        fragmentClasses.add(OfficialAccountContactsFragment.class);
+        fragmentClasses.add(ReceivedFriendRequestFragment.class);
+        fragmentClasses.add(SentFriendRequestFragment.class);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_friend_request, container, false);
 
-        TabLayout tabLayout = view.findViewById(R.id.fragment_contacts_tab_layout);
+        MaterialToolbar toolbar = view.findViewById(R.id.top_app_bar);
+        toolbar.setNavigationOnClickListener(v -> requireActivity().finish());
+
+        TabLayout tabLayout = view.findViewById(R.id.fragment_friend_request_tab_layout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -81,33 +79,18 @@ public class ContactsFragment extends Fragment {
 
         try {
             Fragment fragment = fragmentClass.newInstance();
-
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+//            Fragment f = fragmentManager.findFragmentById(R.id.fragment_friend_request_fragment_container);
+//            if (f != null) {
+//                fragmentManager.beginTransaction()
+//                        .remove(f)
+//                        .commit();
+//            }
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_contacts_fragment_container, fragment)
+                    .replace(R.id.fragment_friend_request_fragment_container, fragment)
                     .commit();
         } catch (IllegalAccessException | java.lang.InstantiationException e) {
             throw new RuntimeException(e);
         }
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        MenuHost menuHost = requireActivity();
-
-        menuHost.addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.contacts_top_app_bar_menu, menu);
-            }
-
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                return false;
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 }
