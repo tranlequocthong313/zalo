@@ -47,11 +47,11 @@ public class StoryViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void bindStory(User loginuser) {
-        if (loginuser.getAvatarUrl() != null) {
+    public void bindStory(User signedInUser) {
+        if (signedInUser != null && signedInUser.getAvatarUrl() != null) {
             Glide.with(previewImageView.getContext())
-                    .load(loginuser.getAvatarUrl())
-                    .signature(new ObjectKey(loginuser.getId()))
+                    .load(signedInUser.getAvatarUrl())
+                    .signature(new ObjectKey(signedInUser.getId()))
                     .into(previewImageView);
         }
         Drawable drawable = AppCompatResources.getDrawable(avatarImageView.getContext(), R.drawable.ic_pen_solid);

@@ -116,11 +116,11 @@ public class ChatRoomFakeDataSource implements IChatRoomDataSource {
 
     @Override
     public void getChatRoom(String id, IRepositoryCallback<ChatRoom> callback) {
-         ChatRoom room = chatRooms.stream()
+        ChatRoom room = chatRooms.stream()
                 .filter(chatRoom -> Objects.equals(chatRoom.getId(), id))
                 .findFirst()
                 .orElse(null);
-         callback.onSuccess(room);
+        callback.onSuccess(room);
     }
 
     @Override
@@ -129,12 +129,22 @@ public class ChatRoomFakeDataSource implements IChatRoomDataSource {
     }
 
     @Override
-    public void setLoginUser(User loginUser) {
-        this.loginUser = loginUser;
+    public void setSignedInUser(User signedInUser) {
+        this.loginUser = signedInUser;
     }
 
     @Override
     public void checkEmptyChatRoom(IRepositoryCallback<Map<ChatRoom.Priority, Boolean>> cb) {
+
+    }
+
+    @Override
+    public void createChatRoom(ChatRoom chatRoom, IRepositoryCallback<ChatRoom> callback) {
+
+    }
+
+    @Override
+    public void listenChatRooms(IRepositoryCallback<List<ChatRoom>> cb) {
 
     }
 

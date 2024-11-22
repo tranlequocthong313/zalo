@@ -18,6 +18,7 @@ import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 public class FriendRecommendationViewHolder extends RecyclerView.ViewHolder {
     private final ImageView avatarImageView;
     private final TextView friendSugggestionNameTextView;
+    private User user;
 
     public FriendRecommendationViewHolder(@NonNull View itemView, OnFriendClickListener listener) {
         super(itemView);
@@ -27,14 +28,14 @@ public class FriendRecommendationViewHolder extends RecyclerView.ViewHolder {
         Button addFriendButton = itemView.findViewById(R.id.list_item_suggestion_add_button);
 
         addFriendButton.setOnClickListener(v -> {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION && listener != null) {
-                listener.onAddFriendClick((User) itemView.getTag());
+            if (listener != null) {
+                listener.onAddFriendClick(user);
             }
         });
     }
 
     public void bindSuggestion(User suggestion) {
+        user = suggestion;
         if (suggestion.getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
                     .load(suggestion.getAvatarUrl())

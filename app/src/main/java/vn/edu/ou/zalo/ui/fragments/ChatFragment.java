@@ -8,12 +8,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -47,6 +51,8 @@ public class ChatFragment extends Fragment {
     private MaterialToolbar toolbar;
     private View addFriendView;
     private User user;
+    private String message;
+    private boolean checkedFriendStatus;
 
     public static ChatFragment newInstance(String chatRoomId) {
         Bundle bundle = new Bundle();
@@ -79,6 +85,33 @@ public class ChatFragment extends Fragment {
         layoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(layoutManager);
 
+        TextInputEditText messageInput = view.findViewById(R.id.fragment_chat_message_input);
+        messageInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                message = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        messageInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (message == null || message.isEmpty()) {
+                return true;
+            }
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                chatViewModel.sendMessage(message);
+                messageInput.setText("");
+                return true;
+            }
+            return false;
+        });
+
         assert getArguments() != null;
         String chatRoomId = getArguments().getString(ARGS_CHAT_ROOM_ID);
         user = getArguments().getParcelable(ARGS_USER);
@@ -87,6 +120,7 @@ public class ChatFragment extends Fragment {
         } else if (user != null) {
             chatViewModel.fetchChatRoom(user);
             friendshipViewModel.checkFriendStatus(user);
+            checkedFriendStatus = true;
             toolbar.setTitle(user.getFullName());
             String onlineStatus = String.format(getString(R.string.last_seen), TimeUtils.getDetailedTimeAgo(user.getLastLogin()));
             toolbar.setSubtitle(onlineStatus);
@@ -99,6 +133,9 @@ public class ChatFragment extends Fragment {
     }
 
     private void updateUi(FriendshipUiState friendshipUiState) {
+        if (friendshipUiState.isLoading()) {
+            return;
+        }
         TextView textView = addFriendView.findViewById(R.id.fragment_chat_add_friend_layout_text_view);
 
         if (friendshipUiState.getStatus() == Friendship.Status.ACCEPTED || friendshipUiState.getStatus() == Friendship.Status.BLOCKED) {
@@ -128,6 +165,15 @@ public class ChatFragment extends Fragment {
         if (chatRoom.isGroupChat()) {
             toolbar.setTitle(chatRoom.getName());
             toolbar.setSubtitle(R.string.tab_for_more_info);
+        } else {
+            ChatRoom.Member other = chatRoom.getOtherMember(chatUiState.getSignedInUser());
+            if (!checkedFriendStatus) {
+                friendshipViewModel.checkFriendStatus(other.getUser());
+                checkedFriendStatus = true;
+            }
+            toolbar.setTitle(other.getUser().getFullName());
+            String onlineStatus = String.format(getString(R.string.last_seen), TimeUtils.getDetailedTimeAgo(other.getUser().getLastLogin()));
+            toolbar.setSubtitle(onlineStatus);
         }
 
         if (recyclerView.getAdapter() == null) {

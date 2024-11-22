@@ -60,9 +60,15 @@ public class FriendContactsFragment extends Fragment implements OnFriendClickLis
         recyclerView.setNestedScrollingEnabled(false);
 
         friendContactsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
-        friendContactsViewModel.fetchFriends();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        friendContactsViewModel.fetchFriends();
     }
 
     private void updateUi(FriendContactsUiState uiState) {

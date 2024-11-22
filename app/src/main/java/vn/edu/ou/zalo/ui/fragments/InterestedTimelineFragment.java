@@ -57,6 +57,7 @@ public class InterestedTimelineFragment extends Fragment implements IRefreshable
         postsRecyclerView.setFocusable(false);
         postsRecyclerView.setNestedScrollingEnabled(false);
 
+        timelineViewModel.fetchData();
         timelineViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
         return view;
@@ -69,20 +70,21 @@ public class InterestedTimelineFragment extends Fragment implements IRefreshable
 
         List<Story> stories = timelineUiState.getStories();
         List<Post> posts = timelineUiState.getPosts();
-        User loginUser = timelineUiState.getLoginUser();
+        User signedInuser = timelineUiState.getSignedInUser();
 
-        if (loginUser != null && loginUser.getAvatarUrl() != null) {
+        if (signedInuser != null && signedInuser.getAvatarUrl() != null) {
             Glide.with(avatarImageView.getContext())
-                    .load(loginUser.getAvatarUrl())
+                    .load(signedInuser.getAvatarUrl())
                     .into(avatarImageView);
         }
 
         if (storiesRecyclerView.getAdapter() == null) {
-            storyAdapter = new StoryAdapter(stories, loginUser);
+            storyAdapter = new StoryAdapter(stories, signedInuser);
             postAdapter = new PostAdapter(posts);
             storiesRecyclerView.setAdapter(storyAdapter);
             postsRecyclerView.setAdapter(postAdapter);
         } else {
+            storyAdapter.setSignedInUser(timelineUiState.getSignedInUser());
             storyAdapter.updateStories(stories);
             postAdapter.updatePosts(posts);
         }

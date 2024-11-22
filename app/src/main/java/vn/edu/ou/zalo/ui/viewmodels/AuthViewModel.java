@@ -9,22 +9,22 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.domain.ICreateUseCase;
 import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.impl.GetSignedInUserUseCase;
 import vn.edu.ou.zalo.domain.impl.SignInWithPhoneNumberAndPasswordUseCase;
 import vn.edu.ou.zalo.domain.impl.SignOutUseCase;
+import vn.edu.ou.zalo.domain.impl.SignUpUseCase;
 import vn.edu.ou.zalo.ui.states.AuthUiState;
 
 public class AuthViewModel extends ViewModel {
     private final MutableLiveData<AuthUiState> uiState = new MutableLiveData<>(new AuthUiState(false, null, false, false, null));
-    private final ICreateUseCase<User, Void> signUpUseCase;
+    private final SignUpUseCase signUpUseCase;
     private final SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase;
     private final GetSignedInUserUseCase getSignedInUserUseCase;
     private final SignOutUseCase signOutUseCase;
 
     @Inject
-    public AuthViewModel(ICreateUseCase<User, Void> signUpUseCase, SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase, GetSignedInUserUseCase getSignedInUserUseCase, SignOutUseCase signOutUseCase) {
+    public AuthViewModel(SignUpUseCase signUpUseCase, SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase, GetSignedInUserUseCase getSignedInUserUseCase, SignOutUseCase signOutUseCase) {
         this.signUpUseCase = signUpUseCase;
         this.signInWithPhoneNumberAndPasswordUseCase = signInWithPhoneNumberAndPasswordUseCase;
         this.getSignedInUserUseCase = getSignedInUserUseCase;

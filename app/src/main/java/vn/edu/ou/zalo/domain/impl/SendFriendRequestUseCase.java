@@ -6,10 +6,9 @@ import vn.edu.ou.zalo.data.models.Friendship;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IFriendshipRepository;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
-import vn.edu.ou.zalo.domain.ICreateUseCase;
 import vn.edu.ou.zalo.domain.IDomainCallback;
 
-public class SendFriendRequestUseCase implements ICreateUseCase<User, Friendship> {
+public class SendFriendRequestUseCase {
     private final IFriendshipRepository friendshipRepository;
 
     @Inject
@@ -17,7 +16,6 @@ public class SendFriendRequestUseCase implements ICreateUseCase<User, Friendship
         this.friendshipRepository = friendshipRepository;
     }
 
-    @Override
     public void execute(User user, IDomainCallback<Friendship> callback) {
         friendshipRepository.addFriend(user, new IRepositoryCallback<Friendship>() {
             @Override

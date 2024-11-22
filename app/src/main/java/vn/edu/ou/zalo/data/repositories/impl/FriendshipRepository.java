@@ -19,10 +19,15 @@ public class FriendshipRepository implements IFriendshipRepository {
     public FriendshipRepository(IFriendshipDataSource friendshipDataSource, IAuthDataSource authDataSource) {
         this.friendshipDataSource = friendshipDataSource;
         this.authDataSource = authDataSource;
+    }
+
+    @Override
+    public void addFriend(User friend, IRepositoryCallback<Friendship> cb) {
         authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
             public void onSuccess(User data) {
                 friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.addFriend(friend, cb);
             }
 
             @Override
@@ -32,13 +37,18 @@ public class FriendshipRepository implements IFriendshipRepository {
     }
 
     @Override
-    public void addFriend(User friend, IRepositoryCallback<Friendship> cb) {
-        friendshipDataSource.addFriend(friend, cb);
-    }
-
-    @Override
     public void getRecommendedFriends(IRepositoryCallback<List<User>> cb) {
-        friendshipDataSource.getRecommendedFriends(cb);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.getRecommendedFriends(cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
@@ -58,26 +68,76 @@ public class FriendshipRepository implements IFriendshipRepository {
 
     @Override
     public void checkFriendStatus(User user, IRepositoryCallback<Friendship.Status> callback) {
-        friendshipDataSource.checkFriendStatus(user, callback);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.checkFriendStatus(user, callback);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
     public void getReceivedFriendRequests(IRepositoryCallback<List<Friendship>> cb) {
-        friendshipDataSource.getFriendRequests(true, cb);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.getFriendRequests(true, cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
     public void getSentFriendRequests(IRepositoryCallback<List<Friendship>> cb) {
-        friendshipDataSource.getFriendRequests(false, cb);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.getFriendRequests(false, cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
     public void updateFriendshipStatus(Friendship friendship, IRepositoryCallback<Void> cb) {
-        friendshipDataSource.updateFriendshipStatus(friendship, cb);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.updateFriendshipStatus(friendship, cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
     @Override
     public void deleteFriendship(String id, IRepositoryCallback<Void> cb) {
-        friendshipDataSource.deleteFriendship(id, cb);
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                friendshipDataSource.setSignedInUser(data);
+                friendshipDataSource.deleteFriendship(id, cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 }

@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.IDomainCallback;
-import vn.edu.ou.zalo.domain.IGetListUseCase;
 import vn.edu.ou.zalo.domain.impl.GetAddedFriendsUseCase;
 import vn.edu.ou.zalo.ui.states.FriendContactsUiState;
 

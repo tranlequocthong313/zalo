@@ -134,6 +134,7 @@ public class SearchFragment extends Fragment implements OnFriendClickListener {
         if (!friend.getId().equals(signedInUser.getId())) {
             startActivity(ChatActivity.newIntent(getActivity(), friend));
         }
+        requireActivity().finish();
         // TODO: navigate to profile screen
     }
 }

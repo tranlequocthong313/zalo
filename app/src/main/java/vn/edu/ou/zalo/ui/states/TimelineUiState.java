@@ -2,7 +2,6 @@ package vn.edu.ou.zalo.ui.states;
 
 import java.util.List;
 
-import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.Post;
 import vn.edu.ou.zalo.data.models.Story;
 import vn.edu.ou.zalo.data.models.User;
@@ -23,7 +22,7 @@ public class TimelineUiState extends BaseUiState {
         return stories;
     }
 
-    public User getLoginUser() {
+    public User getSignedInUser() {
         return loginUser;
     }
 

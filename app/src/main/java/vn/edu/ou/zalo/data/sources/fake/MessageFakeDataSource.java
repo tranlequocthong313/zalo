@@ -2,7 +2,6 @@ package vn.edu.ou.zalo.data.sources.fake;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,15 +41,24 @@ public class MessageFakeDataSource implements IMessageDataSource {
     }
 
     @Override
-    public void getMessages(Map<String, String> query, IRepositoryCallback<List<Message>> dataSourceCallback) {
+    public void listenMessages(String chatRoomId, IRepositoryCallback<List<Message>> cb) {
+
+    }
+
+    @Override
+    public void getMessages(String chatRoomId, IRepositoryCallback<List<Message>> dataSourceCallback) {
         List<Message> results = messages;
-        if (query != null) {
-            String roomId = query.get("chatRoomId");
+        if (chatRoomId != null) {
             results = messages.stream()
-                    .filter(message -> message.getChatRoom().getId().equals(roomId))
+                    .filter(message -> message.getChatRoom().getId().equals(chatRoomId))
                     .collect(Collectors.toList());
         }
         dataSourceCallback.onSuccess(results);
+    }
+
+    @Override
+    public void createMessage(Message message, IRepositoryCallback<Message> cb) {
+
     }
 
     private void initMessages() {

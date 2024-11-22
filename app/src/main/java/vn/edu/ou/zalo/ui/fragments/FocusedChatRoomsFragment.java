@@ -21,8 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.ui.activities.ChatActivity;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
 import vn.edu.ou.zalo.ui.fragments.adapters.FriendRecommendationAdapter;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnChatRoomItemClickListener;
 import vn.edu.ou.zalo.ui.fragments.listeners.OnFriendClickListener;
 import vn.edu.ou.zalo.ui.states.ChatRoomUiState;
 import vn.edu.ou.zalo.ui.states.FriendshipUiState;
@@ -30,7 +32,7 @@ import vn.edu.ou.zalo.ui.viewmodels.ChatRoomsViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.FriendshipViewModel;
 
 @AndroidEntryPoint
-public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickListener {
+public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickListener, OnChatRoomItemClickListener {
     @Inject
     ChatRoomsViewModel chatRoomsViewModel;
     @Inject
@@ -41,6 +43,7 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
     private ChatRoomsAdapter chatRoomsAdapter;
     private View emptyView;
     private View mainContentView;
+    private View friendRecommendationView;
 
     public static FocusedChatRoomsFragment newInstance() {
         return new FocusedChatRoomsFragment();
@@ -56,6 +59,8 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
         recyclerView.setFocusable(false);
         recyclerView.setNestedScrollingEnabled(false);
 
+        friendRecommendationView = view.findViewById(R.id.fragment_focused_chat_rooms_friend_recommendation_view);
+
         friendRecommendationRecyclerView = view.findViewById(R.id.fragment_chat_rooms_suggestion_recycler_view);
         friendRecommendationRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         friendRecommendationRecyclerView.setFocusable(false);
@@ -64,10 +69,7 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
         emptyView = view.findViewById(R.id.fragment_focused_chat_rooms_empty_view);
         mainContentView = view.findViewById(R.id.fragment_focused_chat_rooms_view);
 
-        chatRoomsViewModel.fetchData(ChatRoom.Priority.FOCUSED);
-        chatRoomsViewModel.checkEmptyChatRoom();
-
-        friendshipViewModel.fetchFriendRecommendations();
+        chatRoomsViewModel.listenChatRoom(ChatRoom.Priority.FOCUSED);
 
         chatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
         friendshipViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
@@ -75,20 +77,32 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        friendshipViewModel.fetchFriendRecommendations();
+    }
+
     private void updateUi(FriendshipUiState uiState) {
         if (uiState.isLoading()) {
             return;
         }
 
-        List<User> friendSuggestions = uiState.getLimitedFriendRecommendations();
+        List<User> friendRecommendations = uiState.getLimitedFriendRecommendations();
         if (uiState.getErrorMessage() != null) {
             Toast.makeText(getActivity(), uiState.getErrorMessage(), Toast.LENGTH_SHORT).show();
         }
+        if (friendRecommendations == null || friendRecommendations.isEmpty()) {
+            friendRecommendationView.setVisibility(View.GONE);
+        } else {
+            friendRecommendationView.setVisibility(View.VISIBLE);
+        }
         if (friendRecommendationRecyclerView.getAdapter() == null) {
-            friendRecommendationAdapter = new FriendRecommendationAdapter(friendSuggestions, this);
+            friendRecommendationAdapter = new FriendRecommendationAdapter(friendRecommendations, this);
             friendRecommendationRecyclerView.setAdapter(friendRecommendationAdapter);
         } else {
-            friendRecommendationAdapter.updateFriendSuggestions(friendSuggestions);
+            friendRecommendationAdapter.updateFriendSuggestions(friendRecommendations);
         }
     }
 
@@ -108,7 +122,7 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
         List<ChatRoom> chatRooms = uiState.getChatRooms();
 
         if (recyclerView.getAdapter() == null) {
-            chatRoomsAdapter = new ChatRoomsAdapter(chatRooms);
+            chatRoomsAdapter = new ChatRoomsAdapter(chatRooms, uiState.getSignedInUser(), this);
             recyclerView.setAdapter(chatRoomsAdapter);
         } else {
             chatRoomsAdapter.updateChatRooms(chatRooms);
@@ -123,5 +137,10 @@ public class FocusedChatRoomsFragment extends Fragment implements OnFriendClickL
     @Override
     public void onItemClick(User friend) {
 
+    }
+
+    @Override
+    public void onItemClick(ChatRoom chatRoom) {
+        startActivity(ChatActivity.newIntent(getActivity(), chatRoom.getId()));
     }
 }
