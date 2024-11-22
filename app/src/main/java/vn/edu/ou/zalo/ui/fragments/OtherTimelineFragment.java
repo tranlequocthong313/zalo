@@ -43,6 +43,7 @@ public class OtherTimelineFragment extends Fragment implements IRefreshable {
         postsRecyclerView.setFocusable(false);
         postsRecyclerView.setNestedScrollingEnabled(false);
 
+        timelineViewModel.fetchData();
         timelineViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
         return view;

@@ -34,10 +34,8 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
-import vn.edu.ou.zalo.ui.states.BaseUiState;
 import vn.edu.ou.zalo.ui.states.ChatRoomUiState;
 import vn.edu.ou.zalo.ui.viewmodels.ChatRoomsViewModel;
-import vn.edu.ou.zalo.ui.viewmodels.OtherChatRoomsRecommendationViewModel;
 
 @AndroidEntryPoint
 public class ChatRoomsFragment extends Fragment {
@@ -96,7 +94,7 @@ public class ChatRoomsFragment extends Fragment {
         emptyView = view.findViewById(R.id.fragment_chat_rooms_empty_view);
         mainContentView = view.findViewById(R.id.chat_rooms_fragment_container);
 
-        chatRoomsViewModel.checkEmptyChatRoom();
+        chatRoomsViewModel.listenChatRoom();
         chatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
 
         return view;
@@ -115,6 +113,8 @@ public class ChatRoomsFragment extends Fragment {
             tabLayoutContainer.setVisibility(View.VISIBLE);
             mainContentView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
+
+            renderFragment(0);
         }
     }
 

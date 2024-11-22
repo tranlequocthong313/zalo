@@ -19,16 +19,16 @@ public class StoryRepository implements IStoryRepository {
     }
 
     @Override
-    public void getStories(Map<String, String> query, IRepositoryCallback<List<Story>> IRepositoryCallback) {
+    public void getStories(Map<String, String> query, IRepositoryCallback<List<Story>> callback) {
         storyDataSource.getStories(query, new IRepositoryCallback<List<Story>>() {
             @Override
             public void onSuccess(List<Story> data) {
-                IRepositoryCallback.onSuccess(data);
+                callback.onSuccess(data);
             }
 
             @Override
             public void onFailure(Exception e) {
-                IRepositoryCallback.onFailure(e);
+                callback.onFailure(e);
             }
         });
     }

@@ -5,13 +5,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.Story;
 import vn.edu.ou.zalo.data.repositories.IStoryRepository;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.domain.IDomainCallback;
-import vn.edu.ou.zalo.domain.IGetListUseCase;
 
-public class GetStoriesUseCase implements IGetListUseCase<Story> {
+public class GetStoriesUseCase {
     IStoryRepository storyRepository;
 
     @Inject
@@ -20,7 +20,6 @@ public class GetStoriesUseCase implements IGetListUseCase<Story> {
     }
 
 
-    @Override
     public void execute(Map<String, String> query, IDomainCallback<List<Story>> callback) {
         storyRepository.getStories(query, new IRepositoryCallback<List<Story>>() {
             @Override

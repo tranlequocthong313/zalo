@@ -9,22 +9,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.Friendship;
 import vn.edu.ou.zalo.data.models.User;
-import vn.edu.ou.zalo.domain.ICreateUseCase;
 import vn.edu.ou.zalo.domain.IDomainCallback;
 import vn.edu.ou.zalo.domain.impl.CheckFriendStatusUseCase;
 import vn.edu.ou.zalo.domain.impl.GetFriendRecommendations;
+import vn.edu.ou.zalo.domain.impl.SendFriendRequestUseCase;
 import vn.edu.ou.zalo.ui.states.FriendshipUiState;
 
 public class FriendshipViewModel extends ViewModel {
     private final MutableLiveData<FriendshipUiState> uiState =
             new MutableLiveData<>(new FriendshipUiState(false, null, new ArrayList<>(), null, null));
 
-    private final ICreateUseCase<User, Friendship> sendFriendRequestUseCase;
+    private final SendFriendRequestUseCase sendFriendRequestUseCase;
     private final GetFriendRecommendations getFriendRecommendationsUseCase;
     private final CheckFriendStatusUseCase checkFriendStatusUseCase;
 
@@ -35,7 +36,7 @@ public class FriendshipViewModel extends ViewModel {
     }
 
     @Inject
-    public FriendshipViewModel(ICreateUseCase<User, Friendship> sendFriendRequestUseCase, GetFriendRecommendations getFriendRecommendationsUseCase, CheckFriendStatusUseCase checkFriendStatusUseCase) {
+    public FriendshipViewModel(SendFriendRequestUseCase sendFriendRequestUseCase, GetFriendRecommendations getFriendRecommendationsUseCase, CheckFriendStatusUseCase checkFriendStatusUseCase) {
         this.sendFriendRequestUseCase = sendFriendRequestUseCase;
         this.getFriendRecommendationsUseCase = getFriendRecommendationsUseCase;
         this.checkFriendStatusUseCase = checkFriendStatusUseCase;
@@ -96,7 +97,11 @@ public class FriendshipViewModel extends ViewModel {
                     Map<String, Friendship.Status> newFriendshipStatuses = new HashMap<>(friendshipStatuses);
                     newFriendshipStatuses.put(friend.getId(), data);
                     friendshipStatuses = newFriendshipStatuses;
-                    uiState.setValue(new FriendshipUiState(false, null, Objects.requireNonNull(uiState.getValue()).getFriendRecommendations(), data, newFriendshipStatuses));
+                    List<User> friendRecommendations = Objects.requireNonNull(uiState.getValue())
+                            .getFriendRecommendations()
+                            .stream()
+                            .filter(friend -> !newFriendshipStatuses.containsKey(friend.getId())).collect(Collectors.toList());
+                    uiState.setValue(new FriendshipUiState(false, null, friendRecommendations, data, newFriendshipStatuses));
                 }
 
                 @Override

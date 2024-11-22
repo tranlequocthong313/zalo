@@ -18,15 +18,17 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.ui.activities.ChatActivity;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
 import vn.edu.ou.zalo.ui.fragments.adapters.OtherChatRoomRecommendationAdapter;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnChatRoomItemClickListener;
 import vn.edu.ou.zalo.ui.states.ChatRoomUiState;
 import vn.edu.ou.zalo.ui.states.OtherChatRoomUiState;
 import vn.edu.ou.zalo.ui.viewmodels.ChatRoomsViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.OtherChatRoomsRecommendationViewModel;
 
 @AndroidEntryPoint
-public class OtherChatRoomsFragment extends Fragment {
+public class OtherChatRoomsFragment extends Fragment implements OnChatRoomItemClickListener {
     @Inject
     ChatRoomsViewModel chatRoomsViewModel;
     @Inject
@@ -55,7 +57,7 @@ public class OtherChatRoomsFragment extends Fragment {
         otherChatRoomRecommendationRecyclerView.setFocusable(false);
         otherChatRoomRecommendationRecyclerView.setNestedScrollingEnabled(false);
 
-        chatRoomsViewModel.fetchData(ChatRoom.Priority.OTHER);
+        chatRoomsViewModel.listenChatRoom(ChatRoom.Priority.OTHER);
 
         chatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
         otherChatRoomsRecommendationViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
@@ -70,7 +72,7 @@ public class OtherChatRoomsFragment extends Fragment {
         List<ChatRoom> chatRooms = uiState.getChatRooms();
 
         if (recyclerView.getAdapter() == null) {
-            chatRoomsAdapter = new ChatRoomsAdapter(chatRooms);
+            chatRoomsAdapter = new ChatRoomsAdapter(chatRooms, uiState.getSignedInUser(), this);
             recyclerView.setAdapter(chatRoomsAdapter);
         } else {
             chatRoomsAdapter.updateChatRooms(chatRooms);
@@ -87,7 +89,14 @@ public class OtherChatRoomsFragment extends Fragment {
             otherChatRoomRecommendationAdapter = new OtherChatRoomRecommendationAdapter(recommendations);
             otherChatRoomRecommendationRecyclerView.setAdapter(otherChatRoomRecommendationAdapter);
         } else {
-            otherChatRoomRecommendationAdapter.updateRecommendation(recommendations);
+            if (otherChatRoomRecommendationAdapter != null) {
+                otherChatRoomRecommendationAdapter.updateRecommendation(recommendations);
+            }
         }
+    }
+
+    @Override
+    public void onItemClick(ChatRoom chatRoom) {
+        startActivity(ChatActivity.newIntent(getActivity(), chatRoom.getId()));
     }
 }

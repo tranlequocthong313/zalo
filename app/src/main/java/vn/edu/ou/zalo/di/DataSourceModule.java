@@ -21,6 +21,7 @@ import vn.edu.ou.zalo.data.sources.fake.UserFakeDataSource;
 import vn.edu.ou.zalo.data.sources.remote.AuthRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.ChatRoomRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.FriendshipRemoteDataSource;
+import vn.edu.ou.zalo.data.sources.remote.MessageRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.UserRemoteDataSource;
 import vn.edu.ou.zalo.di.qualifiers.Fake;
 
@@ -55,6 +56,7 @@ public abstract class DataSourceModule {
 
     @Binds
     @Singleton
+    @Fake
     abstract IMessageDataSource bindMessageFakeDataSource(MessageFakeDataSource messageFakeDataSource);
 
     @Binds
@@ -64,4 +66,8 @@ public abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract IFriendshipDataSource bindFriendshipRemoteDataSource(FriendshipRemoteDataSource friendshipRemoteDataSource);
+
+    @Binds
+    @Singleton
+    abstract IMessageDataSource bindMessageRemoteDataSource(MessageRemoteDataSource messageRemoteDataSource);
 }

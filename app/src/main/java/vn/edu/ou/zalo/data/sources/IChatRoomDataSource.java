@@ -15,7 +15,11 @@ public interface IChatRoomDataSource {
 
     void getChatRoom(User user, IRepositoryCallback<ChatRoom> callback);
 
-    void setLoginUser(User loginUser);
+    void setSignedInUser(User signedInUser);
 
     void checkEmptyChatRoom(IRepositoryCallback<Map<ChatRoom.Priority, Boolean>> cb);
+
+    void createChatRoom(ChatRoom chatRoom, IRepositoryCallback<ChatRoom> callback);
+
+    void listenChatRooms(IRepositoryCallback<List<ChatRoom>> cb);
 }

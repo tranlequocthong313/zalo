@@ -1,7 +1,6 @@
 package vn.edu.ou.zalo.data.repositories.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,17 +18,17 @@ public class MessageRepository implements IMessageRepository {
     }
 
     @Override
-    public void getMessages(Map<String, String> query, IRepositoryCallback<List<Message>> callback) {
-        messageDataSource.getMessages(query, new IRepositoryCallback<List<Message>>() {
-            @Override
-            public void onSuccess(List<Message> data) {
-                callback.onSuccess(data);
-            }
+    public void listenMessages(String chatRoomId, IRepositoryCallback<List<Message>> cb) {
+        messageDataSource.listenMessages(chatRoomId, cb);
+    }
 
-            @Override
-            public void onFailure(Exception e) {
-                callback.onFailure(e);
-            }
-        });
+    @Override
+    public void getMessages(String chatRoomId, IRepositoryCallback<List<Message>> callback) {
+        messageDataSource.getMessages(chatRoomId, callback);
+    }
+
+    @Override
+    public void createMessage(Message message, IRepositoryCallback<Message> callback) {
+        messageDataSource.createMessage(message, callback);
     }
 }

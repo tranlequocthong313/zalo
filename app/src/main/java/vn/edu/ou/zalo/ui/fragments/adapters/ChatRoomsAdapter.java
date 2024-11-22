@@ -12,13 +12,19 @@ import java.util.List;
 
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnChatRoomItemClickListener;
 import vn.edu.ou.zalo.ui.fragments.viewholders.ChatRoomViewHolder;
 
 public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomViewHolder> {
     private List<ChatRoom> chatRooms;
+    private User signedInUser;
+    private final OnChatRoomItemClickListener listener;
 
-    public ChatRoomsAdapter(List<ChatRoom> chatRooms) {
+    public ChatRoomsAdapter(List<ChatRoom> chatRooms, User signedInUser, OnChatRoomItemClickListener listener) {
         this.chatRooms = chatRooms;
+        this.signedInUser = signedInUser;
+        this.listener = listener;
     }
 
     @NonNull
@@ -27,7 +33,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomViewHolder> {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_chat_room, parent, false);
 
-        return new ChatRoomViewHolder(itemView);
+        return new ChatRoomViewHolder(itemView, signedInUser, listener);
     }
 
     @Override

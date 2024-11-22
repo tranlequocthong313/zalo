@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
 
     @Override
     public void addFriend(User friend, IRepositoryCallback<Friendship> cb) {
+        if (Objects.equals(friend.getId(), signedInUser.getId())) {
+            cb.onFailure(new Exception("User ids must not be identical"));
+            return;
+        }
         checkFriendStatus(friend, new IRepositoryCallback<Friendship.Status>() {
             @Override
             public void onSuccess(Friendship.Status status) {
@@ -173,47 +178,48 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
 
     @Override
     public void getRecommendedFriends(IRepositoryCallback<List<User>> cb) {
-        Set<String> friendIds = new HashSet<>();
+        List<String> excludedUserIds = new ArrayList<>();
 
-        db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
-                .whereEqualTo("status", Friendship.Status.ACCEPTED)
+        Task<QuerySnapshot> task1 = db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
                 .whereEqualTo("senderId", signedInUser.getId())
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (DocumentSnapshot document : task.getResult()) {
-                            friendIds.add(document.getString("receiverId"));
-                        }
+                .addOnSuccessListener(docs -> {
+                    for (DocumentSnapshot doc : docs) {
+                        Friendship friendship = doc.toObject(Friendship.class);
+                        assert friendship != null;
+                        excludedUserIds.add(friendship.getReceiverId());
                     }
+                })
+                .addOnFailureListener(cb::onFailure);
+        Task<QuerySnapshot> task2 = db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
+                .whereEqualTo("receiverId", signedInUser.getId())
+                .get()
+                .addOnSuccessListener(docs -> {
+                    for (DocumentSnapshot doc : docs) {
+                        Friendship friendship = doc.toObject(Friendship.class);
+                        assert friendship != null;
+                        excludedUserIds.add(friendship.getSenderId());
+                    }
+                })
+                .addOnFailureListener(cb::onFailure);
 
-                    db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
-                            .whereEqualTo("status", Friendship.Status.ACCEPTED)
-                            .whereEqualTo("receiverId", signedInUser.getId())
+        Tasks.whenAllSuccess(task1, task2)
+                .addOnSuccessListener(t -> {
+                    db.collection(Constants.USER_COLLECTION_NAME)
                             .get()
-                            .addOnCompleteListener(receiverTask -> {
-                                if (receiverTask.isSuccessful()) {
-                                    for (DocumentSnapshot document : receiverTask.getResult()) {
-                                        friendIds.add(document.getString("senderId"));
+                            .addOnSuccessListener(docs -> {
+                                List<User> users = new ArrayList<>();
+                                for (DocumentSnapshot doc : docs) {
+                                    if (!excludedUserIds.contains(doc.getId()) && !doc.getId().equals(signedInUser.getId())) {
+                                        User user = doc.toObject(User.class);
+                                        assert user != null;
+                                        user.setId(doc.getId());
+                                        users.add(user);
                                     }
                                 }
-
-                                db.collection(Constants.USER_COLLECTION_NAME)
-                                        .whereNotEqualTo("id", signedInUser.getId())
-                                        .get()
-                                        .addOnSuccessListener(userSnapshot -> {
-                                            List<User> recommendedUsers = new ArrayList<>();
-                                            for (DocumentSnapshot document : userSnapshot.getDocuments()) {
-                                                User user = document.toObject(User.class);
-                                                assert user != null;
-                                                user.setId(document.getId());
-                                                if (!friendIds.contains(user.getId())) {
-                                                    recommendedUsers.add(user);
-                                                }
-                                            }
-                                            cb.onSuccess(recommendedUsers);
-                                        })
-                                        .addOnFailureListener(cb::onFailure);
-                            });
+                                cb.onSuccess(users);
+                            })
+                            .addOnFailureListener(cb::onFailure);
                 })
                 .addOnFailureListener(cb::onFailure);
     }

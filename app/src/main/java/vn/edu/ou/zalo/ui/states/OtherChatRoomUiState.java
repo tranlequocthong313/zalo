@@ -16,7 +16,7 @@ public class OtherChatRoomUiState extends BaseUiState {
     }
 
     public List<ChatRoom> getOtherRecommendedChatRooms() {
-        return otherRecommendedChatRooms;
+        return otherRecommendedChatRooms == null ? new ArrayList<>() : otherRecommendedChatRooms;
     }
 
 

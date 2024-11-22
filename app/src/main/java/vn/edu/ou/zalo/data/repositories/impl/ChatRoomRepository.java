@@ -27,7 +27,7 @@ public class ChatRoomRepository implements IChatRoomRepository {
         authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
             public void onSuccess(User data) {
-                chatRoomDataSource.setLoginUser(data);
+                chatRoomDataSource.setSignedInUser(data);
                 chatRoomDataSource.getChatRooms(query, new IRepositoryCallback<List<ChatRoom>>() {
                     @Override
                     public void onSuccess(List<ChatRoom> data) {
@@ -51,10 +51,21 @@ public class ChatRoomRepository implements IChatRoomRepository {
 
     @Override
     public void getChatRoom(User user, IRepositoryCallback<ChatRoom> callback) {
-        chatRoomDataSource.getChatRoom(user, new IRepositoryCallback<ChatRoom>() {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
-            public void onSuccess(ChatRoom data) {
-                callback.onSuccess(data);
+            public void onSuccess(User data) {
+                chatRoomDataSource.setSignedInUser(data);
+                chatRoomDataSource.getChatRoom(user, new IRepositoryCallback<ChatRoom>() {
+                    @Override
+                    public void onSuccess(ChatRoom data) {
+                        callback.onSuccess(data);
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        callback.onFailure(e);
+                    }
+                });
             }
 
             @Override
@@ -66,10 +77,22 @@ public class ChatRoomRepository implements IChatRoomRepository {
 
     @Override
     public void getChatRoom(String id, IRepositoryCallback<ChatRoom> callback) {
-        chatRoomDataSource.getChatRoom(id, new IRepositoryCallback<ChatRoom>() {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
-            public void onSuccess(ChatRoom data) {
-                callback.onSuccess(data);
+            public void onSuccess(User data) {
+                chatRoomDataSource.setSignedInUser(data);
+                chatRoomDataSource.getChatRoom(id, new IRepositoryCallback<ChatRoom>() {
+                    @Override
+                    public void onSuccess(ChatRoom data) {
+                        callback.onSuccess(data);
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        callback.onFailure(e);
+                    }
+                });
+
             }
 
             @Override
@@ -84,13 +107,43 @@ public class ChatRoomRepository implements IChatRoomRepository {
         authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
             @Override
             public void onSuccess(User data) {
-                chatRoomDataSource.setLoginUser(data);
+                chatRoomDataSource.setSignedInUser(data);
                 chatRoomDataSource.checkEmptyChatRoom(callback);
             }
 
             @Override
             public void onFailure(Exception e) {
                 callback.onFailure(e);
+            }
+        });
+    }
+
+    @Override
+    public void createChatRoom(ChatRoom chatRoom, IRepositoryCallback<ChatRoom> cb) {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                chatRoomDataSource.setSignedInUser(data);
+                chatRoomDataSource.createChatRoom(chatRoom, cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
+    }
+
+    @Override
+    public void listenChatRooms(IRepositoryCallback<List<ChatRoom>> cb) {
+        authDataSource.getSignedInUser(new IRepositoryCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                chatRoomDataSource.setSignedInUser(data);
+                chatRoomDataSource.listenChatRooms(cb);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
             }
         });
     }

@@ -2,10 +2,15 @@ package vn.edu.ou.zalo.data.models;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Message extends BaseModel {
     public enum Type {TEXT, IMAGE, VIDEO, FILE}
 
-    private User sender;
+    private String senderId;
+    private String chatRoomId;
     @Nullable
     private String textContent;
     @Nullable
@@ -19,7 +24,10 @@ public class Message extends BaseModel {
     private Type type;
     private int likeCount;
     private ChatRoom chatRoom;
+    private User sender;
 
+
+    @Exclude
     public ChatRoom getChatRoom() {
         return chatRoom;
     }
@@ -28,6 +36,7 @@ public class Message extends BaseModel {
         this.chatRoom = chatRoom;
     }
 
+    @Exclude
     public User getSender() {
         return sender;
     }
@@ -94,5 +103,22 @@ public class Message extends BaseModel {
 
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+
+    public String getChatRoomId() {
+        return chatRoomId;
+    }
+
+    public void setChatRoomId(String chatRoomId) {
+        this.chatRoomId = chatRoomId;
     }
 }

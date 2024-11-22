@@ -7,23 +7,22 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.domain.IDomainCallback;
-import vn.edu.ou.zalo.domain.IGetListUseCase;
+import vn.edu.ou.zalo.domain.impl.GetChatRoomsUseCase;
 import vn.edu.ou.zalo.ui.states.OtherChatRoomUiState;
 
 public class OtherChatRoomsRecommendationViewModel extends ViewModel {
 
     private final MutableLiveData<OtherChatRoomUiState> uiState =
             new MutableLiveData<>(new OtherChatRoomUiState(false, null, new ArrayList<>()));
-    private final IGetListUseCase<ChatRoom> getChatRoomsUseCase;
+    private final GetChatRoomsUseCase getChatRoomsUseCase;
 
     @Inject
-    public OtherChatRoomsRecommendationViewModel(IGetListUseCase<ChatRoom> getChatRoomsUseCase) {
+    public OtherChatRoomsRecommendationViewModel(GetChatRoomsUseCase getChatRoomsUseCase) {
         this.getChatRoomsUseCase = getChatRoomsUseCase;
 
         fetchData();
@@ -45,7 +44,7 @@ public class OtherChatRoomsRecommendationViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(Exception e) {
-
+                    uiState.setValue(new OtherChatRoomUiState(false, e.getMessage(), new ArrayList<>()));
                 }
             });
         } catch (Exception e) {

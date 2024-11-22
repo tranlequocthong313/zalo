@@ -7,24 +7,36 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.util.Set;
 
+@IgnoreExtraProperties
 public class ChatRoom extends BaseModel {
 
     public enum Type {SINGLE, GROUP}
 
     public enum Priority {FOCUSED, OTHER}
 
+    @IgnoreExtraProperties
     public static class LastMessage {
         private String content;
         private long timestamp;
         private Member sender;
+        private String senderId;
 
         public static LastMessage fromMessage(Message message) {
             LastMessage lastMessage = new LastMessage();
             lastMessage.setSender(Member.fromUser(message.getSender()));
             lastMessage.setTimestamp(message.getCreatedAt());
             lastMessage.setContent(message.getTextContent());
+            lastMessage.setSenderId(lastMessage.getSender().getId());
 
             return lastMessage;
+        }
+
+        public String getSenderId() {
+            return senderId;
+        }
+
+        public void setSenderId(String senderId) {
+            this.senderId = senderId;
         }
 
         public String getContent() {
@@ -43,6 +55,7 @@ public class ChatRoom extends BaseModel {
             this.timestamp = timestamp;
         }
 
+        @Exclude
         public Member getSender() {
             return sender;
         }
@@ -60,8 +73,15 @@ public class ChatRoom extends BaseModel {
         private boolean isMod;
 
         public static Member fromUser(User user) {
+            return fromUser(user, false, false);
+        }
+
+        public static Member fromUser(User user, boolean isAdmin, boolean isMod) {
             Member member = new Member();
             member.setUser(user);
+            member.setId(user.getId());
+            member.setAdmin(isAdmin);
+            member.setMod(isMod);
             return member;
         }
 
@@ -162,6 +182,7 @@ public class ChatRoom extends BaseModel {
         this.lastMessage = lastMessage;
     }
 
+    @Exclude
     public Set<Member> getMembers() {
         return members;
     }
