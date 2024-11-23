@@ -17,16 +17,19 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
+import vn.edu.ou.zalo.data.sources.IFileStorageDataSource;
 import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 import vn.edu.ou.zalo.utils.Constants;
 
 public class MessageRemoteDataSource implements IMessageDataSource {
 
     private final FirebaseFirestore db;
+    private final IFileStorageDataSource fileStorage;
 
     @Inject
-    public MessageRemoteDataSource(FirebaseFirestore db) {
+    public MessageRemoteDataSource(FirebaseFirestore db, IFileStorageDataSource fileStorage) {
         this.db = db;
+        this.fileStorage = fileStorage;
     }
 
     @Override
@@ -102,6 +105,30 @@ public class MessageRemoteDataSource implements IMessageDataSource {
 
     @Override
     public void createMessage(Message message, IRepositoryCallback<Message> cb) {
+        // TODO: only handle 1 image for right now
+        if (message.getFileUris() != null && !message.getFileUris().isEmpty()) {
+            fileStorage.upload(message.getFileUris(), new IRepositoryCallback<String>() {
+                @Override
+                public void onSuccess(String url) {
+                    List<String> files = List.of(url);
+                    if (message.getType() == Message.Type.IMAGE) {
+                        message.setImageUrls(files);
+                    }
+
+                    createMessageHandler(message, cb);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    cb.onFailure(e);
+                }
+            });
+        } else {
+            createMessageHandler(message, cb);
+        }
+    }
+
+    private void createMessageHandler(Message message, IRepositoryCallback<Message> cb) {
         Task<DocumentReference> t1 = db.collection(Constants.MESSAGE_COLLECTION_NAME)
                 .add(message)
                 .addOnSuccessListener(doc -> message.setId(doc.getId()))
@@ -117,3 +144,4 @@ public class MessageRemoteDataSource implements IMessageDataSource {
                 .addOnFailureListener(cb::onFailure);
     }
 }
+

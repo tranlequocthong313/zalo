@@ -99,7 +99,7 @@ public class MessageFakeDataSource implements IMessageDataSource {
                             // Generate image URLs with varying sizes from very small to very large
                             int width = random.nextInt(1200) + 50;  // Width between 50 and 1250
                             int height = random.nextInt(1200) + 50; // Height between 50 and 1250
-                            message.setImageUrls(new String[]{"https://picsum.photos/" + width + "/" + height});
+                            message.setImageUrls(List.of("https://picsum.photos/" + width + "/" + height));
                         }
 
                         messages.add(message);

@@ -42,9 +42,9 @@ public class ReceivedMessageImageViewHolder extends RecyclerView.ViewHolder {
             senderAvatarImageView.setVisibility(View.INVISIBLE);
         }
 
-        if (message.getImageUrls().length > 0) {
+        if (message.getImageUrls() != null && !message.getImageUrls().isEmpty()) {
             Glide.with(contentImageView.getContext())
-                    .load(message.getImageUrls()[0])
+                    .load(message.getImageUrls().get(0))
                     .signature(new ObjectKey(message.getId()))
                     .into(contentImageView);
         }

@@ -83,9 +83,16 @@ public class ContactsFragment extends Fragment {
             Fragment fragment = fragmentClass.newInstance();
 
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_contacts_fragment_container, fragment)
-                    .commit();
+            Fragment f = fragmentManager.findFragmentById(R.id.fragment_contacts_fragment_container);
+            if (f != null) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_contacts_fragment_container, fragment)
+                        .commit();
+            } else {
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_contacts_fragment_container, fragment)
+                        .commit();
+            }
         } catch (IllegalAccessException | java.lang.InstantiationException e) {
             throw new RuntimeException(e);
         }
