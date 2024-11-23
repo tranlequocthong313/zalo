@@ -1,5 +1,6 @@
 package vn.edu.ou.zalo.ui.viewmodels;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -197,5 +198,25 @@ public class ChatViewModel extends ViewModel {
 
     private ChatRoom getChatRoom() {
         return Objects.requireNonNull(uiState.getValue()).getChatRoom();
+    }
+
+    public void sendMessage(Uri uri) {
+        Message m = new Message();
+        m.setChatRoomId(Objects.requireNonNull(uiState.getValue()).getChatRoom().getId());
+        m.setSenderId(uiState.getValue().getSignedInUser().getId());
+        m.setFileUris(List.of(uri));
+        m.setType(Message.Type.IMAGE);
+        m.setSender(uiState.getValue().getSignedInUser());
+
+        sendMessageUseCase.execute(m, new IDomainCallback<Message>() {
+            @Override
+            public void onSuccess(Message data) {
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                uiState.setValue(new ChatUiState(false, e.getMessage(), null, null, null));
+            }
+        });
     }
 }

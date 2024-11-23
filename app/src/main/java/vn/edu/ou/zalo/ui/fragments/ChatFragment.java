@@ -1,24 +1,34 @@
 package vn.edu.ou.zalo.ui.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,6 +50,9 @@ import vn.edu.ou.zalo.utils.TimeUtils;
 public class ChatFragment extends Fragment {
     private static final String ARGS_CHAT_ROOM_ID = "chat_room_id";
     private static final String ARGS_USER = "user";
+    public static final String AUTHORITY_PROVIDER = "vn.edu.ou.zalo.provider";
+    public static final int REQUEST_CAMERA = 0;
+    public static final int REQUEST_GALLERY = 1;
 
     @Inject
     ChatViewModel chatViewModel;
@@ -53,6 +66,32 @@ public class ChatFragment extends Fragment {
     private User user;
     private String message;
     private boolean checkedFriendStatus;
+    private File photoFile;
+
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            Intent i = result.getData();
+            assert i != null;
+            Uri uri = i.getData();
+            if (photoFile != null) {
+                uri = Uri.fromFile(photoFile);
+                photoFile = getPhotoFile();
+            }
+            chatViewModel.sendMessage(uri);
+        }
+    });
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        photoFile = getPhotoFile();
+    }
+
+    private File getPhotoFile() {
+        File externalFilesDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return new File(externalFilesDir, "image.jpg");
+    }
 
     public static ChatFragment newInstance(String chatRoomId) {
         Bundle bundle = new Bundle();
@@ -112,6 +151,24 @@ public class ChatFragment extends Fragment {
             return false;
         });
 
+        ImageView uploadImageView = view.findViewById(R.id.fragment_chat_upload_media_button);
+        uploadImageView.setOnClickListener(v -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            photoPickerIntent.setType("image/*");
+            photoPickerIntent.putExtra("requestCode", REQUEST_GALLERY);
+            Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            String pickTitle = "Select or take a new picture";
+            Intent chooseIntent = Intent.createChooser(photoPickerIntent, pickTitle);
+            chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{takePhotoIntent});
+            Uri uri = FileProvider.getUriForFile(
+                    requireActivity(),
+                    AUTHORITY_PROVIDER,
+                    photoFile);
+            takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            takePhotoIntent.putExtra("requestCode", REQUEST_CAMERA);
+            activityResultLauncher.launch(chooseIntent);
+        });
+
         assert getArguments() != null;
         String chatRoomId = getArguments().getString(ARGS_CHAT_ROOM_ID);
         user = getArguments().getParcelable(ARGS_USER);
@@ -167,6 +224,7 @@ public class ChatFragment extends Fragment {
             toolbar.setSubtitle(R.string.tab_for_more_info);
         } else {
             ChatRoom.Member other = chatRoom.getOtherMember(chatUiState.getSignedInUser());
+            user = other.getUser();
             if (!checkedFriendStatus) {
                 friendshipViewModel.checkFriendStatus(other.getUser());
                 checkedFriendStatus = true;

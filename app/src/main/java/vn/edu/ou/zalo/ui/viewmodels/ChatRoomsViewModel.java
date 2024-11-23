@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +18,6 @@ import javax.inject.Inject;
 import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.IDomainCallback;
-import vn.edu.ou.zalo.domain.impl.CheckEmptyChatRoomUseCase;
 import vn.edu.ou.zalo.domain.impl.GetChatRoomsUseCase;
 import vn.edu.ou.zalo.domain.impl.GetSignedInUserUseCase;
 import vn.edu.ou.zalo.domain.impl.ListenChatRoomsUseCase;

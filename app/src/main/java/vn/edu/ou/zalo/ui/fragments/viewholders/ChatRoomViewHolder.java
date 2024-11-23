@@ -1,10 +1,12 @@
 package vn.edu.ou.zalo.ui.fragments.viewholders;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,10 +26,13 @@ public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
     private final TextView lastMessageTextView;
     private final TextView timeAgoTextView;
     private final User signedInUser;
+    private final Context context;
     private ChatRoom chatRoom;
 
     public ChatRoomViewHolder(@NonNull View itemView, User signedInUser, OnChatRoomItemClickListener listener) {
         super(itemView);
+
+        context = itemView.getContext();
 
         avatarImageView = itemView.findViewById(R.id.list_item_suggestion_avatar);
         roomNameTextView = itemView.findViewById(R.id.list_item_suggestion_name);
@@ -66,7 +71,12 @@ public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
         if (lastMessage == null) {
             return;
         }
-        lastMessageTextView.setText(lastMessage.getContent());
+        if (lastMessage.getType() == ChatRoom.LastMessage.Type.TEXT) {
+            lastMessageTextView.setText(lastMessage.getContent());
+        } else if (lastMessage.getType() == ChatRoom.LastMessage.Type.IMAGE) {
+            String text = "[" + ContextCompat.getString(context, R.string.photo) + "]";
+            lastMessageTextView.setText(text);
+        }
 
         long timestamp = lastMessage.getTimestamp();
         String timeAgo = TimeUtils.getShortTimeAgo(timestamp);

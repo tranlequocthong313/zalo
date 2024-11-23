@@ -63,4 +63,6 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     implementation("org.mindrot:jbcrypt:0.4")
+
+    implementation("com.cloudinary:cloudinary-android:3.0.2")
 }

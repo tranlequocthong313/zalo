@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import vn.edu.ou.zalo.data.sources.IAuthDataSource;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
+import vn.edu.ou.zalo.data.sources.IFileStorageDataSource;
 import vn.edu.ou.zalo.data.sources.IFriendshipDataSource;
 import vn.edu.ou.zalo.data.sources.IMessageDataSource;
 import vn.edu.ou.zalo.data.sources.IPostDataSource;
@@ -20,6 +21,7 @@ import vn.edu.ou.zalo.data.sources.fake.StoryFakeDataSource;
 import vn.edu.ou.zalo.data.sources.fake.UserFakeDataSource;
 import vn.edu.ou.zalo.data.sources.remote.AuthRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.ChatRoomRemoteDataSource;
+import vn.edu.ou.zalo.data.sources.remote.FileStorageCloudinaryDataSource;
 import vn.edu.ou.zalo.data.sources.remote.FriendshipRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.MessageRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.UserRemoteDataSource;
@@ -70,4 +72,8 @@ public abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract IMessageDataSource bindMessageRemoteDataSource(MessageRemoteDataSource messageRemoteDataSource);
+
+    @Binds
+    @Singleton
+    abstract IFileStorageDataSource bindFileStorageDataSource(FileStorageCloudinaryDataSource fileStorageCloudinaryDataSource);
 }

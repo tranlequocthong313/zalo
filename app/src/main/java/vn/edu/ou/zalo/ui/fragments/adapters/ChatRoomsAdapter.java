@@ -18,7 +18,7 @@ import vn.edu.ou.zalo.ui.fragments.viewholders.ChatRoomViewHolder;
 
 public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomViewHolder> {
     private List<ChatRoom> chatRooms;
-    private User signedInUser;
+    private final User signedInUser;
     private final OnChatRoomItemClickListener listener;
 
     public ChatRoomsAdapter(List<ChatRoom> chatRooms, User signedInUser, OnChatRoomItemClickListener listener) {

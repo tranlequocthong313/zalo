@@ -16,19 +16,39 @@ public class ChatRoom extends BaseModel {
 
     @IgnoreExtraProperties
     public static class LastMessage {
+        public enum Type {TEXT, IMAGE, VIDEO, FILE}
+
         private String content;
         private long timestamp;
         private Member sender;
         private String senderId;
+        private LastMessage.Type type = Type.TEXT;
 
         public static LastMessage fromMessage(Message message) {
             LastMessage lastMessage = new LastMessage();
+            if (message.getImageUrls() != null && !message.getImageUrls().isEmpty()) {
+                lastMessage.setType(Type.IMAGE);
+            } else if (message.getVideoUrls() != null && !message.getVideoUrls().isEmpty()) {
+                lastMessage.setType(Type.VIDEO);
+            } else if (message.getFileUrl() != null && !message.getFileUrl().isEmpty()) {
+                lastMessage.setType(Type.FILE);
+            } else {
+                lastMessage.setType(Type.TEXT);
+                lastMessage.setContent(message.getTextContent());
+            }
             lastMessage.setSender(Member.fromUser(message.getSender()));
             lastMessage.setTimestamp(message.getCreatedAt());
-            lastMessage.setContent(message.getTextContent());
             lastMessage.setSenderId(lastMessage.getSender().getId());
 
             return lastMessage;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public void setType(Type type) {
+            this.type = type;
         }
 
         public String getSenderId() {
