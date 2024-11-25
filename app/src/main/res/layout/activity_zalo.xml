@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ZaloActivity">
+    tools:context=".ui.activities.ZaloActivity">
 
     <!-- Top App Bar -->
     <com.google.android.material.appbar.AppBarLayout
@@ -19,7 +19,7 @@
             android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/top_app_bar_background"
+            android:background="@drawable/gradient_background"
             app:navigationIcon="@drawable/ic_search_light"
             app:navigationIconTint="?attr/colorOnPrimary"
             app:popupTheme="@style/Theme.Zalo.ToolbarPopupMenuOverflow"

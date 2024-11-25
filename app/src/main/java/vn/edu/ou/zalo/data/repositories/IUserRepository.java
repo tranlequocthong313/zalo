@@ -1,12 +1,16 @@
 package vn.edu.ou.zalo.data.repositories;
 
 import java.util.List;
+import java.util.Map;
 
-import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.User;
 
 public interface IUserRepository {
-    List<User> getUsers();
+    default void getUsers(IRepositoryCallback<List<User>> callback) {
+        getUsers(null, callback);
+    }
 
-    User getLoginUser();
+    void getUsers(Map<String, String> query, IRepositoryCallback<List<User>> callback);
+
+    void createUser(User user, IRepositoryCallback<Void> callback);
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bottom_sheet"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="40dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="30dp"
+        android:text="@string/select_birthday"
+        android:textSize="18sp" />
+
+    <!-- Date Pickers -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Day Picker -->
+        <NumberPicker
+            android:id="@+id/day_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectionDividerHeight="0dp"
+            android:theme="@style/Theme.Zalo.NumberPicker" />
+
+        <!-- Month Picker -->
+        <NumberPicker
+            android:id="@+id/month_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectionDividerHeight="0dp"
+            android:theme="@style/Theme.Zalo.NumberPicker" />
+
+        <!-- Year Picker -->
+        <NumberPicker
+            android:id="@+id/year_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectionDividerHeight="0dp"
+            android:theme="@style/Theme.Zalo.NumberPicker" />
+    </LinearLayout>
+
+    <!-- Information Text -->
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/colorOutline"
+        android:gravity="center"
+        android:paddingVertical="16dp"
+        android:text="@string/birthday_limit"
+        android:textColor="@color/colorOutline"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_info_solid" />
+
+    <!-- Confirm Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/choose_birthday"
+        android:textColor="@color/enabled_state_surface_color"
+        android:textSize="15sp"
+        app:backgroundTint="@color/enabled_state_primary_color" />
+
+</LinearLayout>

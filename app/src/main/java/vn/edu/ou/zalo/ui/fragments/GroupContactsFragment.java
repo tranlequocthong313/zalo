@@ -1,7 +1,6 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,14 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.ChatRoom;
+import vn.edu.ou.zalo.ui.activities.ChatActivity;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatRoomsAdapter;
+import vn.edu.ou.zalo.ui.fragments.listeners.OnChatRoomItemClickListener;
 import vn.edu.ou.zalo.ui.states.GroupChatRoomUiState;
-import vn.edu.ou.zalo.ui.viewmodels.FocusedChatRoomsViewModel;
 import vn.edu.ou.zalo.ui.viewmodels.GroupChatRoomsViewModel;
 
 @AndroidEntryPoint
-public class GroupContactsFragment extends Fragment {
+public class GroupContactsFragment extends Fragment implements OnChatRoomItemClickListener {
 
     @Inject
     GroupChatRoomsViewModel groupChatRoomsViewModel;
@@ -51,21 +51,31 @@ public class GroupContactsFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
 
         groupChatRoomsViewModel.getUiState().observe(getViewLifecycleOwner(), this::updateUi);
+        groupChatRoomsViewModel.getSignedInUser();
 
         return view;
     }
 
     private void updateUi(GroupChatRoomUiState uiState) {
+        if (uiState.isLoading()) {
+            return;
+        }
+
         List<ChatRoom> groupChats = uiState.getChatRooms();
 
         String groupCount = String.format(getString(R.string.joined_groups), groupChats.size());
         joinedGroupTextView.setText(groupCount);
 
         if (recyclerView.getAdapter() == null) {
-            chatRoomsAdapter = new ChatRoomsAdapter(groupChats);
+            chatRoomsAdapter = new ChatRoomsAdapter(groupChats, uiState.getSignedInUser(), this);
             recyclerView.setAdapter(chatRoomsAdapter);
         } else {
             chatRoomsAdapter.updateChatRooms(groupChats);
         }
+    }
+
+    @Override
+    public void onItemClick(ChatRoom chatRoom) {
+        startActivity(ChatActivity.newIntent(getActivity(), chatRoom.getId()));
     }
 }

@@ -1,7 +1,6 @@
 package vn.edu.ou.zalo.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,15 +19,12 @@ import androidx.lifecycle.Lifecycle;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import vn.edu.ou.zalo.R;
 
 public class ContactsFragment extends Fragment {
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
-    private static final List<Fragment> fragments = Arrays.asList(null, null, null);
 
     public static ContactsFragment newInstance() {
         return new ContactsFragment();
@@ -82,23 +78,24 @@ public class ContactsFragment extends Fragment {
         if (fragmentClass == null) {
             return;
         }
-        Log.d("ContactsFragment", "Index: " + index);
 
-        Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
-        if (fragment == null) {
-            try {
-                Log.d("ContactsFragment", "Create new contact fragment");
-                fragment = fragmentClass.newInstance();
-                fragments.set(index, fragment);
-            } catch (IllegalAccessException | java.lang.InstantiationException e) {
-                throw new RuntimeException(e);
+        try {
+            Fragment fragment = fragmentClass.newInstance();
+
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            Fragment f = fragmentManager.findFragmentById(R.id.fragment_contacts_fragment_container);
+            if (f != null) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_contacts_fragment_container, fragment)
+                        .commit();
+            } else {
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_contacts_fragment_container, fragment)
+                        .commit();
             }
+        } catch (IllegalAccessException | java.lang.InstantiationException e) {
+            throw new RuntimeException(e);
         }
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_contacts_fragment_container, fragment)
-                .commit();
     }
 
 

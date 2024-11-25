@@ -1,7 +1,11 @@
 package vn.edu.ou.zalo.data.models;
 
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.util.Date;
 
+@IgnoreExtraProperties
 public abstract class BaseModel {
     private String id;
     private long createdAt;
@@ -12,6 +16,7 @@ public abstract class BaseModel {
         updatedAt = createdAt;
     }
 
+    @Exclude
     public String getId() {
         return id;
     }

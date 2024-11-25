@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorSurfaceBright"
+    app:contentPaddingBottom="8dp"
+    app:contentPaddingTop="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/list_item_search_result_user_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/avatar"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView"
+            tools:src="@android:drawable/ic_menu_report_image" />
+
+        <TextView
+            android:id="@+id/list_item_search_result_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/list_item_search_result_user_text"
+            app:layout_constraintEnd_toStartOf="@id/list_item_search_result_user_add_button"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/list_item_search_result_user_avatar"
+            app:layout_constraintTop_toTopOf="@id/list_item_search_result_user_avatar"
+            tools:text="Friend name" />
+
+        <TextView
+            android:id="@+id/list_item_search_result_user_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/phone_number"
+            android:textColor="@color/colorOutline"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/list_item_search_result_user_avatar"
+            app:layout_constraintTop_toBottomOf="@id/list_item_search_result_user_name" />
+
+        <TextView
+            android:id="@+id/list_item_search_result_user_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/list_item_search_result_user_text"
+            app:layout_constraintTop_toTopOf="@id/list_item_search_result_user_text"
+            tools:text="0123456789" />
+
+        <Button
+            android:id="@+id/list_item_search_result_user_add_button"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorSecondary"
+            android:paddingHorizontal="16dp"
+            android:text="@string/add"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/list_item_search_result_user_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/list_item_search_result_user_name" />
+
+        <View
+            android:id="@+id/divider_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/list_item_search_result_user_avatar"
+            app:layout_constraintTop_toBottomOf="@id/list_item_search_result_user_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

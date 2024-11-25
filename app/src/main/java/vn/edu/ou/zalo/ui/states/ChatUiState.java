@@ -8,25 +8,25 @@ import vn.edu.ou.zalo.data.models.User;
 
 public class ChatUiState extends BaseUiState {
     private final List<Message> messages;
-    private final User loginUser;
     private final ChatRoom chatRoom;
+    private final User signedInUser;
 
-    public ChatUiState(boolean isLoading, String errorMessage, List<Message> messages, User loginUser, ChatRoom chatRoomId) {
+    public ChatUiState(boolean isLoading, String errorMessage, List<Message> messages, ChatRoom chatRoom, User signedInUser) {
         super(isLoading, errorMessage);
         this.messages = messages;
-        this.loginUser = loginUser;
-        this.chatRoom = chatRoomId;
+        this.chatRoom = chatRoom;
+        this.signedInUser = signedInUser;
     }
 
     public List<Message> getMessages() {
         return messages;
     }
 
-    public User getLoginUser() {
-        return loginUser;
-    }
-
     public ChatRoom getChatRoom() {
         return chatRoom;
+    }
+
+    public User getSignedInUser() {
+        return signedInUser;
     }
 }

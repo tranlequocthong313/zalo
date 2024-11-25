@@ -2,26 +2,61 @@ package vn.edu.ou.zalo.data.models;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.util.Set;
 
+@IgnoreExtraProperties
 public class ChatRoom extends BaseModel {
 
     public enum Type {SINGLE, GROUP}
 
     public enum Priority {FOCUSED, OTHER}
 
+    @IgnoreExtraProperties
     public static class LastMessage {
+        public enum Type {TEXT, IMAGE, VIDEO, FILE}
+
         private String content;
         private long timestamp;
         private Member sender;
+        private String senderId;
+        private LastMessage.Type type = Type.TEXT;
 
         public static LastMessage fromMessage(Message message) {
             LastMessage lastMessage = new LastMessage();
+            if (message.getImageUrls() != null && !message.getImageUrls().isEmpty()) {
+                lastMessage.setType(Type.IMAGE);
+            } else if (message.getVideoUrls() != null && !message.getVideoUrls().isEmpty()) {
+                lastMessage.setType(Type.VIDEO);
+            } else if (message.getFileUrl() != null && !message.getFileUrl().isEmpty()) {
+                lastMessage.setType(Type.FILE);
+            } else {
+                lastMessage.setType(Type.TEXT);
+                lastMessage.setContent(message.getTextContent());
+            }
             lastMessage.setSender(Member.fromUser(message.getSender()));
             lastMessage.setTimestamp(message.getCreatedAt());
-            lastMessage.setContent(message.getTextContent());
+            lastMessage.setSenderId(lastMessage.getSender().getId());
 
             return lastMessage;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public void setType(Type type) {
+            this.type = type;
+        }
+
+        public String getSenderId() {
+            return senderId;
+        }
+
+        public void setSenderId(String senderId) {
+            this.senderId = senderId;
         }
 
         public String getContent() {
@@ -40,6 +75,7 @@ public class ChatRoom extends BaseModel {
             this.timestamp = timestamp;
         }
 
+        @Exclude
         public Member getSender() {
             return sender;
         }
@@ -49,17 +85,27 @@ public class ChatRoom extends BaseModel {
         }
     }
 
+    @IgnoreExtraProperties
     public static class Member {
         private User user;
+        private String id;
         private boolean isAdmin;
         private boolean isMod;
 
         public static Member fromUser(User user) {
+            return fromUser(user, false, false);
+        }
+
+        public static Member fromUser(User user, boolean isAdmin, boolean isMod) {
             Member member = new Member();
             member.setUser(user);
+            member.setId(user.getId());
+            member.setAdmin(isAdmin);
+            member.setMod(isMod);
             return member;
         }
 
+        @Exclude
         public User getUser() {
             return user;
         }
@@ -84,17 +130,12 @@ public class ChatRoom extends BaseModel {
             isMod = mod;
         }
 
-        @Override
-        public boolean equals(@Nullable Object obj) {
-            if (obj == this) return true;
-            if (obj == null || obj.getClass() != getClass()) return false;
-            Member member = (Member) obj;
-            return getUser().equals(member.getUser());
+        public String getId() {
+            return id;
         }
 
-        @Override
-        public int hashCode() {
-            return getUser().hashCode();
+        public void setId(String id) {
+            this.id = id;
         }
     }
 
@@ -106,10 +147,10 @@ public class ChatRoom extends BaseModel {
     private Set<Member> members;
     private Priority priority = Priority.FOCUSED;
 
-    public Member getOtherMember(User loginUser) {
+    public Member getOtherMember(User signedInUser) {
         ChatRoom.Member[] members = getMembers().toArray(new ChatRoom.Member[0]);
         for (Member member : members) {
-            if (!member.getUser().equals(loginUser)) {
+            if (!member.getId().equals(signedInUser.getId())) {
                 return member;
             }
         }
@@ -161,6 +202,7 @@ public class ChatRoom extends BaseModel {
         this.lastMessage = lastMessage;
     }
 
+    @Exclude
     public Set<Member> getMembers() {
         return members;
     }

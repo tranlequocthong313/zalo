@@ -16,7 +16,7 @@ import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.ui.fragments.viewholders.PostViewHolder;
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
-    private final List<Post> posts;
+    private List<Post> posts;
 
     public PostAdapter(List<Post> posts) {
         this.posts = posts;
@@ -42,8 +42,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updatePosts(List<Post> posts) {
-        this.posts.clear();
-        this.posts.addAll(posts);
+        if (posts == null) {
+            return;
+        }
+        this.posts = posts;
         notifyDataSetChanged();
     }
 }

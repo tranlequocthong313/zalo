@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ZaloActivity">
+    tools:context=".ui.activities.ZaloActivity">
 
     <!-- Top App Bar -->
     <com.google.android.material.appbar.AppBarLayout
@@ -16,11 +16,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/chat_activity_top_app_bar"
+            android:id="@+id/fragment_chat_top_app_bar"
             style="@style/Widget.Material3.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/top_app_bar_background"
+            android:background="@drawable/gradient_background"
             app:menu="@menu/chat_activity_menu"
             app:navigationIcon="@drawable/ic_arrow_left_light"
             app:navigationIconTint="@color/colorOnPrimary"
@@ -30,6 +30,35 @@
             tools:subtitle="Last seen at yesterday"
             tools:title="John Doe" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_chat_add_friend_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurfaceBright"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_app_bar_layout">
+
+        <ImageView
+            android:id="@+id/fragment_chat_add_friend_layout_img_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/add_friend"
+            android:src="@drawable/ic_person_add_24px" />
+
+        <TextView
+            android:id="@+id/fragment_chat_add_friend_layout_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_friend" />
+    </LinearLayout>
+
 
     <!-- Main Content -->
     <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@id/fragment_chat_message_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_chat_app_bar_layout" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_add_friend_layout" />
 
     <!-- Chat Input Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorSurfaceBright"
                 android:hint="@string/message"
-                android:imeOptions="actionSend"
+                android:imeOptions="actionGo"
                 android:inputType="text"
                 android:paddingVertical="16dp"
                 android:textColor="@color/colorOnSurfaceVariant"

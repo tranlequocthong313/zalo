@@ -19,12 +19,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolder> {
     private static final int VIEW_TYPE_CREATE_NEW = 0;
     private static final int VIEW_TYPE_STORY = 1;
 
-    private final List<Story> stories;
-    private final User loginuser;
+    private List<Story> stories;
+    private User signedInUser;
 
-    public StoryAdapter(List<Story> stories, User loginUser) {
+    public StoryAdapter(List<Story> stories, User signedInUser) {
         this.stories = stories;
-        this.loginuser = loginUser;
+        this.signedInUser = signedInUser;
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull StoryViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_CREATE_NEW) {
-            holder.bindStory(loginuser);
+            holder.bindStory(signedInUser);
         } else {
             holder.bindStory(stories.get(position));
         }
@@ -58,8 +58,16 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolder> {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateStories(List<Story> stories) {
-        this.stories.clear();
-        this.stories.addAll(stories);
+        if (stories == null) {
+            return;
+        }
+        this.stories = stories;
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSignedInUser(User signedInUser) {
+        this.signedInUser = signedInUser;
         notifyDataSetChanged();
     }
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorSurfaceBright">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="14dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/list_item_suggestion_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/avatar"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView"
+            tools:src="@android:drawable/ic_menu_report_image" />
+
+        <TextView
+            android:id="@+id/list_item_suggestion_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/list_item_suggestion_text"
+            app:layout_constraintEnd_toStartOf="@id/list_item_suggestion_add_button"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
+            app:layout_constraintTop_toTopOf="@id/list_item_suggestion_avatar"
+            tools:text="Friend name" />
+
+        <TextView
+            android:id="@+id/list_item_suggestion_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/people_you_may_know"
+            android:textColor="@color/colorOutline"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
+            app:layout_constraintTop_toBottomOf="@id/list_item_suggestion_name" />
+
+        <Button
+            android:id="@+id/list_item_suggestion_add_button"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorSecondary"
+            android:paddingHorizontal="16dp"
+            android:text="@string/add_friend"
+            app:layout_constraintBottom_toBottomOf="@id/list_item_suggestion_text"
+            app:layout_constraintEnd_toStartOf="@id/list_item_suggestion_delete_button"
+            app:layout_constraintTop_toTopOf="@id/list_item_suggestion_name" />
+
+        <ImageButton
+            android:contentDescription="@string/delete"
+            android:id="@+id/list_item_suggestion_delete_button"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_close_light"
+            app:layout_constraintBottom_toBottomOf="@id/list_item_suggestion_add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/list_item_suggestion_add_button"
+            app:tint="@color/colorOnSurfaceVariant" />
+
+        <View
+            android:id="@+id/divider_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/list_item_suggestion_avatar"
+            app:layout_constraintTop_toBottomOf="@id/list_item_suggestion_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

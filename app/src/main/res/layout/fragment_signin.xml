@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSurfaceBright"
+    android:paddingBottom="10dp">
+
+    <!-- Top App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/fragment_signin_top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_background"
+            app:navigationIcon="@drawable/ic_arrow_left_light"
+            app:navigationIconTint="?attr/colorOnPrimary"
+            app:popupTheme="@style/Theme.Zalo.ToolbarPopupMenuOverflow"
+            app:title="@string/signin_title"
+            app:titleTextAppearance="@style/Theme.Zalo.TitleTopAppBar"
+            app:titleTextColor="@color/colorOnPrimary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_signin_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorOutlineVariant"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:text="@string/please_enter_phone_number_and_password_to_signin_in"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_signin_top_app_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_signin_reminder">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorPrimaryInverse"
+            app:cursorColor="@color/colorPrimary"
+            app:endIconDrawable="@drawable/ic_close_light"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/colorOutline"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragment_signin_phone_number_text_input_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSurfaceBright"
+                android:focusableInTouchMode="true"
+                android:hint="@string/phone_number_hint"
+                android:inputType="phone"
+                android:paddingVertical="16dp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorHint="@color/colorOutline" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorPrimaryInverse"
+            app:cursorColor="@color/colorPrimary"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/colorOutline"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragment_signin_password_text_input_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSurfaceBright"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:paddingVertical="16dp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorHint="@color/colorOutline" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20dp"
+            android:text="@string/recover_password"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTint="@color/colorOutline"
+        android:paddingHorizontal="20dp"
+        android:text="@string/faq"
+        android:textColor="@color/colorOutline"
+        app:drawableEndCompat="@drawable/ic_small_arrow_right_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_signin_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fragment_signin_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:contentDescription="@string/signin"
+        android:enabled="false"
+        app:backgroundTint="@color/enabled_state_primary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/Theme.Zalo.RoundedImageView"
+        app:srcCompat="@drawable/ic_arrow_right_light2"
+        app:tint="@color/colorOnPrimary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

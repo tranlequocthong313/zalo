@@ -21,7 +21,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -30,9 +29,7 @@ import vn.edu.ou.zalo.R;
 @AndroidEntryPoint
 public class TimelineFragment extends Fragment {
     private static final List<Class<? extends Fragment>> fragmentClasses = new ArrayList<>();
-    private static final List<Fragment> fragments = Arrays.asList(null, null);
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TabLayout tabLayout;
 
     public static TimelineFragment newInstance() {
         return new TimelineFragment();
@@ -59,7 +56,7 @@ public class TimelineFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(this::refreshContent);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
-        tabLayout = view.findViewById(R.id.fragment_timeline_tab_layout);
+        TabLayout tabLayout = view.findViewById(R.id.fragment_timeline_tab_layout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -83,11 +80,7 @@ public class TimelineFragment extends Fragment {
 
     private void refreshContent() {
         swipeRefreshLayout.setRefreshing(true);
-        int selectedTabIndex = tabLayout.getSelectedTabPosition();
-        if (selectedTabIndex > fragments.size()) {
-            return;
-        }
-        Fragment fragment = fragments.get(selectedTabIndex);
+        Fragment fragment = requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_timeline_fragment_container);
         if (fragment == null) {
             return;
         }
@@ -108,20 +101,15 @@ public class TimelineFragment extends Fragment {
             return;
         }
 
-        Fragment fragment = index < fragments.size() ? fragments.get(index) : null;
-        if (fragment == null) {
-            try {
-                fragment = fragmentClass.newInstance();
-                fragments.set(index, fragment);
-            } catch (IllegalAccessException | java.lang.InstantiationException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            Fragment fragment = fragmentClass.newInstance();
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_timeline_fragment_container, fragment)
+                    .commit();
+        } catch (IllegalAccessException | java.lang.InstantiationException e) {
+            throw new RuntimeException(e);
         }
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_timeline_fragment_container, fragment)
-                .commit();
     }
 
     @Override

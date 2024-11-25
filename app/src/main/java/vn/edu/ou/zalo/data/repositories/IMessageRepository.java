@@ -1,11 +1,12 @@
 package vn.edu.ou.zalo.data.repositories;
 
 import java.util.List;
-import java.util.Map;
 
 import vn.edu.ou.zalo.data.models.Message;
-import vn.edu.ou.zalo.data.models.Post;
 
 public interface IMessageRepository {
-    List<Message> getMessages(Map<String, String> query);
+    void listenMessages(String chatRoomId, IRepositoryCallback<List<Message>> cb);
+    void getMessages(String query, IRepositoryCallback<List<Message>> callback);
+
+    void createMessage(Message message, IRepositoryCallback<Message> callback);
 }
