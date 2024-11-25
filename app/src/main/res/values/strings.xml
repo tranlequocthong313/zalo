@@ -69,4 +69,15 @@
     <string name="message">Message</string>
     <string name="tab_for_more_info">Tab for more info</string>
     <string name="last_seen">Last seen %1$s</string>
+
+    <string name="zalo_video">Zalo Video</string>
+    <string name="game_center">Game Center</string>
+    <string name="lifestyle_services">Lifestyle Services</string>
+    <string name="financial_utilities">Financial Utilities</string>
+    <string name="mini_app">Mini App</string>
+    <string name="e_government">e-Government</string>
+    <string name="discovery_content_1">Chủ tịch giả vờ nghèo và cái kết....</string>
+    <string name="discovery_content_2">Cùng ZCá Săn Boss Ring Vàng Đã Tay!</string>
+    <string name="discovery_content_3">Mobile Top Up, Lottery Result, Football,...</string>
+
 </resources>

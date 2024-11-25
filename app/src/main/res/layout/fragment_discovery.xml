@@ -1,14 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.ContactsFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Discovery" />
+        android:layout_height="wrap_content"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/zalo_video"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+
+
+                android:text="@string/zalo_video"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img1"
+                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+
+                android:text="@string/discovery_content_1"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_discovery_img1"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img1" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/zalo_video_thumbnail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/Theme.Zalo.CurvedImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_game_center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/game_center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img3"
+                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img3" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_content2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/discovery_content_2"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_discovery_img3"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img3" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/zalo_game_thumbnail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/Theme.Zalo.CurvedImageView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_lifestyle_services"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/lifestyle_services"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img5"
+                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img5" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_content3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/discovery_content_3"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_discovery_img5"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img5" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img6"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_arrow_right_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img7"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_utilities"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_title7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/financial_utilities"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img7"
+                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img7" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/zalo_government"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/e_government"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img8"
+                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img8" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/fragment_discovery_img9"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_mini_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_discovery_title6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/mini_app"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/fragment_discovery_img9"
+        app:layout_constraintTop_toTopOf="@id/fragment_discovery_img9" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/fragment_discovery_img10"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_arrow_right_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
