@@ -9,7 +9,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp"
@@ -21,8 +21,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_discovery_img1"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="36dp"
+                android:layout_height="35dp"
                 android:src="@drawable/zalo_video"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
                 android:id="@+id/fragment_discovery_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
 
 
                 android:text="@string/zalo_video"
@@ -45,7 +45,7 @@
                 android:id="@+id/fragment_discovery_content1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
 
                 android:text="@string/discovery_content_1"
                 android:textSize="13sp"
@@ -67,7 +67,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="66dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp"
@@ -95,7 +95,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/fragment_discovery_img3"
-                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img3" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/fragment_discovery_content2"
@@ -124,15 +124,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="61dp"
         android:layout_marginTop="10dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp"
         app:contentPaddingTop="10dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="38dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_discovery_img5"
@@ -153,7 +154,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/fragment_discovery_img5"
-                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img5" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/fragment_discovery_content3"
@@ -162,7 +163,7 @@
                 android:layout_marginStart="20dp"
                 android:text="@string/discovery_content_3"
                 android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/fragment_discovery_img5"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fragment_discovery_img5" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -180,7 +181,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp"
@@ -217,7 +218,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp"
@@ -249,49 +250,50 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginTop="10dp"
         app:contentPaddingBottom="10dp"
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp"
         app:contentPaddingTop="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/fragment_discovery_img9"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_mini_app"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img9"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_mini_app"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/fragment_discovery_title6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/mini_app"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/fragment_discovery_img9"
-        app:layout_constraintTop_toTopOf="@id/fragment_discovery_img9" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_discovery_title6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/mini_app"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/fragment_discovery_img9"
+                app:layout_constraintTop_toTopOf="@id/fragment_discovery_img9" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/fragment_discovery_img10"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ic_arrow_right_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/fragment_discovery_img10"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_arrow_right_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
