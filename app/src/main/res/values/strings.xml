@@ -68,6 +68,17 @@
     <string name="message">Message</string>
     <string name="tab_for_more_info">Tab for more info</string>
     <string name="last_seen">Last seen %1$s</string>
+
+    <string name="zalo_video">Zalo Video</string>
+    <string name="game_center">Game Center</string>
+    <string name="lifestyle_services">Lifestyle Services</string>
+    <string name="financial_utilities">Financial Utilities</string>
+    <string name="mini_app">Mini App</string>
+    <string name="e_government">e-Government</string>
+    <string name="discovery_content_1">Hot News!</string>
+    <string name="discovery_content_2">Join ZFish to Hunt the Golden Ring Boss!</string>
+    <string name="discovery_content_3">Mobile Top Up, Lottery Result, Football,...</string>
+
     <string name="english">English</string>
     <string name="signin">Log in</string>
     <string name="create_new_account">Create new account</string>
@@ -116,8 +127,7 @@
     <string name="send_free_message_to_friend">Send free messages to friends</string>
     <string name="add_friend_from_contact">Add friend from contacts</string>
     <string name="search">Search</string>
-    <string name="zalo_video">Zalo Video</string>
-    <string name="discovery_content_1">Hot News</string>
+
     <string name="phone_number">Phone number</string>
     <string name="add_friend">Add friend</string>
     <string name="friend_request_has_been_sent">Friend request has been sent</string>
@@ -129,4 +139,8 @@
     <string name="accept">Accept</string>
     <string name="recall">Recall</string>
     <string name="no_friend_requests_received">No friend requests received</string>
+
+    <string name="choose_avatar_source">Choose avatar</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
 </resources>
