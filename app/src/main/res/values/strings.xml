@@ -129,4 +129,17 @@
     <string name="accept">Accept</string>
     <string name="recall">Recall</string>
     <string name="no_friend_requests_received">No friend requests received</string>
+    <string name="fragment_me_description1">Xem trang cá nhân</string>
+    <string name="fragment_me_description2">Hình nền và nhạc cho cuộc gọi Zalo</string>
+    <string name="fragment_me_description3">Lưu trữ và xuất trình các mã QR quan trọng</string>
+    <string name="fragment_me_description4">Không gian lưu trữ dữ liệu trên đám mây</string>
+    <string name="fragment_me_description5">Lưu trữ các tin nhắn quan trọng</string>
+    <string name="fragment_me_description6">Quản lý dữ liệu Zalo của bạn</string>
+    <string name="fragment_me_title2">zStyle - Nổi bật trên Zalo</string>
+    <string name="fragment_me_title3">Ví QR</string>
+    <string name="fragment_me_title4">zCloud</string>
+    <string name="fragment_me_title5">Cloud của tôi</string>
+    <string name="fragment_me_title6">Dữ liệu trên máy</string>
+    <string name="fragment_me_title7">Tài khoản và bảo mật</string>
+    <string name="fragment_me_title8">Quyền riêng tư</string>
 </resources>

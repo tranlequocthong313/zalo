@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Zalo"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.activities.InforActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.MeActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
