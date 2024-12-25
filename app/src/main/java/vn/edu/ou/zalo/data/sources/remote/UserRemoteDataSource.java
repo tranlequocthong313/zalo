@@ -102,10 +102,12 @@ public class UserRemoteDataSource implements IUserDataSource {
 
     @Override
     public void createUser(User user, IRepositoryCallback<Void> callback) {
-        String mockPasswordForDevPurpose = "zalo12345"; // TODO: For dev purpose
-        String hashedPassword = hashPassword(mockPasswordForDevPurpose); // Use bcrypt or similar
+//        String mockPasswordForDevPurpose = "zalo12345"; // TODO: For dev purpose
+//        String hashedPassword = hashPassword(mockPasswordForDevPurpose); // Use bcrypt or similar
+//        user.setHashedPassword(hashedPassword);
+        String userPassword = user.getHashedPassword() ; // giả sử bạn có phương thức này trong đối tượng User
+        String hashedPassword = hashPassword(userPassword); // Mã hóa mật khẩu người dùng thực sự
         user.setHashedPassword(hashedPassword);
-
         db.collection(Constants.USER_COLLECTION_NAME)
                 .add(user)
                 .addOnSuccessListener(documentReference -> {
