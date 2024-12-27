@@ -86,6 +86,7 @@ public class SignUpAvatarFragment extends Fragment {
                 loadAvatar(avatarUrl);
             }
         }
+        avatarImageView.setOnClickListener(v -> showImagePickerDialog());
 
         Button skipButton = view.findViewById(R.id.fragment_signup_avatar_skip_button);
         skipButton.setOnClickListener(v -> showSkipConfirmationDialog(user));

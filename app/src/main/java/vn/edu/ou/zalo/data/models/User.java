@@ -132,6 +132,7 @@ public class User extends BaseModel implements Parcelable {
     public String toString() {
         return "User{" +
                 "fullName='" + fullName + '\'' +
+                ", password=" + hashedPassword + '\''  +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", birthdate=" + birthdate +
                 ", gender=" + gender +
@@ -161,6 +162,7 @@ public class User extends BaseModel implements Parcelable {
         lastLogin = in.readLong();
         isOnline = in.readByte() != 0;
         friendCount = in.readLong();
+        hashedPassword = in.readString();
     }
 
     @Override
@@ -177,6 +179,7 @@ public class User extends BaseModel implements Parcelable {
         dest.writeLong(lastLogin);
         dest.writeByte((byte) (isOnline ? 1 : 0));
         dest.writeLong(friendCount);
+        dest.writeString(hashedPassword != null ? hashedPassword : "");
     }
 
     @Override
