@@ -52,7 +52,7 @@ public class MeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
-        Button signoutButton = view.findViewById(R.id.fragment_me_signout_button);
+        TextView signoutButton = view.findViewById(R.id.fragment_me_signout_button);
 
 
         avatar = view.findViewById(R.id.fragment_me_avatar);

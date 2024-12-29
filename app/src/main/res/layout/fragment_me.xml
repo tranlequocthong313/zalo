@@ -24,6 +24,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_avatar"
                 android:layout_width="43dp"
+                android:scaleType="centerInside"
                 android:layout_height="43dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +54,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_img9"
                 android:layout_width="29dp"
+                android:scaleType="centerInside"
                 android:layout_height="29dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -82,6 +84,7 @@
                 android:layout_width="43dp"
                 android:layout_height="49dp"
                 android:src="@drawable/fragment_me_img_style"
+                android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -124,56 +127,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/fragment_me_img3"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@drawable/fragment_me_img_wallet"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/fragment_me_title3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="@string/fragment_me_title3"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/fragment_me_img3"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/fragment_me_content3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="@string/fragment_me_description3"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/fragment_me_img3" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        app:contentPaddingBottom="10dp"
-        app:contentPaddingLeft="20dp"
-        app:contentPaddingRight="20dp"
-        app:contentPaddingTop="10dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
             android:layout_height="43dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_img4"
+                android:scaleType="centerInside"
                 android:layout_width="44dp"
                 android:layout_height="45dp"
                 android:src="@drawable/fragment_me_img_zcloud"
@@ -205,6 +163,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_button4"
+                android:scaleType="centerInside"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_arrow_right_light"
@@ -229,6 +188,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_img5"
+                android:scaleType="centerInside"
                 android:layout_width="43dp"
                 android:layout_height="45dp"
                 android:src="@drawable/fragment_me_img_cloud"
@@ -260,6 +220,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_button5"
+                android:scaleType="centerInside"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_arrow_right_light"
@@ -283,6 +244,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_img6"
+                android:scaleType="centerInside"
                 android:layout_width="44dp"
                 android:layout_height="43dp"
                 android:src="@drawable/fragment_me_img_data"
@@ -315,6 +277,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_button6"
                 android:layout_width="14dp"
+                android:scaleType="centerInside"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_arrow_right_light"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -339,6 +302,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_img7"
+                android:scaleType="centerInside"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:src="@drawable/fragment_me_img_security"
@@ -362,6 +326,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_button7"
+                android:scaleType="centerInside"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_arrow_right_light"
@@ -388,6 +353,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_img8"
                 android:layout_width="45dp"
+                android:scaleType="centerInside"
                 android:layout_height="44dp"
                 android:src="@drawable/fragment_me_img_private"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -404,12 +370,16 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
+                app:layout_constraintStart_toEndOf="@id/fragment_me_img8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="65dp"
                 tools:layout_editor_absoluteY="11dp" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fragment_me_button8"
                 android:layout_width="14dp"
+                android:scaleType="centerInside"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_arrow_right_light"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -419,9 +389,35 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/fragment_me_signout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signout" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="10dp"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="43dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_me_signout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/signout"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
