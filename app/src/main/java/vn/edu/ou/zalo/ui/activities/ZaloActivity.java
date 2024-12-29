@@ -8,6 +8,7 @@ import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,18 +25,24 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import vn.edu.ou.zalo.R;
+import vn.edu.ou.zalo.data.models.CallEvent;
 import vn.edu.ou.zalo.ui.fragments.ChatRoomsFragment;
 import vn.edu.ou.zalo.ui.fragments.ContactsFragment;
 import vn.edu.ou.zalo.ui.fragments.DiscoveryFragment;
 import vn.edu.ou.zalo.ui.fragments.MeFragment;
 import vn.edu.ou.zalo.ui.fragments.TimelineFragment;
+import vn.edu.ou.zalo.ui.viewmodels.CallViewModel;
 
 @AndroidEntryPoint
 public class ZaloActivity extends AppCompatActivity {
     private static final int FILTER_ICON_MARGIN = 12;
 
+    @Inject
+    CallViewModel callViewModel;
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;
     private boolean isBottomNavItemSelectedProgrammatically = false;
@@ -59,6 +66,8 @@ public class ZaloActivity extends AppCompatActivity {
         setupMainContent();
 
         setupBottomNavigation();
+
+//        setupCallEvent();
     }
 
     @SuppressLint("RestrictedApi")
@@ -153,4 +162,23 @@ public class ZaloActivity extends AppCompatActivity {
             return false;
         });
     }
+
+//    private void setupCallEvent() {
+//        callViewModel.listenCallEvent();
+//        callViewModel.getUiState().observe(this, uiState -> {
+//            if (uiState.isLoading()) {
+//                return;
+//            }
+//            if (uiState.getErrorMessage() != null) {
+//                Log.d("CallEvent", uiState.getErrorMessage());
+//            }
+//            CallEvent callEvent = uiState.getCallEvent();
+//            if (callEvent == null) {
+//                return;
+//            }
+//            if (callEvent == CallEvent.INCOMING_CALL && !uiState.isVideoCall()) {
+//                startActivity(IncomingAudioCallActivity.newIntent(this, uiState.getCallId()));
+//            }
+//        });
+//    }
 }

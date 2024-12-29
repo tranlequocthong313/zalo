@@ -1,7 +1,5 @@
 package vn.edu.ou.zalo.data.sources.remote;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.FirebaseException;
@@ -25,6 +23,7 @@ import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.data.repositories.IRepositoryCallback;
 import vn.edu.ou.zalo.data.sources.IAuthDataSource;
 import vn.edu.ou.zalo.utils.Constants;
+import vn.edu.ou.zalo.utils.Json;
 
 public class AuthRemoteDataSource implements IAuthDataSource {
     private static final String VN_PHONE_NUMBER_CODE = "+84";
@@ -121,32 +120,14 @@ public class AuthRemoteDataSource implements IAuthDataSource {
                 .call(data)
                 .continueWith(task -> {
                     if (task.isSuccessful()) {
-                        // Safe cast and check if the result is a Map
-                        Object result = task.getResult().getData();
-                        if (result instanceof Map<?, ?>) {
-                            Map<?, ?> map = (Map<?, ?>) result;
-                            Map<String, Object> safeMap = new HashMap<>();
-                            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                                if (entry.getKey() instanceof String && entry.getValue() != null) {
-                                    safeMap.put((String) entry.getKey(), entry.getValue());
-                                } else {
-                                    throw new IllegalArgumentException("Unexpected key/value type in map: "
-                                            + entry.getKey().getClass().getSimpleName() + "/"
-                                            + entry.getValue().getClass().getSimpleName());
-                                }
-                            }
-                            return safeMap;
-                        } else {
-                            assert result != null;
-                            throw new IllegalArgumentException("Expected Map result, but got: " + result.getClass().getSimpleName());
-                        }
+                        return Json.getStringObjectMap(task.getResult().getData());
                     } else {
                         throw Objects.requireNonNull(task.getException()); // If the Firebase function fails, throw the exception
                     }
                 })
-                .addOnSuccessListener(task -> {
+                .addOnSuccessListener(responseData -> {
                     // Get the custom token from Firebase Function's result
-                    String token = (String) task.get("token");
+                    String token = (String) responseData.get("token");
 
                     if (token != null) {
                         // Sign in with custom token returned by the function

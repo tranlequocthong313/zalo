@@ -1,7 +1,5 @@
 package vn.edu.ou.zalo.data.sources.remote;
 
-import android.util.Log;
-
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentChange;
@@ -10,15 +8,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -205,7 +200,10 @@ public class ChatRoomRemoteDataSource implements IChatRoomDataSource {
                                                     ChatRoom.Member member = doc.toObject(ChatRoom.Member.class);
                                                     if (member != null) {
                                                         member.setId(doc.getId());
-                                                        member.setUser(documentSnapshot.toObject(User.class));
+                                                        User u = documentSnapshot.toObject(User.class);
+                                                        assert u != null;
+                                                        u.setId(documentSnapshot.getId());
+                                                        member.setUser(u);
                                                         members.add(member);
                                                     }
                                                 });

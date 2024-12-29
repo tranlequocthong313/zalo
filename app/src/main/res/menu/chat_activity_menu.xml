@@ -2,12 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/chat_activity_menu_audio_call"
         android:icon="@drawable/ic_phone_light"
         android:title="@string/audio_call"
         app:iconTint="@color/colorOnPrimary"
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/chat_activity_menu_video_call"
         android:icon="@drawable/ic_video_light"
         android:title="@string/video_call"
         app:iconTint="@color/colorOnPrimary"

@@ -1,14 +1,18 @@
 package vn.edu.ou.zalo.ui.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -39,6 +44,8 @@ import vn.edu.ou.zalo.data.models.ChatRoom;
 import vn.edu.ou.zalo.data.models.Friendship;
 import vn.edu.ou.zalo.data.models.Message;
 import vn.edu.ou.zalo.data.models.User;
+import vn.edu.ou.zalo.ui.activities.OutgoingAudioCallActivity;
+import vn.edu.ou.zalo.ui.activities.OutgoingVideoCallActivity;
 import vn.edu.ou.zalo.ui.fragments.adapters.ChatAdapter;
 import vn.edu.ou.zalo.ui.states.ChatUiState;
 import vn.edu.ou.zalo.ui.states.FriendshipUiState;
@@ -68,6 +75,14 @@ public class ChatFragment extends Fragment {
     private boolean checkedFriendStatus;
     private File photoFile;
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if (result) {
+                startActivity(OutgoingAudioCallActivity.newIntent(getActivity(), user));
+            }
+        }
+    });
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent i = result.getData();
@@ -109,6 +124,14 @@ public class ChatFragment extends Fragment {
         return fragment;
     }
 
+    private boolean isGrantedRecordAudioPermission() {
+        return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private boolean isGrantedBluetoothPermission() {
+        return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -116,6 +139,28 @@ public class ChatFragment extends Fragment {
 
         toolbar = view.findViewById(R.id.fragment_chat_top_app_bar);
         toolbar.setNavigationOnClickListener(v -> requireActivity().finish());
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.chat_activity_menu_audio_call) {
+                if (user != null) {
+                    if (isGrantedRecordAudioPermission() && isGrantedBluetoothPermission()) {
+                        startActivity(OutgoingAudioCallActivity.newIntent(getActivity(), user));
+                    } else {
+                        requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
+                        requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "User is not found to make a call", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+
+            if (item.getItemId() == R.id.chat_activity_menu_video_call) {
+                startActivity(OutgoingVideoCallActivity.newIntent(getActivity()));
+                return true;
+            }
+
+            return false;
+        });
 
         addFriendView = view.findViewById(R.id.fragment_chat_add_friend_layout);
 

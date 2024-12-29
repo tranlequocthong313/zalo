@@ -1,5 +1,7 @@
 package vn.edu.ou.zalo.ui.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,6 +12,7 @@ import javax.inject.Inject;
 
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.domain.IDomainCallback;
+import vn.edu.ou.zalo.domain.impl.AuthenticateCallServiceUseCase;
 import vn.edu.ou.zalo.domain.impl.GetSignedInUserUseCase;
 import vn.edu.ou.zalo.domain.impl.SignInWithPhoneNumberAndPasswordUseCase;
 import vn.edu.ou.zalo.domain.impl.SignOutUseCase;
@@ -22,17 +25,33 @@ public class AuthViewModel extends ViewModel {
     private final SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase;
     private final GetSignedInUserUseCase getSignedInUserUseCase;
     private final SignOutUseCase signOutUseCase;
+    private final AuthenticateCallServiceUseCase authenticateCallServiceUseCase;
 
     @Inject
-    public AuthViewModel(SignUpUseCase signUpUseCase, SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase, GetSignedInUserUseCase getSignedInUserUseCase, SignOutUseCase signOutUseCase) {
+    public AuthViewModel(SignUpUseCase signUpUseCase, SignInWithPhoneNumberAndPasswordUseCase signInWithPhoneNumberAndPasswordUseCase, GetSignedInUserUseCase getSignedInUserUseCase, SignOutUseCase signOutUseCase, AuthenticateCallServiceUseCase authenticateCallServiceUseCase) {
         this.signUpUseCase = signUpUseCase;
         this.signInWithPhoneNumberAndPasswordUseCase = signInWithPhoneNumberAndPasswordUseCase;
         this.getSignedInUserUseCase = getSignedInUserUseCase;
         this.signOutUseCase = signOutUseCase;
+        this.authenticateCallServiceUseCase = authenticateCallServiceUseCase;
     }
 
     public LiveData<AuthUiState> getUiState() {
         return uiState;
+    }
+
+    private void authenticateCallService() {
+        authenticateCallServiceUseCase.execute(new IDomainCallback<Void>() {
+            @Override
+            public void onSuccess(Void data) {
+                Log.i("authenticate", "authenticated successfully");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.i("authenticate", Objects.requireNonNull(e.getMessage()));
+            }
+        });
     }
 
     public void signIn(String phoneNumber, String password) {
@@ -41,6 +60,7 @@ public class AuthViewModel extends ViewModel {
             @Override
             public void onSuccess(Boolean result) {
                 uiState.setValue(new AuthUiState(false, null, false, result, null));
+                authenticateCallService();
             }
 
             @Override
@@ -56,6 +76,7 @@ public class AuthViewModel extends ViewModel {
             @Override
             public void onSuccess(Void result) {
                 uiState.setValue(new AuthUiState(false, null, true, false, null));
+                authenticateCallService();
             }
 
             @Override

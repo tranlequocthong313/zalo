@@ -129,4 +129,12 @@
     <string name="accept">Accept</string>
     <string name="recall">Recall</string>
     <string name="no_friend_requests_received">No friend requests received</string>
+    <string name="camera">Camera</string>
+    <string name="mic">Mic</string>
+    <string name="end">End</string>
+    <string name="more">More</string>
+    <string name="speaker">Speaker</string>
+    <string name="answer">Answer</string>
+    <string name="incoming_audio_call">Zalo: Incoming audio call</string>
+    <string name="incoming_video_call">Zalo: Incoming video call</string>
 </resources>

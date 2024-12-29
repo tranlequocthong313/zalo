@@ -5,4 +5,5 @@ public class Constants {
     public static final String CHAT_ROOM_COLLECTION_NAME = "chat_rooms";
     public static final String FRIENDSHIP_COLLECTION_NAME = "friendships";
     public static final String MESSAGE_COLLECTION_NAME = "messages";
+    public static final String CALL_COLLECTION_NAME = "calls";
 }

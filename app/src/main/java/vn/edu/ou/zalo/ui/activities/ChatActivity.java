@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import java.util.Objects;
 
@@ -25,16 +24,8 @@ public class ChatActivity extends SingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
         getWindow().setNavigationBarColor(getResources().getColor(R.color.colorSurfaceBright, getTheme()));
-
-//        setContentView(R.layout.activity_chat);
-
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        if (fragment != null) {
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.activity_chat_fragment_container, fragment)
-//                    .commit();
-//        }
     }
 
     @Override

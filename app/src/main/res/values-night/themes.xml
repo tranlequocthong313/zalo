@@ -27,6 +27,7 @@
         <item name="colorSurfaceContainerHigh">@color/colorSurfaceContainerHigh</item>
         <item name="colorSurfaceContainerLow">@color/colorSurfaceContainerLow</item>
         <item name="colorPrimaryInverse">@color/colorPrimaryInverse</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
 
         <!--        Background-->
         <item name="android:colorBackground">@color/colorOutlineVariant</item>

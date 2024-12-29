@@ -99,57 +99,36 @@ public class FriendshipRemoteDataSource implements IFriendshipDataSource {
 
     @Override
     public void getAddedFriends(IRepositoryCallback<List<User>> cb) {
-        List<User> friends = new ArrayList<>();
-        if (signedInUser == null) {
-            cb.onFailure(new Exception("User is not signed in"));
-            return;
-        }
-
         db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
                 .whereEqualTo("status", Friendship.Status.ACCEPTED)
                 .whereEqualTo("senderId", signedInUser.getId())
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (DocumentSnapshot document : task.getResult()) {
-                            User user = new User();
-                            user.setId(document.getString("receiverId"));
-                            friends.add(user);
-                        }
+                .addOnSuccessListener(senderDocs -> {
+                    Set<String> friendIds = new HashSet<>();
+                    for (DocumentSnapshot document : senderDocs) {
+                        friendIds.add(document.getString("receiverId"));
                     }
 
                     db.collection(Constants.FRIENDSHIP_COLLECTION_NAME)
                             .whereEqualTo("status", Friendship.Status.ACCEPTED)
                             .whereEqualTo("receiverId", signedInUser.getId())
                             .get()
-                            .addOnSuccessListener(userSnapshot -> {
-                                for (DocumentSnapshot document : userSnapshot.getDocuments()) {
-                                    User user = new User();
-                                    user.setId(document.getString("senderId"));
-                                    if (!isContainedUser(friends, user)) {
-                                        friends.add(user);
-                                    }
+                            .addOnSuccessListener(receiverDocs -> {
+                                for (DocumentSnapshot document : receiverDocs) {
+                                    friendIds.add(document.getString("senderId"));
                                 }
 
-                                List<String> friendIds = new ArrayList<>();
-                                for (User friend : friends) {
-                                    friendIds.add(friend.getId());
-                                }
-
+                                List<User> friends = new ArrayList<>();
                                 if (!friendIds.isEmpty()) {
                                     db.collection(Constants.USER_COLLECTION_NAME)
-                                            .whereIn(FieldPath.documentId(), friendIds)
+                                            .whereIn(FieldPath.documentId(), new ArrayList<>(friendIds))
                                             .get()
-                                            .addOnSuccessListener(docSnapshot -> {
-                                                for (DocumentSnapshot doc : docSnapshot.getDocuments()) {
-                                                    String userId = doc.getId();
-                                                    for (User friend : friends) {
-                                                        if (friend.getId().equals(userId)) {
-                                                            friend.setAvatarUrl(doc.getString("avatarUrl"));
-                                                            friend.setFullName(doc.getString("fullName"));
-                                                            friend.setIsOnline(Boolean.TRUE.equals(doc.getBoolean("online")));
-                                                        }
-                                                    }
+                                            .addOnSuccessListener(userDocs -> {
+                                                for (DocumentSnapshot doc : userDocs) {
+                                                    User u = doc.toObject(User.class);
+                                                    assert u != null;
+                                                    u.setId(doc.getId());
+                                                    friends.add(u);
                                                 }
                                                 cb.onSuccess(friends);
                                             })
