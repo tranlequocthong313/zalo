@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_me"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_me"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -269,7 +269,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="61dp"
@@ -420,7 +419,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_me_signout_button"
         android:layout_width="wrap_content"

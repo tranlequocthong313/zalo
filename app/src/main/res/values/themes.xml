@@ -78,4 +78,9 @@
         <item name="android:background">@color/colorSurfaceBright</item>
         <item name="dialogCornerRadius">15dp</item>
     </style>
+  <!-- Base application theme. -->
+    <style name="Base.Theme.Zalo" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 </resources>

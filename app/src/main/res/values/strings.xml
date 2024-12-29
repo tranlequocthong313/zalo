@@ -68,6 +68,17 @@
     <string name="message">Message</string>
     <string name="tab_for_more_info">Tab for more info</string>
     <string name="last_seen">Last seen %1$s</string>
+
+    <string name="zalo_video">Zalo Video</string>
+    <string name="game_center">Game Center</string>
+    <string name="lifestyle_services">Lifestyle Services</string>
+    <string name="financial_utilities">Financial Utilities</string>
+    <string name="mini_app">Mini App</string>
+    <string name="e_government">e-Government</string>
+    <string name="discovery_content_1">Hot News!</string>
+    <string name="discovery_content_2">Join ZFish to Hunt the Golden Ring Boss!</string>
+    <string name="discovery_content_3">Mobile Top Up, Lottery Result, Football,...</string>
+
     <string name="english">English</string>
     <string name="signin">Log in</string>
     <string name="create_new_account">Create new account</string>
@@ -116,8 +127,7 @@
     <string name="send_free_message_to_friend">Send free messages to friends</string>
     <string name="add_friend_from_contact">Add friend from contacts</string>
     <string name="search">Search</string>
-    <string name="zalo_video">Zalo Video</string>
-    <string name="discovery_content_1">Hot News</string>
+
     <string name="phone_number">Phone number</string>
     <string name="add_friend">Add friend</string>
     <string name="friend_request_has_been_sent">Friend request has been sent</string>
@@ -129,6 +139,7 @@
     <string name="accept">Accept</string>
     <string name="recall">Recall</string>
     <string name="no_friend_requests_received">No friend requests received</string>
+<<<<<<< HEAD
     <string name="fragment_me_description1">Xem trang cá nhân</string>
     <string name="fragment_me_description2">Hình nền và nhạc cho cuộc gọi Zalo</string>
     <string name="fragment_me_description3">Lưu trữ và xuất trình các mã QR quan trọng</string>
@@ -142,4 +153,55 @@
     <string name="fragment_me_title6">Dữ liệu trên máy</string>
     <string name="fragment_me_title7">Tài khoản và bảo mật</string>
     <string name="fragment_me_title8">Quyền riêng tư</string>
+=======
+
+    <string name="choose_avatar_source">Choose avatar</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+
+    <string name="add_password">Add Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+>>>>>>> 841426a0e44a8a80707a5c75bea91e5d03b8a40b
 </resources>

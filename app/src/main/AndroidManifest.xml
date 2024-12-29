@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ZaloApplication"
@@ -16,11 +19,17 @@
         android:theme="@style/Theme.Zalo"
         android:usesCleartextTraffic="true">
         <activity
+<<<<<<< HEAD
             android:name=".ui.activities.InforActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.MeActivity"
             android:exported="false" />
+=======
+            android:name=".ui.activities.SignUpPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Zalo" />
+>>>>>>> 841426a0e44a8a80707a5c75bea91e5d03b8a40b
 
         <provider
             android:name="androidx.core.content.FileProvider"

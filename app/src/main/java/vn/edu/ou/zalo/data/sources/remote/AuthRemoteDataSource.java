@@ -197,8 +197,11 @@ public class AuthRemoteDataSource implements IAuthDataSource {
     }
 
     private static void createUser(IRepositoryCallback<User> callback, DocumentSnapshot document) {
+        if(!document.exists()) {
+            callback.onFailure(new Exception("User not found"));
+            return;
+        }
         User user = new User();
-
         user.setId(document.getId());
         user.setAvatarUrl(document.getString("avatarUrl"));
         Long birthdate = document.getLong("birthdate");
