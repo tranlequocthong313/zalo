@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.data.models.User;
 import vn.edu.ou.zalo.ui.activities.SignUpEnterMorePersonalInfoActivity;
+import vn.edu.ou.zalo.ui.activities.SignUpPasswordActivity;
 
 public class SignUpEnterNameFragment extends Fragment {
     private static final String VALID_NAME_REGEX_PATTERN = "^[A-Za-z\\s]{2,40}$";
@@ -61,7 +62,7 @@ public class SignUpEnterNameFragment extends Fragment {
 
         nextButton = view.findViewById(R.id.fragment_signup_enter_name_next_button);
         nextButton.setOnClickListener(v -> {
-            startActivity(SignUpEnterMorePersonalInfoActivity.newIntent(getActivity(), user));
+            startActivity(SignUpPasswordActivity.newIntent(getActivity(), user));
         });
 
         return view;
