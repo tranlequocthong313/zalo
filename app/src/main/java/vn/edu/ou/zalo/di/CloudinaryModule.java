@@ -20,6 +20,7 @@ import dagger.hilt.components.SingletonComponent;
 @InstallIn(SingletonComponent.class)
 public class CloudinaryModule {
     public MediaManager init(Context context) {
+        // options secure = true is causing a bug that I can't resolve yet
         Map<String, Object> config = new HashMap<>();
         config.put("cloud_name", "diojasks1");
         MediaManager.init(context, config);

@@ -7,6 +7,7 @@ import dagger.Module;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import vn.edu.ou.zalo.data.repositories.IAuthRepository;
+import vn.edu.ou.zalo.data.repositories.ICallRepository;
 import vn.edu.ou.zalo.data.repositories.IChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.IFriendshipRepository;
 import vn.edu.ou.zalo.data.repositories.IMessageRepository;
@@ -14,6 +15,7 @@ import vn.edu.ou.zalo.data.repositories.IPostRepository;
 import vn.edu.ou.zalo.data.repositories.IStoryRepository;
 import vn.edu.ou.zalo.data.repositories.IUserRepository;
 import vn.edu.ou.zalo.data.repositories.impl.AuthRepository;
+import vn.edu.ou.zalo.data.repositories.impl.CallRepository;
 import vn.edu.ou.zalo.data.repositories.impl.ChatRoomRepository;
 import vn.edu.ou.zalo.data.repositories.impl.FriendshipRepository;
 import vn.edu.ou.zalo.data.repositories.impl.MessageRepository;
@@ -51,4 +53,8 @@ public abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract IFriendshipRepository bindFriendshipRepository(FriendshipRepository friendshipRepository);
+
+    @Binds
+    @Singleton
+    abstract ICallRepository bindCallRepository(CallRepository callRepository);
 }

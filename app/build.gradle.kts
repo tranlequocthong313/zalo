@@ -68,4 +68,8 @@ dependencies {
     implementation("org.mindrot:jbcrypt:0.4")
 
     implementation("com.cloudinary:cloudinary-android:3.0.2")
+
+    implementation ("com.mesibo.api:webrtc:1.0.5")
+
+    implementation("com.guolindev.permissionx:permissionx:1.8.1")
 }

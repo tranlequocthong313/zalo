@@ -27,4 +27,5 @@
     <color name="colorSurfaceContainerHigh">#161616</color>
     <color name="colorSurfaceContainerLow">#3D3D3D</color>
     <color name="colorPrimaryInverse">#39CBF1</color>
+    <color name="colorOnPrimaryContainer">#0353CC</color>
 </resources>

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import vn.edu.ou.zalo.R;
 import vn.edu.ou.zalo.ui.activities.AuthActivity;
 import vn.edu.ou.zalo.ui.activities.ZaloActivity;
 import vn.edu.ou.zalo.ui.viewmodels.AuthViewModel;

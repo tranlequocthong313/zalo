@@ -1,0 +1,15 @@
+package vn.edu.ou.zalo.data.models;
+
+public enum CallEvent {
+    CONNECTION_CONNECTED,
+    CONNECTION_DISCONNECTED,
+    INCOMING_CALL,
+    CONNECTION_ERROR,
+    REQUEST_NEW_TOKEN,
+    CUSTOM_MESSAGE,
+    TOPIC_MESSAGE,
+    OFFER,
+    ANSWER,
+    ICE_CANDIDATE,
+    START_CALL
+}

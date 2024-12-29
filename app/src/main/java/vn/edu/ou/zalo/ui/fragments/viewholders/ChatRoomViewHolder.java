@@ -19,8 +19,6 @@ import vn.edu.ou.zalo.ui.fragments.listeners.OnChatRoomItemClickListener;
 import vn.edu.ou.zalo.utils.TimeUtils;
 
 public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
-    private static final String TAG = "ChatRoomViewHolder";
-
     private final ImageView avatarImageView;
     private final TextView roomNameTextView;
     private final TextView lastMessageTextView;

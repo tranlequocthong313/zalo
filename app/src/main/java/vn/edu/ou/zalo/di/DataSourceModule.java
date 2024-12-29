@@ -7,6 +7,7 @@ import dagger.Binds;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import vn.edu.ou.zalo.data.sources.IAuthDataSource;
+import vn.edu.ou.zalo.data.sources.ICallDataSource;
 import vn.edu.ou.zalo.data.sources.IChatRoomDataSource;
 import vn.edu.ou.zalo.data.sources.IFileStorageDataSource;
 import vn.edu.ou.zalo.data.sources.IFriendshipDataSource;
@@ -20,6 +21,7 @@ import vn.edu.ou.zalo.data.sources.fake.PostFakeDataSource;
 import vn.edu.ou.zalo.data.sources.fake.StoryFakeDataSource;
 import vn.edu.ou.zalo.data.sources.fake.UserFakeDataSource;
 import vn.edu.ou.zalo.data.sources.remote.AuthRemoteDataSource;
+import vn.edu.ou.zalo.data.sources.remote.CallWebRTCDataSource;
 import vn.edu.ou.zalo.data.sources.remote.ChatRoomRemoteDataSource;
 import vn.edu.ou.zalo.data.sources.remote.FileStorageCloudinaryDataSource;
 import vn.edu.ou.zalo.data.sources.remote.FriendshipRemoteDataSource;
@@ -76,4 +78,12 @@ public abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract IFileStorageDataSource bindFileStorageDataSource(FileStorageCloudinaryDataSource fileStorageCloudinaryDataSource);
+
+//    @Binds
+//    @Singleton
+//    abstract ICallDataSource bindCallDataSource(CallStringeeDataSource callStringeeDataSource);
+
+    @Binds
+    @Singleton
+    abstract ICallDataSource bindCallDataSource(CallWebRTCDataSource callWebRTCDataSource);
 }
