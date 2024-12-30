@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cloudinary.android.MediaManager;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Random;
 
@@ -218,7 +219,6 @@ public class SignUpAvatarFragment extends Fragment {
                             avatarUri = imageUri;
                             loadAvatar(avatarUri.toString());
                             isAvatarUploaded = true;
-                            // TODO: Upload imageUri to server
                         }
                     }
                 });
@@ -230,6 +230,11 @@ public class SignUpAvatarFragment extends Fragment {
                         Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
                         if (photo != null) {
                             avatarImageView.setImageBitmap(photo);
+                            isAvatarUploaded = true;
+                            ByteArrayOutputStream b = new ByteArrayOutputStream();
+                            photo.compress(Bitmap.CompressFormat.JPEG, 100, b);
+                            String path = MediaStore.Images.Media.insertImage(requireActivity().getContentResolver(), photo, "Title", null);
+                            avatarUri = Uri.parse(path);
                             // TODO: Convert Bitmap to file and upload
                         }
                     }
